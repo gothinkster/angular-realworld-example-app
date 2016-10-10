@@ -1,0 +1,29 @@
+<article-preview
+  *ngFor="let article of results"
+  [article]="article">
+</article-preview>
+
+<div class="article-preview"
+  [hidden]="!loading">
+  Loading articles...
+</div>
+
+<div class="article-preview"
+  [hidden]="loading || results.length">
+  No articles are here... yet.
+</div>
+
+<nav [hidden]="loading || totalPages <= 1">
+  <ul class="pagination">
+
+    <li class="page-item"
+      [ngClass]="{'active': pageNumber === currentPage}"
+      *ngFor="let pageNumber of totalPages"
+      (click)="setPageTo(pageNumber)">
+
+      <a class="page-link" href="#">{{ pageNumber }}</a>
+
+    </li>
+
+  </ul>
+</nav>
