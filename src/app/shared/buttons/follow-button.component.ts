@@ -17,7 +17,7 @@ export class FollowButtonComponent {
 
   @Input() profile: Profile;
   @Output() onToggle = new EventEmitter<boolean>();
-  isSubmitting = false
+  isSubmitting = false;
 
   toggleFollowing() {
     this.isSubmitting = true;

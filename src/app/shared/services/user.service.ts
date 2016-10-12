@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
