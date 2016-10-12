@@ -2,7 +2,7 @@ import { Injectable, } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
-import { Profile, ProfilesService, UserService } from '../shared';
+import { Profile, ProfilesService } from '../shared';
 
 @Injectable()
 export class ProfileResolver implements Resolve<Profile> {
