@@ -7,7 +7,7 @@ import { ArticleListConfig, Profile } from '../shared';
   selector: 'profile-articles',
   templateUrl: './profile-articles.component.html'
 })
-export class ProfileArticlesComponent {
+export class ProfileArticlesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router
