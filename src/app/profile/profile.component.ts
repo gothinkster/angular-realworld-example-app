@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 
 import { User, UserService, Profile } from '../shared';
 
@@ -10,7 +10,6 @@ import { User, UserService, Profile } from '../shared';
 export class ProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private userService: UserService
   ) {}
 
@@ -29,7 +28,6 @@ export class ProfileComponent implements OnInit {
     this.userService.currentUser.subscribe(
       (userData: User) => {
         this.currentUser = userData;
-
         this.isUser = (this.currentUser.username === this.profile.username);
       }
     );
