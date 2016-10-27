@@ -8,22 +8,22 @@ import { Errors, UserService } from '../shared';
   templateUrl: './auth.component.html'
 })
 export class AuthComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private router: Router,
-    private userService: UserService
-  ) {}
-
   authType: String = '';
   title: String = '';
   errors: Errors = new Errors();
   credentials: Object = {};
   isSubmitting: boolean = false;
 
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private userService: UserService
+  ) {}
+
   ngOnInit() {
     this.route.url.subscribe(data => {
       // Get the last piece of the URL (it's either 'login' or 'register')
-      this.authType = data[data.length-1].path;
+      this.authType = data[data.length - 1].path;
       // Set a title for the page accordingly
       this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
     });
