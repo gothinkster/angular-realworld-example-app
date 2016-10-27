@@ -15,14 +15,6 @@ import {
   templateUrl: './article.component.html'
 })
 export class ArticleComponent implements OnInit {
-  constructor(
-    private route: ActivatedRoute,
-    private articlesService: ArticlesService,
-    private commentsService: CommentsService,
-    private router: Router,
-    private userService: UserService
-  ) {}
-
   article: Article;
   currentUser: User;
   canModify: boolean;
@@ -31,6 +23,14 @@ export class ArticleComponent implements OnInit {
   commentFormErrors = {};
   isSubmitting = false;
   isDeleting = false;
+
+  constructor(
+    private route: ActivatedRoute,
+    private articlesService: ArticlesService,
+    private commentsService: CommentsService,
+    private router: Router,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     // Retreive the prefetched article
