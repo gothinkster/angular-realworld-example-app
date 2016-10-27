@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
@@ -19,7 +20,7 @@ export class ArticleComponent implements OnInit {
   currentUser: User;
   canModify: boolean;
   comments: Comment[];
-  commentBody = '';
+  commentControl = new FormControl();
   commentFormErrors = {};
   isSubmitting = false;
   isDeleting = false;
@@ -29,13 +30,13 @@ export class ArticleComponent implements OnInit {
     private articlesService: ArticlesService,
     private commentsService: CommentsService,
     private router: Router,
-    private userService: UserService
-  ) {}
+    private userService: UserService,
+  ) { }
 
   ngOnInit() {
     // Retreive the prefetched article
     this.route.data.subscribe(
-      (data: {article: Article}) => {
+      (data: { article: Article }) => {
         this.article = data.article;
 
         // Load the comments on this article
@@ -71,44 +72,45 @@ export class ArticleComponent implements OnInit {
     this.isDeleting = true;
 
     this.articlesService.destroy(this.article.slug)
-    .subscribe(
-      success => {
-        this.router.navigateByUrl('/');
-      }
-    );
+      .subscribe(
+        success => {
+          this.router.navigateByUrl('/');
+        }
+      );
   }
 
   populateComments() {
     this.commentsService.getAll(this.article.slug)
-    .subscribe(comments => this.comments = comments);
+      .subscribe(comments => this.comments = comments);
   }
 
   addComment() {
     this.isSubmitting = true;
     this.commentFormErrors = {};
 
-     this.commentsService
-     .add(this.article.slug, this.commentBody)
-     .subscribe(
-       comment => {
-         this.comments.unshift(comment);
-         this.commentBody = '';
-         this.isSubmitting = false;
-       },
-       errors => {
-         this.isSubmitting = false;
-         this.commentFormErrors = errors;
-       }
-     )
+    let commentBody = this.commentControl.value;
+    this.commentsService
+      .add(this.article.slug, commentBody)
+      .subscribe(
+        comment => {
+          this.comments.unshift(comment);
+          this.commentControl.reset('');
+          this.isSubmitting = false;
+        },
+        errors => {
+          this.isSubmitting = false;
+          this.commentFormErrors = errors;
+        }
+      );
   }
 
   onDeleteComment(comment) {
     this.commentsService.destroy(comment.id, this.article.slug)
-    .subscribe(
-      success => {
-        this.comments = this.comments.filter((item) => item != comment);
-      }
-    );
+      .subscribe(
+        success => {
+          this.comments = this.comments.filter((item) => item !== comment);
+        }
+      );
   }
 
 }
