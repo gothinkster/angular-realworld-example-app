@@ -13,17 +13,17 @@ import { User } from '../models';
 
 @Injectable()
 export class UserService {
-  constructor (
-    private apiService: ApiService,
-    private http: Http,
-    private jwtService: JwtService
-  ) {}
-
   private currentUserSubject = new BehaviorSubject<User>(new User());
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+
+  constructor (
+    private apiService: ApiService,
+    private http: Http,
+    private jwtService: JwtService
+  ) {}
 
   // Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.
