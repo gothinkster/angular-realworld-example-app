@@ -5,30 +5,27 @@
 
         <list-errors [errors]="errors"></list-errors>
 
-        <form>
+        <form [formGroup]="articleForm">
           <fieldset [disabled]="isSubmitting">
 
             <fieldset class="form-group">
               <input class="form-control form-control-lg"
-                name="title"
-                [(ngModel)]="article.title"
+                formControlName="title"
                 type="text"
                 placeholder="Article Title" />
             </fieldset>
 
             <fieldset class="form-group">
               <input class="form-control"
-                name="description"
-                [(ngModel)]="article.description"
+                formControlName="description"
                 type="text"
                 placeholder="What's this article about?" />
             </fieldset>
 
             <fieldset class="form-group">
               <textarea class="form-control"
-                name="body"
+                formControlName="body"
                 rows="8"
-                [(ngModel)]="article.body"
                 placeholder="Write your article (in markdown)">
               </textarea>
             </fieldset>
@@ -37,9 +34,8 @@
               <input class="form-control"
                 type="text"
                 placeholder="Enter tags"
-                name="tag_field"
-                [(ngModel)]="tagField"
-                (keyup)="addTag($event)" />
+                [formControl]="tagField"
+                (keyup.enter)="addTag()" />
 
               <div class="tag-list">
                 <span *ngFor="let tag of article.tagList"

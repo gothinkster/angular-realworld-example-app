@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { environment } from '../../../environments/environment';
-import { Http, Response } from '@angular/http';
+import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Rx';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
@@ -14,17 +13,17 @@ import { User } from '../models';
 
 @Injectable()
 export class UserService {
-  constructor (
-    private apiService: ApiService,
-    private http: Http,
-    private jwtService: JwtService
-  ) {}
-
   private currentUserSubject = new BehaviorSubject<User>(new User());
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
   public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+
+  constructor (
+    private apiService: ApiService,
+    private http: Http,
+    private jwtService: JwtService
+  ) {}
 
   // Verify JWT in localstorage with server & load user's info.
   // This runs once on application startup.

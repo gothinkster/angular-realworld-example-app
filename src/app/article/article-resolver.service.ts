@@ -2,7 +2,7 @@ import { Injectable, } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs/Rx';
 
-import { Article, ArticlesService, Errors, UserService } from '../shared';
+import { Article, ArticlesService, UserService } from '../shared';
 
 @Injectable()
 export class ArticleResolver implements Resolve<Article> {

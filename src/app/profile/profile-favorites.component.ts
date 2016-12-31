@@ -7,7 +7,7 @@ import { ArticleListConfig, Profile } from '../shared';
   selector: 'profile-favorites',
   templateUrl: './profile-favorites.component.html'
 })
-export class ProfileFavoritesComponent {
+export class ProfileFavoritesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router

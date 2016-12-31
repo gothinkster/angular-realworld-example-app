@@ -98,8 +98,8 @@
                 <textarea class="form-control"
                   placeholder="Write a comment..."
                   rows="3"
-                  name="body"
-                  [(ngModel)]="commentBody"></textarea>
+                  [formControl]="commentControl"
+                ></textarea>
               </div>
               <div class="card-footer">
                 <img [src]="currentUser.image" class="comment-author-img" />

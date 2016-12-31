@@ -9,12 +9,11 @@
           <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
         </p>
         <list-errors [errors]="errors"></list-errors>
-        <form (ngSubmit)="submitForm()">
+        <form [formGroup]="authForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">
               <input
-                name="username"
-                [(ngModel)]="credentials.username"
+                formControlName="username"
                 placeholder="Username"
                 class="form-control form-control-lg"
                 type="text"
@@ -22,16 +21,14 @@
             </fieldset>
             <fieldset class="form-group">
               <input
-                name="email"
-                [(ngModel)]="credentials.email"
+                formControlName="email"
                 placeholder="Email"
                 class="form-control form-control-lg"
                 type="text" />
             </fieldset>
             <fieldset class="form-group">
               <input
-                name="password"
-                [(ngModel)]="credentials.password"
+                formControlName="password"
                 placeholder="Password"
                 class="form-control form-control-lg"
                 type="password" />
