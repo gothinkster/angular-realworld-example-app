@@ -17,11 +17,39 @@
   <ul class="pagination">
 
     <li class="page-item"
+      (click)="getPrevPages(currentPage)">
+
+      <a class="page-link" href="#">Prev</a>
+
+    </li>
+
+    <li class="page-item"
+      *ngIf="(currentPage > 1)">
+    
+      <a class="page-link" href="#">...</a>
+
+    </li>
+
+    <li class="page-item"
       [ngClass]="{'active': pageNumber === currentPage}"
       *ngFor="let pageNumber of totalPages"
       (click)="setPageTo(pageNumber)">
 
       <a class="page-link" href="#">{{ pageNumber }}</a>
+
+    </li>
+
+    <li class="page-item"
+      *ngIf="(currentPage < pagesCount - visiblePages)">
+    
+      <a class="page-link" href="#">...</a>
+
+    </li>
+
+    <li class="page-item"
+      (click)="getNextPages(currentPage)">
+
+      <a class="page-link" href="#">Next</a>
 
     </li>
 
