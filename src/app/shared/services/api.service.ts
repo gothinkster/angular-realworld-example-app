@@ -5,13 +5,10 @@ import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { JwtService } from './jwt.service';
-
 @Injectable()
 export class ApiService {
   constructor(
-    private http: Http,
-    private jwtService: JwtService
+    private http: Http
   ) {}
 
   private setHeaders(): Headers {
@@ -20,9 +17,6 @@ export class ApiService {
       'Accept': 'application/json'
     };
 
-    if (this.jwtService.getToken()) {
-      headersConfig['Authorization'] = `Token ${this.jwtService.getToken()}`;
-    }
     return new Headers(headersConfig);
   }
 

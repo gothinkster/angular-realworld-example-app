@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 
 import { UserService } from './shared';
 
@@ -6,12 +6,9 @@ import { UserService } from './shared';
   selector: 'app-root',
   templateUrl: './app.component.html'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   constructor (
     private userService: UserService
   ) {}
 
-  ngOnInit() {
-    this.userService.populate();
-  }
 }
