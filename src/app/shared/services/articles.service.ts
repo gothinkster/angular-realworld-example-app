@@ -18,10 +18,6 @@ export class ArticlesService {
            .map(data => data.article);
   }
 
-  destroy(slug) {
-    return this.apiService.delete('/articles/' + slug);
-  }
-
   save(article): Observable<Article> {
     // If we're updating an existing article
     if (article.slug) {
@@ -34,14 +30,5 @@ export class ArticlesService {
              .map(data => data.article);
     }
   }
-
-  favorite(slug): Observable<Article> {
-    return this.apiService.post('/articles/' + slug + '/favorite');
-  }
-
-  unfavorite(slug): Observable<Article> {
-    return this.apiService.delete('/articles/' + slug + '/favorite');
-  }
-
 
 }
