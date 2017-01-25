@@ -63,3 +63,8 @@ The example application is a social blogging site (i.e. a Medium.com clone) call
 - Profile page (URL: /#/profile/:username, /#/profile/:username/favorites )
     - Show basic user info
     - List of articles populated from author's created articles or author's favorited articles
+
+
+<br />
+
+[![Brought to you by Thinkster](https://raw.githubusercontent.com/gothinkster/realworld/master/media/end.png)](https://thinkster.io)
