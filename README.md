@@ -8,13 +8,12 @@ This codebase was created to demonstrate a fully fledged application built with 
 
 Additionally, there is an Angular 1.5 version of this codebase that you can [fork](https://github.com/gothinkster/angularjs-realworld-example-app) and/or [learn how to recreate](https://thinkster.io/angularjs-es6-tutorial).
 
-**This codebase is now feature complete and the RFC is open.** Your input is greatly appreciated; please submit bug fixes via pull requests & feedback via issues.
+### [Learn how to rebuild this codebase from scratch! >>>](https://thinkster.io/tutorials/building-real-world-angular-2-apps)
+
 
 # How it works
 
-We're currently working on some docs for the codebase (explaining where functionality is located, how it works, etc) but the codebase should be straightforward to follow as is. We also have a **[live workshop we're holding on October 22nd](https://thinkster.io/announcements/angular-2-workshop)** where we'll break the codebase down, explain how everything works, and do a Q&A session.
-
-Additionally, an upcoming step-by-step tutorial is being written for [Thinkster.io](https://thinkster.io/) that will cover recreating the codebase from scatch (watch this repo to stay updated!)
+We're currently working on some docs for the codebase (explaining where functionality is located, how it works, etc) but the codebase should be straightforward to follow as is. We've also released a [step-by-step tutorial w/ screencasts](https://thinkster.io/tutorials/building-real-world-angular-2-apps) that teaches you how to recreate the codebase from scratch.
 
 ### Making requests to the backend API
 
