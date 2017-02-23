@@ -3,6 +3,8 @@
 > ### Angular 2 codebase containing real world examples (CRUD, auth, advanced patterns, etc)
 
 
+<a href="https://thinkster.io/tutorials/building-real-world-angular-2-apps" target="_blank"><img height="40" width="454" src="https://raw.githubusercontent.com/gothinkster/realworld/master/media/learn-btn-hr.png" /></a>
+
 ### [Demo](https://angular2.realworld.io)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
 
@@ -10,8 +12,6 @@
 This codebase was created to demonstrate a fully fledged application built with Angular 2 that interacts with an actual backend server including CRUD operations, authentication, routing, pagination, and more. We've gone to great lengths to adhere to the [Angular 2 Styleguide](https://angular.io/styleguide) & best practices.
 
 Additionally, there is an Angular 1.5 version of this codebase that you can [fork](https://github.com/gothinkster/angularjs-realworld-example-app) and/or [learn how to recreate](https://thinkster.io/angularjs-es6-tutorial).
-
-<a href="https://thinkster.io/tutorials/building-real-world-angular-2-apps" target="_blank"><img height="40" width="454" src="https://raw.githubusercontent.com/gothinkster/realworld/master/media/learn-btn-hr.png" /></a>
 
 
 # How it works
