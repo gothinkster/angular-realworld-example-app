@@ -21,16 +21,18 @@ export class ProfileComponent implements OnInit {
     this.route.data.subscribe(
       (data: {profile: Profile}) => {
         this.profile = data.profile;
+        // Load the current user's data.
+        this.userService.currentUser.subscribe(
+          (userData: User) => {
+            this.currentUser = userData;
+            this.isUser = (this.currentUser.username === this.profile.username);
+          }
+        );
       }
     );
 
-    // Load the current user's data
-    this.userService.currentUser.subscribe(
-      (userData: User) => {
-        this.currentUser = userData;
-        this.isUser = (this.currentUser.username === this.profile.username);
-      }
-    );
+    
+    
   }
 
   onToggleFollowing(following: boolean) {
