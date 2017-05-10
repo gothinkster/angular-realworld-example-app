@@ -1,5 +1,5 @@
 export class ArticleListConfig {
-  type: string = 'all';
+  type = 'all';
 
   filters: {
     tag?: string,

@@ -1,3 +1,3 @@
 export class Errors {
-  errors: {[key:string]: string} = {};
+  errors: {[key: string]: string} = {};
 }

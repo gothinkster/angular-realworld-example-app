@@ -88,7 +88,7 @@ export class ArticleComponent implements OnInit {
     this.isSubmitting = true;
     this.commentFormErrors = {};
 
-    let commentBody = this.commentControl.value;
+    const commentBody = this.commentControl.value;
     this.commentsService
       .add(this.article.slug, commentBody)
       .subscribe(

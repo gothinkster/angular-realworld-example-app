@@ -15,7 +15,7 @@ export class ArticlesService {
 
   query(config: ArticleListConfig): Observable<{articles: Article[], articlesCount: number}> {
     // Convert any filters over to Angular's URLSearchParams
-    let params: URLSearchParams = new URLSearchParams();
+    const params: URLSearchParams = new URLSearchParams();
 
     Object.keys(config.filters)
     .forEach((key) => {

@@ -14,7 +14,7 @@ export class ListErrorsComponent {
     this.formattedErrors = [];
 
     if (errorList.errors) {
-      for (let field in errorList.errors) {
+      for (const field in errorList.errors) {
         this.formattedErrors.push(`${field} ${errorList.errors[field]}`);
       }
     }

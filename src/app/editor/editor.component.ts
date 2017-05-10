@@ -13,7 +13,7 @@ export class EditorComponent implements OnInit {
   articleForm: FormGroup;
   tagField = new FormControl();
   errors: Object = {};
-  isSubmitting: boolean = false;
+  isSubmitting = false;
 
   constructor(
     private articlesService: ArticlesService,
@@ -45,7 +45,7 @@ export class EditorComponent implements OnInit {
 
   addTag() {
     // retrieve tag control
-    let tag = this.tagField.value;
+    const tag = this.tagField.value;
     // only add tag if it does not exist yet
     if (this.article.tagList.indexOf(tag) < 0) {
       this.article.tagList.push(tag);
