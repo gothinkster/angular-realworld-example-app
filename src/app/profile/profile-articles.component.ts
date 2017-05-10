@@ -20,6 +20,7 @@ export class ProfileArticlesComponent implements OnInit {
     this.route.parent.data.subscribe(
       (data: {profile: Profile}) => {
         this.profile = data.profile;
+        this.articlesConfig = new ArticleListConfig(); // Only method I found to refresh article load on swap
         this.articlesConfig.filters.author = this.profile.username;
       }
     );
