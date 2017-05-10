@@ -27,10 +27,21 @@ export class ArticleListComponent {
   loading: boolean = false;
   currentPage: number = 1;
   totalPages: Array<number> = [1];
+  visiblePages: number = 10;
+  pagesCount: number = 1;
+
 
   setPageTo(pageNumber) {
     this.currentPage = pageNumber;
     this.runQuery();
+  }
+
+  getNextPages(pageNumber) {
+   this.setPageTo((pageNumber == this.pagesCount) ? this.pagesCount: ++pageNumber);
+  }
+
+  getPrevPages(pageNumber){
+   this.setPageTo((pageNumber == 1) ? 1: --pageNumber);
   }
 
   runQuery() {
@@ -47,9 +58,10 @@ export class ArticleListComponent {
     .subscribe(data => {
       this.loading = false;
       this.results = data.articles;
+      this.pagesCount = Math.ceil(data.articlesCount / this.limit);
 
       // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
-      this.totalPages = Array.from(new Array(Math.ceil(data.articlesCount / this.limit)),(val,index)=>index+1);
+      this.totalPages = Array.from(new Array(this.visiblePages),(val,index)=>index + this.currentPage).filter(e => e <= this.pagesCount);
     });
   }
 }
