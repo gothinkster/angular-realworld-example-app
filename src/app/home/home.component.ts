@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   isAuthenticated: boolean;
   listConfig: ArticleListConfig = new ArticleListConfig();
   tags: Array<string> = [];
-  tagsLoaded: boolean = false;
+  tagsLoaded = false;
 
   ngOnInit() {
     this.userService.isAuthenticated.subscribe(
@@ -49,6 +49,6 @@ export class HomeComponent implements OnInit {
     }
 
     // Otherwise, set the list object
-    this.listConfig = {type:type, filters:filters};
+    this.listConfig = {type: type, filters: filters};
   }
 }

@@ -15,7 +15,7 @@ export class ApiService {
   ) {}
 
   private setHeaders(): Headers {
-    let headersConfig = {
+    const headersConfig = {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     };
@@ -33,7 +33,7 @@ export class ApiService {
   get(path: string, params: URLSearchParams = new URLSearchParams()): Observable<any> {
     return this.http.get(`${environment.api_url}${path}`, { headers: this.setHeaders(), search: params })
     .catch(this.formatErrors)
-    .map((res:Response) => res.json());
+    .map((res: Response) => res.json());
   }
 
   put(path: string, body: Object = {}): Observable<any> {
@@ -43,7 +43,7 @@ export class ApiService {
       { headers: this.setHeaders() }
     )
     .catch(this.formatErrors)
-    .map((res:Response) => res.json());
+    .map((res: Response) => res.json());
   }
 
   post(path: string, body: Object = {}): Observable<any> {
@@ -53,7 +53,7 @@ export class ApiService {
       { headers: this.setHeaders() }
     )
     .catch(this.formatErrors)
-    .map((res:Response) => res.json());
+    .map((res: Response) => res.json());
   }
 
   delete(path): Observable<any> {
@@ -62,6 +62,6 @@ export class ApiService {
       { headers: this.setHeaders() }
     )
     .catch(this.formatErrors)
-    .map((res:Response) => res.json());
+    .map((res: Response) => res.json());
   }
 }

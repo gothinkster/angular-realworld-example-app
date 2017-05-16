@@ -12,7 +12,7 @@ export class AuthComponent implements OnInit {
   authType: String = '';
   title: String = '';
   errors: Errors = new Errors();
-  isSubmitting: boolean = false;
+  isSubmitting = false;
   authForm: FormGroup;
 
   constructor(
@@ -45,7 +45,7 @@ export class AuthComponent implements OnInit {
     this.isSubmitting = true;
     this.errors = new Errors();
 
-    let credentials = this.authForm.value;
+    const credentials = this.authForm.value;
     this.userService
     .attemptAuth(this.authType, credentials)
     .subscribe(

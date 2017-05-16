@@ -12,7 +12,7 @@ export class SettingsComponent implements OnInit {
   user: User = new User();
   settingsForm: FormGroup;
   errors: Object = {};
-  isSubmitting: boolean = false;
+  isSubmitting = false;
 
   constructor(
     private router: Router,

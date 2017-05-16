@@ -31,8 +31,8 @@ export class ProfileComponent implements OnInit {
       }
     );
 
-    
-    
+
+
   }
 
   onToggleFollowing(following: boolean) {

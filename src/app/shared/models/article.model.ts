@@ -2,9 +2,9 @@ import { Profile } from './profile.model';
 
 export class Article {
   slug: string;
-  title: string = '';
-  description: string = '';
-  body: string = '';
+  title = '';
+  description = '';
+  body = '';
   tagList: Array<string> = [];
   createdAt: string;
   updatedAt: string;
