@@ -64,6 +64,9 @@ export class EditorComponent implements OnInit {
     // update the model
     this.updateArticle(this.articleForm.value);
 
+    // update any single tag
+    this.addTag();
+
     // post the changes
     this.articlesService
     .save(this.article)
