@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { URLSearchParams } from '@angular/http';
+import { HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
@@ -15,17 +15,17 @@ export class ArticlesService {
 
   query(config: ArticleListConfig): Observable<{articles: Article[], articlesCount: number}> {
     // Convert any filters over to Angular's URLSearchParams
-    const params: URLSearchParams = new URLSearchParams();
+    const params = {};
 
     Object.keys(config.filters)
     .forEach((key) => {
-      params.set(key, config.filters[key]);
+      params[key] = config.filters[key];
     });
 
     return this.apiService
     .get(
       '/articles' + ((config.type === 'feed') ? '/feed' : ''),
-      params
+      new HttpParams(params)
     ).map(data => data);
   }
 
