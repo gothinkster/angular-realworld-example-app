@@ -21,6 +21,7 @@ export class FollowButtonComponent {
 
   toggleFollowing() {
     this.isSubmitting = true;
+    //TODO: remove nested subscribes, use mergeMap
 
     this.userService.isAuthenticated.subscribe(
       (authenticated) => {

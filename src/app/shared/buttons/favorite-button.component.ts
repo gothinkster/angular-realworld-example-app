@@ -21,7 +21,7 @@ export class FavoriteButtonComponent {
 
   toggleFavorite() {
     this.isSubmitting = true;
-
+    //TODO: remove nested subscribes, use mergeMap
     this.userService.isAuthenticated.subscribe(
       (authenticated) => {
         // Not authenticated? Push to login screen

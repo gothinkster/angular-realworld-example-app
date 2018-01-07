@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class TagsService {
@@ -13,7 +12,7 @@ export class TagsService {
 
   getAll(): Observable<[string]> {
     return this.apiService.get('/tags')
-           .map(data => data.tags);
+          .pipe(map(data => data.tags));
   }
 
 }
