@@ -9,7 +9,7 @@ import { Article, ArticlesService } from '../shared';
   templateUrl: './editor.component.html'
 })
 export class EditorComponent implements OnInit {
-  article: Article = new Article();
+  article: Article = {} as Article;
   articleForm: FormGroup;
   tagField = new FormControl();
   errors: Object = {};
