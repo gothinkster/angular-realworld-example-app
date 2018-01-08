@@ -7,7 +7,7 @@
     "start": "ng serve --aot",
     "build": "ng build --prod",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "ng lint --force",
     "e2e": "ng e2e"
   },
   "pre-commit": [
