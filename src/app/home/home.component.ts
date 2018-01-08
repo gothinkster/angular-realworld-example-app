@@ -16,7 +16,10 @@ export class HomeComponent implements OnInit {
   ) {}
 
   isAuthenticated: boolean;
-  listConfig: ArticleListConfig = new ArticleListConfig();
+  listConfig: ArticleListConfig = {
+    type: '',
+    filters: {}
+  };
   tags: Array<string> = [];
   tagsLoaded = false;
 

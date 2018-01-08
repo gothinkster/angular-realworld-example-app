@@ -11,7 +11,7 @@ import { Errors, UserService } from '../shared';
 export class AuthComponent implements OnInit {
   authType: String = '';
   title: String = '';
-  errors: Errors = new Errors();
+  errors: Errors = {errors: {}};
   isSubmitting = false;
   authForm: FormGroup;
 
@@ -43,7 +43,7 @@ export class AuthComponent implements OnInit {
 
   submitForm() {
     this.isSubmitting = true;
-    this.errors = new Errors();
+    this.errors = {errors: {}};
 
     const credentials = this.authForm.value;
     this.userService

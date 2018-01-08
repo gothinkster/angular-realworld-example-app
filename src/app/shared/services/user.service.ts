@@ -13,7 +13,7 @@ import { User } from '../models';
 
 @Injectable()
 export class UserService {
-  private currentUserSubject = new BehaviorSubject<User>(new User());
+  private currentUserSubject = new BehaviorSubject<User>(null);
   public currentUser = this.currentUserSubject.asObservable().distinctUntilChanged();
 
   private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
@@ -54,7 +54,7 @@ export class UserService {
     // Remove JWT from localstorage
     this.jwtService.destroyToken();
     // Set current user to an empty object
-    this.currentUserSubject.next(new User());
+    this.currentUserSubject.next(null);
     // Set auth status to false
     this.isAuthenticatedSubject.next(false);
   }
