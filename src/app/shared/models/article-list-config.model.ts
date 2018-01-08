@@ -1,5 +1,5 @@
-export class ArticleListConfig {
-  type = 'all';
+export interface ArticleListConfig {
+  type: string;
 
   filters: {
     tag?: string,
@@ -7,5 +7,5 @@ export class ArticleListConfig {
     favorited?: string,
     limit?: number,
     offset?: number
-  } = {};
+  };
 }

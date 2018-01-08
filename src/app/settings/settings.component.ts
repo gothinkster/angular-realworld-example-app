@@ -9,7 +9,7 @@ import { User, UserService } from '../shared';
   templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit {
-  user: User = new User();
+  user: User = {} as User;
   settingsForm: FormGroup;
   errors: Object = {};
   isSubmitting = false;

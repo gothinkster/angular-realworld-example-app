@@ -14,7 +14,10 @@ export class ProfileFavoritesComponent implements OnInit {
   ) {}
 
   profile: Profile;
-  favoritesConfig: ArticleListConfig = new ArticleListConfig();
+  favoritesConfig: ArticleListConfig = {
+    type: 'all',
+    filters: {}
+  };
 
   ngOnInit() {
     this.route.parent.data.subscribe(
