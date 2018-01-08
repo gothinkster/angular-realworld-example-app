@@ -4,7 +4,7 @@ import { User } from '../models';
 import { UserService } from '../services';
 
 @Component({
-  selector: 'layout-header',
+  selector: 'app-layout-header',
   templateUrl: './header.component.html'
 })
 export class HeaderComponent implements OnInit {
@@ -19,6 +19,6 @@ export class HeaderComponent implements OnInit {
       (userData) => {
         this.currentUser = userData;
       }
-    )
+    );
   }
 }

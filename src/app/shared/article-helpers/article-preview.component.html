@@ -1,12 +1,12 @@
 <div class="article-preview">
-  <article-meta [article]="article">
-    <favorite-button
+  <app-article-meta [article]="article">
+    <app-favorite-button
       [article]="article"
-      (onToggle)="onToggleFavorite($event)"
+      (toggle)="onToggleFavorite($event)"
       class="pull-xs-right">
       {{article.favoritesCount}}
-    </favorite-button>
-  </article-meta>
+    </app-favorite-button>
+  </app-article-meta>
 
   <a [routerLink]="['/article', article.slug]" class="preview-link">
     <h1>{{ article.title }}</h1>

@@ -2,7 +2,7 @@ import { browser, element, by } from 'protractor';
 
 export class Ng2RealApp {
   navigateTo() {
-    return browser.get('/')
+    return browser.get('/');
   }
 
     getParagraphText() {

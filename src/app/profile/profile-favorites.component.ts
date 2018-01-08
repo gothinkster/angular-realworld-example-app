@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleListConfig, Profile } from '../shared';
 
 @Component({
-  selector: 'profile-favorites',
+  selector: 'app-profile-favorites',
   templateUrl: './profile-favorites.component.html'
 })
 export class ProfileFavoritesComponent implements OnInit {

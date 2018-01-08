@@ -12,7 +12,7 @@ import {
 } from '../shared';
 
 @Component({
-  selector: 'article-page',
+  selector: 'app-article-page',
   templateUrl: './article.component.html'
 })
 export class ArticleComponent implements OnInit {

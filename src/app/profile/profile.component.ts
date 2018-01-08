@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { User, UserService, Profile } from '../shared';
 
 @Component({
-  selector: 'profile-page',
+  selector: 'app-profile-page',
   templateUrl: './profile.component.html'
 })
 export class ProfileComponent implements OnInit {

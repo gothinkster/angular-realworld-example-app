@@ -4,7 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ArticleListConfig, Profile } from '../shared';
 
 @Component({
-  selector: 'profile-articles',
+  selector: 'app-profile-articles',
   templateUrl: './profile-articles.component.html'
 })
 export class ProfileArticlesComponent implements OnInit {

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { User, UserService } from '../shared';
 
 @Component({
-  selector: 'settings-page',
+  selector: 'app-settings-page',
   templateUrl: './settings.component.html'
 })
 export class SettingsComponent implements OnInit {

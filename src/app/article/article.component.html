@@ -4,7 +4,7 @@
     <div class="container">
       <h1>{{ article.title }}</h1>
 
-      <article-meta [article]="article">
+      <app-article-meta [article]="article">
 
           <span [hidden]="!canModify">
           <a class="btn btn-sm btn-outline-secondary"
@@ -20,19 +20,19 @@
         </span>
 
         <span [hidden]="canModify">
-          <follow-button
+          <app-follow-button
             [profile]="article.author"
-            (onToggle)="onToggleFollowing($event)">
-          </follow-button>
+            (toggle)="onToggleFollowing($event)">
+          </app-follow-button>
 
-          <favorite-button
+          <app-favorite-button
             [article]="article"
-            (onToggle)="onToggleFavorite($event)">
+            (toggle)="onToggleFavorite($event)">
             {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{ article.favoritesCount }})</span>
-          </favorite-button>
+          </app-favorite-button>
         </span>
 
-      </article-meta>
+      </app-article-meta>
     </div>
   </div>
 
@@ -56,7 +56,7 @@
     <hr />
 
     <div class="article-actions">
-      <article-meta [article]="article">
+      <app-article-meta [article]="article">
 
           <span [hidden]="!canModify">
           <a class="btn btn-sm btn-outline-secondary"
@@ -72,26 +72,26 @@
         </span>
 
         <span [hidden]="canModify">
-          <follow-button
+          <app-follow-button
             [profile]="article.author"
-            (onToggle)="onToggleFollowing($event)">
-          </follow-button>
+            (toggle)="onToggleFollowing($event)">
+          </app-follow-button>
 
-          <favorite-button
+          <app-favorite-button
             [article]="article"
-            (onToggle)="onToggleFavorite($event)">
+            (toggle)="onToggleFavorite($event)">
             {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Article <span class="counter">({{ article.favoritesCount }})</span>
-          </favorite-button>
+          </app-favorite-button>
         </span>
 
-      </article-meta>
+      </app-article-meta>
     </div>
 
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
 
         <div *showAuthed="true">
-          <list-errors [errors]="commentFormErrors"></list-errors>
+          <app-list-errors [errors]="commentFormErrors"></app-list-errors>
           <form class="card comment-form" (ngSubmit)="addComment()">
             <fieldset [disabled]="isSubmitting">
               <div class="card-block">
@@ -115,11 +115,11 @@
           <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">sign up</a> to add comments on this article.
         </div>
 
-        <article-comment
+        <app-article-comment
           *ngFor="let comment of comments"
           [comment]="comment"
           (deleteComment)="onDeleteComment(comment)">
-        </article-comment>
+        </app-article-comment>
 
       </div>
     </div>
