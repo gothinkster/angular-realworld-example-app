@@ -33,7 +33,7 @@ export class SettingsComponent implements OnInit {
 
   ngOnInit() {
     // Make a fresh copy of the current user's object to place in editable form fields
-    (<any>Object).assign(this.user, this.userService.getCurrentUser());
+    Object.assign(this.user, this.userService.getCurrentUser());
     // Fill the form
     this.settingsForm.patchValue(this.user);
   }
@@ -61,7 +61,7 @@ export class SettingsComponent implements OnInit {
   }
 
   updateUser(values: Object) {
-    (<any>Object).assign(this.user, values);
+    Object.assign(this.user, values);
   }
 
 }
