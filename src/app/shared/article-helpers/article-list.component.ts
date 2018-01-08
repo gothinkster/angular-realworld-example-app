@@ -5,6 +5,7 @@ import { ArticlesService } from '../services';
 
 @Component({
   selector: 'app-article-list',
+  styleUrls: ['article-list.component.css'],
   templateUrl: './article-list.component.html'
 })
 export class ArticleListComponent {
