@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 
 import { Profile } from '../models';
 import { ProfilesService, UserService } from '../services';
+import { concatMap } from 'rxjs/operators/concatMap';
+import { tap } from 'rxjs/operators/tap';
+import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-follow-button',
@@ -23,41 +26,37 @@ export class FollowButtonComponent {
     this.isSubmitting = true;
     // TODO: remove nested subscribes, use mergeMap
 
-    this.userService.isAuthenticated.subscribe(
+    this.userService.isAuthenticated.pipe(concatMap(
       (authenticated) => {
         // Not authenticated? Push to login screen
         if (!authenticated) {
           this.router.navigateByUrl('/login');
-          return;
+          return of(null);
         }
 
         // Follow this profile if we aren't already
         if (!this.profile.following) {
-          this.profilesService.follow(this.profile.username)
-          .subscribe(
+          return this.profilesService.follow(this.profile.username)
+          .pipe(tap(
             data => {
               this.isSubmitting = false;
               this.toggle.emit(true);
             },
             err => this.isSubmitting = false
-          );
+          ));
 
         // Otherwise, unfollow this profile
         } else {
-          this.profilesService.unfollow(this.profile.username)
-          .subscribe(
+          return this.profilesService.unfollow(this.profile.username)
+          .pipe(tap(
             data => {
               this.isSubmitting = false;
               this.toggle.emit(false);
             },
             err => this.isSubmitting = false
-          );
+          ));
         }
-
       }
-    );
-
-
+    )).subscribe();
   }
-
 }

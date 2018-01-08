@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 import { Observable } from 'rxjs/Observable';
 
 import { Profile, ProfilesService } from '../shared';
-import { catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators/catchError';
 
 @Injectable()
 export class ProfileResolver implements Resolve<Profile> {
