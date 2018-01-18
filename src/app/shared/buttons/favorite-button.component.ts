@@ -5,7 +5,7 @@ import { Article } from '../models';
 import { ArticlesService, UserService } from '../services';
 
 @Component({
-  selector: 'favorite-button',
+  selector: 'app-favorite-button',
   templateUrl: './favorite-button.component.html'
 })
 export class FavoriteButtonComponent {
@@ -16,7 +16,7 @@ export class FavoriteButtonComponent {
   ) {}
 
   @Input() article: Article;
-  @Output() onToggle = new EventEmitter<boolean>();
+  @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;
 
   toggleFavorite() {
@@ -36,7 +36,7 @@ export class FavoriteButtonComponent {
           .subscribe(
             data => {
               this.isSubmitting = false;
-              this.onToggle.emit(true);
+              this.toggle.emit(true);
             },
             err => this.isSubmitting = false
           );
@@ -47,14 +47,14 @@ export class FavoriteButtonComponent {
           .subscribe(
             data => {
               this.isSubmitting = false;
-              this.onToggle.emit(false);
+              this.toggle.emit(false);
             },
             err => this.isSubmitting = false
           );
         }
 
       }
-    )
+    );
 
 
   }

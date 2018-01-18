@@ -27,7 +27,7 @@ export class ShowAuthedDirective implements OnInit {
           this.viewContainer.clear();
         }
       }
-    )
+    );
   }
 
   @Input() set showAuthed(condition: boolean) {

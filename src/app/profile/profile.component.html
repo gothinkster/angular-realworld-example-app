@@ -8,11 +8,11 @@
           <img [src]="profile.image" class="user-img" />
           <h4>{{ profile.username }}</h4>
           <p>{{ profile.bio }}</p>
-          <follow-button
+          <app-follow-button
             [hidden]="isUser"
             [profile]="profile"
-            (onToggle)="onToggleFollowing($event)">
-          </follow-button>
+            (toggle)="onToggleFollowing($event)">
+          </app-follow-button>
            <a [routerLink]="['/settings']"
               [hidden]="!isUser"
               class="btn btn-sm btn-outline-secondary action-btn">

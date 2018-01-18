@@ -5,7 +5,7 @@ import { Profile } from '../models';
 import { ProfilesService, UserService } from '../services';
 
 @Component({
-  selector: 'follow-button',
+  selector: 'app-follow-button',
   templateUrl: './follow-button.component.html'
 })
 export class FollowButtonComponent {
@@ -16,7 +16,7 @@ export class FollowButtonComponent {
   ) {}
 
   @Input() profile: Profile;
-  @Output() onToggle = new EventEmitter<boolean>();
+  @Output() toggle = new EventEmitter<boolean>();
   isSubmitting = false;
 
   toggleFollowing() {
@@ -37,7 +37,7 @@ export class FollowButtonComponent {
           .subscribe(
             data => {
               this.isSubmitting = false;
-              this.onToggle.emit(true);
+              this.toggle.emit(true);
             },
             err => this.isSubmitting = false
           );
@@ -48,14 +48,14 @@ export class FollowButtonComponent {
           .subscribe(
             data => {
               this.isSubmitting = false;
-              this.onToggle.emit(false);
+              this.toggle.emit(false);
             },
             err => this.isSubmitting = false
           );
         }
 
       }
-    )
+    );
 
 
   }

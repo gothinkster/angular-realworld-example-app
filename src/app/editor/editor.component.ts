@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Article, ArticlesService } from '../shared';
 
 @Component({
-  selector: 'editor-page',
+  selector: 'app-editor-page',
   templateUrl: './editor.component.html'
 })
 export class EditorComponent implements OnInit {

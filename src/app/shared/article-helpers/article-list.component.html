@@ -1,14 +1,14 @@
-<article-preview
+<app-article-preview
   *ngFor="let article of results"
   [article]="article">
-</article-preview>
+</app-article-preview>
 
-<div class="article-preview"
+<div class="app-article-preview"
   [hidden]="!loading">
   Loading articles...
 </div>
 
-<div class="article-preview"
+<div class="app-article-preview"
   [hidden]="loading || results.length">
   No articles are here... yet.
 </div>
