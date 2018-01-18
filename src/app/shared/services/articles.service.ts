@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Rx';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
+import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
 import { Article, ArticleListConfig } from '../models';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class ArticlesService {
@@ -26,12 +25,12 @@ export class ArticlesService {
     .get(
       '/articles' + ((config.type === 'feed') ? '/feed' : ''),
       new HttpParams(params)
-    ).map(data => data);
+    );
   }
 
   get(slug): Observable<Article> {
     return this.apiService.get('/articles/' + slug)
-           .map(data => data.article);
+      .pipe(map(data => data.article));
   }
 
   destroy(slug) {
@@ -42,12 +41,12 @@ export class ArticlesService {
     // If we're updating an existing article
     if (article.slug) {
       return this.apiService.put('/articles/' + article.slug, {article: article})
-             .map(data => data.article);
+        .pipe(map(data => data.article));
 
     // Otherwise, create a new article
     } else {
       return this.apiService.post('/articles/', {article: article})
-             .map(data => data.article);
+        .pipe(map(data => data.article));
     }
   }
 

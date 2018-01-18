@@ -1,8 +1,9 @@
 import { Injectable, } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@angular/router';
-import { Observable } from 'rxjs/Rx';
+import { Observable } from 'rxjs/Observable';
 
 import { Article, ArticlesService, UserService } from '../shared';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ArticleResolver implements Resolve<Article> {
@@ -18,7 +19,6 @@ export class ArticleResolver implements Resolve<Article> {
   ): Observable<any> {
 
     return this.articlesService.get(route.params['slug'])
-           .catch((err) => this.router.navigateByUrl('/'));
-
+      .pipe(catchError((err) => this.router.navigateByUrl('/')));
   }
 }
