@@ -77,6 +77,6 @@ export class EditorComponent implements OnInit {
   }
 
   updateArticle(values: Object) {
-    (<any>Object).assign(this.article, values);
+    Object.assign(this.article, values);
   }
 }
