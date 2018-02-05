@@ -8,7 +8,7 @@ import {
 
 import { UserService } from './services/user.service';
 
-@Directive({ selector: '[showAuthed]' })
+@Directive({ selector: '[appShowAuthed]' })
 export class ShowAuthedDirective implements OnInit {
   constructor(
     private templateRef: TemplateRef<any>,
@@ -30,7 +30,7 @@ export class ShowAuthedDirective implements OnInit {
     );
   }
 
-  @Input() set showAuthed(condition: boolean) {
+  @Input() set appShowAuthed(condition: boolean) {
     this.condition = condition;
   }
 

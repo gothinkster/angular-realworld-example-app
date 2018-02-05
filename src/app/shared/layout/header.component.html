@@ -3,7 +3,7 @@
     <a class="navbar-brand" routerLink="/">conduit</a>
 
     <!-- Show this for logged out users -->
-    <ul *showAuthed="false"
+    <ul *appShowAuthed="false"
       class="nav navbar-nav pull-xs-right">
 
       <li class="nav-item">
@@ -32,7 +32,7 @@
     </ul>
 
     <!-- Show this for logged in users -->
-    <ul *showAuthed="true"
+    <ul *appShowAuthed="true"
       class="nav navbar-nav pull-xs-right">
 
       <li class="nav-item">
