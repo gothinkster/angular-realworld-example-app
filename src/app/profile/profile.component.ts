@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
   isUser: boolean;
 
   ngOnInit() {
-    //TODO: mergeMap here
+    // TODO: mergeMap here
     this.route.data.subscribe(
       (data: {profile: Profile}) => {
         this.profile = data.profile;
