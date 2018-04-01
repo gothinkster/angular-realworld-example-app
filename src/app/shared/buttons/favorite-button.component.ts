@@ -3,6 +3,9 @@ import { Router } from '@angular/router';
 
 import { Article } from '../models';
 import { ArticlesService, UserService } from '../services';
+import { of } from 'rxjs/observable/of';
+import { concatMap } from 'rxjs/operators/concatMap';
+import { tap } from 'rxjs/operators/tap';
 
 @Component({
   selector: 'app-favorite-button',
@@ -21,42 +24,39 @@ export class FavoriteButtonComponent {
 
   toggleFavorite() {
     this.isSubmitting = true;
-    // TODO: remove nested subscribes, use mergeMap
-    this.userService.isAuthenticated.subscribe(
+
+    this.userService.isAuthenticated.pipe(concatMap(
       (authenticated) => {
         // Not authenticated? Push to login screen
         if (!authenticated) {
           this.router.navigateByUrl('/login');
-          return;
+          return of(null);
         }
 
         // Favorite the article if it isn't favorited yet
         if (!this.article.favorited) {
-          this.articlesService.favorite(this.article.slug)
-          .subscribe(
+          return this.articlesService.favorite(this.article.slug)
+          .pipe(tap(
             data => {
               this.isSubmitting = false;
               this.toggle.emit(true);
             },
             err => this.isSubmitting = false
-          );
+          ));
 
         // Otherwise, unfavorite the article
         } else {
-          this.articlesService.unfavorite(this.article.slug)
-          .subscribe(
+          return this.articlesService.unfavorite(this.article.slug)
+          .pipe(tap(
             data => {
               this.isSubmitting = false;
               this.toggle.emit(false);
             },
             err => this.isSubmitting = false
-          );
+          ));
         }
 
       }
-    );
-
-
+    )).subscribe();
   }
-
 }

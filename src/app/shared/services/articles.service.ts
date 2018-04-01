@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 
 import { ApiService } from './api.service';
 import { Article, ArticleListConfig } from '../models';
-import { map } from 'rxjs/operators';
+import { map } from 'rxjs/operators/map';
 
 @Injectable()
 export class ArticlesService {
