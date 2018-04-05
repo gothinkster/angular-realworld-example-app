@@ -2,12 +2,8 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { ArticleModule } from './article/article.module';
 import { AuthModule } from './auth/auth.module';
-import { EditorModule } from './editor/editor.module';
 import { HomeModule } from './home/home.module';
-import { ProfileModule } from './profile/profile.module';
-import { SettingsModule } from './settings/settings.module';
 import {
   FooterComponent,
   HeaderComponent,
@@ -22,12 +18,8 @@ import { CoreModule } from './core/core.module';
     BrowserModule,
     CoreModule,
     SharedModule,
-    ArticleModule,
-    AuthModule,
-    EditorModule,
     HomeModule,
-    ProfileModule,
-    SettingsModule,
+    AuthModule,
     AppRoutingModule
   ],
   providers: [],

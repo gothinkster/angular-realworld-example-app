@@ -5,7 +5,7 @@ import { ArticleResolver } from './article-resolver.service';
 
 const routes: Routes = [
   {
-    path: 'article/:slug',
+    path: ':slug',
     component: ArticleComponent,
     resolve: {
       article: ArticleResolver

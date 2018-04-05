@@ -8,7 +8,7 @@ import { ProfileComponent } from './profile.component';
 
 const routes: Routes = [
   {
-    path: 'profile/:username',
+    path: ':username',
     component: ProfileComponent,
     resolve: {
       profile: ProfileResolver
