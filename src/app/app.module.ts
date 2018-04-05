@@ -1,6 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
 import { ArticleModule } from './article/article.module';
@@ -10,45 +9,28 @@ import { HomeModule } from './home/home.module';
 import { ProfileModule } from './profile/profile.module';
 import { SettingsModule } from './settings/settings.module';
 import {
-  ApiService,
-  ArticlesService,
-  AuthGuard,
-  CommentsService,
   FooterComponent,
   HeaderComponent,
-  JwtService,
-  ProfilesService,
-  SharedModule,
-  TagsService,
-  UserService,
-  HttpTokenInterceptor
+  SharedModule
 } from './shared';
 import { AppRoutingModule } from './app-routing.module';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent, HeaderComponent],
   imports: [
     BrowserModule,
+    CoreModule,
+    SharedModule,
     ArticleModule,
     AuthModule,
     EditorModule,
     HomeModule,
     ProfileModule,
-    SharedModule,
     SettingsModule,
     AppRoutingModule
   ],
-  providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
-    ApiService,
-    ArticlesService,
-    AuthGuard,
-    CommentsService,
-    JwtService,
-    ProfilesService,
-    TagsService,
-    UserService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
