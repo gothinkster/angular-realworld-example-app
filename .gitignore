@@ -9,6 +9,7 @@
 /node_modules
 
 # IDEs and editors
+.vscode/
 /.idea
 .project
 .classpath

@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Profile } from '../models';
-import { ProfilesService, UserService } from '../services';
+import { Profile, ProfilesService, UserService } from '../../core';
 import { concatMap } from 'rxjs/operators/concatMap';
 import { tap } from 'rxjs/operators/tap';
 import { of } from 'rxjs/observable/of';

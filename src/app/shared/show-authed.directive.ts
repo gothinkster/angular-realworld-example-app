@@ -6,7 +6,7 @@ import {
   ViewContainerRef
 } from '@angular/core';
 
-import { UserService } from './services/user.service';
+import { UserService } from '../core';
 
 @Directive({ selector: '[appShowAuthed]' })
 export class ShowAuthedDirective implements OnInit {

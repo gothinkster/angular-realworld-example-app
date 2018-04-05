@@ -6,38 +6,18 @@ import { ProfileComponent } from './profile.component';
 import { ProfileFavoritesComponent } from './profile-favorites.component';
 import { ProfileResolver } from './profile-resolver.service';
 import { SharedModule } from '../shared';
-
-const profileRouting: ModuleWithProviders = RouterModule.forChild([
-  {
-    path: 'profile/:username',
-    component: ProfileComponent,
-    resolve: {
-      profile: ProfileResolver
-    },
-    children: [
-      {
-        path: '',
-        component: ProfileArticlesComponent
-      },
-      {
-        path: 'favorites',
-        component: ProfileFavoritesComponent
-      }
-    ]
-  }
-]);
+import { ProfileRoutingModule } from './profile-routing.module';
 
 @NgModule({
   imports: [
-    profileRouting,
-    SharedModule
+    SharedModule,
+    ProfileRoutingModule
   ],
   declarations: [
     ProfileArticlesComponent,
     ProfileComponent,
     ProfileFavoritesComponent
   ],
-
   providers: [
     ProfileResolver
   ]

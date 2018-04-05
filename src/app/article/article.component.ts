@@ -9,7 +9,7 @@ import {
   CommentsService,
   User,
   UserService
-} from '../shared';
+} from '../core';
 
 @Component({
   selector: 'app-article-page',

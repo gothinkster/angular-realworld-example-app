@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-import { Article } from '../models';
+import { Article } from '../../core';
 
 @Component({
   selector: 'app-article-preview',
