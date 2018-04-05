@@ -4,27 +4,13 @@ import { RouterModule } from '@angular/router';
 import { EditorComponent } from './editor.component';
 import { EditableArticleResolver } from './editable-article-resolver.service';
 import { AuthGuard, SharedModule } from '../shared';
+import { EditorRoutingModule } from './editor-routing.module';
 
-const editorRouting: ModuleWithProviders = RouterModule.forChild([
-  {
-    path: 'editor',
-    component: EditorComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'editor/:slug',
-    component: EditorComponent,
-    canActivate: [AuthGuard],
-    resolve: {
-      article: EditableArticleResolver
-    }
-  }
-]);
 
 @NgModule({
   imports: [
-    editorRouting,
-    SharedModule
+    SharedModule,
+    EditorRoutingModule
   ],
   declarations: [
     EditorComponent

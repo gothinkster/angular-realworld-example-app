@@ -1,6 +1,5 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -24,15 +23,10 @@ import {
   UserService,
   HttpTokenInterceptor
 } from './shared';
-
-const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    FooterComponent,
-    HeaderComponent
-  ],
+  declarations: [AppComponent, FooterComponent, HeaderComponent],
   imports: [
     BrowserModule,
     ArticleModule,
@@ -40,12 +34,12 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
     EditorModule,
     HomeModule,
     ProfileModule,
-    rootRouting,
     SharedModule,
-    SettingsModule
+    SettingsModule,
+    AppRoutingModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true},
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
     ApiService,
     ArticlesService,
     AuthGuard,
@@ -57,4 +51,4 @@ const rootRouting: ModuleWithProviders = RouterModule.forRoot([]);
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
