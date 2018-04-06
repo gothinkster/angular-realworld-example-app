@@ -7,7 +7,7 @@ branches:
     - master
 
 before_script:
-  - npm install -g @angular/cli
+  - yarn install --frozen-lockfile
 
 script:
   - ng build --prod --bh "./"
