@@ -10,7 +10,7 @@ before_script:
   - npm install -g @angular/cli
 
 script:
-  - ng build 
+  - ng build --prod --bh "./"
 
 deploy:
   provider: pages
