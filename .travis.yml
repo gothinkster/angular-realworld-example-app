@@ -10,7 +10,7 @@ before_script:
   - yarn install --frozen-lockfile
 
 script:
-  - ng build --prod --bh "./"
+  - yarn build
 
 deploy:
   provider: pages
