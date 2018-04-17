@@ -25,22 +25,24 @@ export class EditorComponent implements OnInit {
     this.articleForm = this.fb.group({
       title: '',
       description: '',
-      body: '',
+      body: ''
     });
+
+    // Initialized tagList as empty array
+    this.article.tagList = [];
+
     // Optional: subscribe to value changes on the form
     // this.articleForm.valueChanges.subscribe(value => this.updateArticle(value));
   }
 
   ngOnInit() {
     // If there's an article prefetched, load it
-    this.route.data.subscribe(
-      (data: {article: Article}) => {
-        if (data.article) {
-          this.article = data.article;
-          this.articleForm.patchValue(data.article);
-        }
+    this.route.data.subscribe((data: { article: Article }) => {
+      if (data.article) {
+        this.article = data.article;
+        this.articleForm.patchValue(data.article);
       }
-    );
+    });
   }
 
   addTag() {
@@ -55,7 +57,7 @@ export class EditorComponent implements OnInit {
   }
 
   removeTag(tagName: string) {
-    this.article.tagList = this.article.tagList.filter((tag) => tag !== tagName);
+    this.article.tagList = this.article.tagList.filter(tag => tag !== tagName);
   }
 
   submitForm() {
@@ -65,9 +67,7 @@ export class EditorComponent implements OnInit {
     this.updateArticle(this.articleForm.value);
 
     // post the changes
-    this.articlesService
-    .save(this.article)
-    .subscribe(
+    this.articlesService.save(this.article).subscribe(
       article => this.router.navigateByUrl('/article/' + article.slug),
       err => {
         this.errors = err;
