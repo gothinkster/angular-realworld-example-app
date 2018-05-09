@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gothinkster/angular-realworld-example-app.svg?branch=develop)](https://travis-ci.org/gothinkster/angular-realworld-example-app)
+[![Build Status](https://travis-ci.org/gothinkster/angular-realworld-example-app.svg?branch=master)](https://travis-ci.org/gothinkster/angular-realworld-example-app)
 
 # ![Angular 2 Example App](logo.png)
 
@@ -31,7 +31,7 @@ If you want to change the API URL to a local server, simply edit `src/environmen
 
 # Getting started
 
-Make sure you have the [Angular CLI](https://github.com/angular/angular-cli#installation) installed globally, then run `npm install` to resolve all dependencies (might take a minute).
+Make sure you have the [Angular CLI](https://github.com/angular/angular-cli#installation) installed globally. We use [Yarn](https://yarnpkg.com) to manage the dependencies, so we strongly recommend you to use it. you can install it from [Here](https://yarnpkg.com/en/docs/install), then run `yarn install` to resolve all dependencies (might take a minute).
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
