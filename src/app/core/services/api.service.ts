@@ -18,8 +18,8 @@ export class ApiService {
     return new ErrorObservable(error.error);
   }
 
-  get(path: string, params: HttpParams = new HttpParams()): Observable<any> {
-    return this.http.get(`${environment.api_url}${path}`, { params })
+  get(path: string, data: HttpParams = new HttpParams()): Observable<any> {
+    return this.http.get(`${environment.api_url}${path}`, { params: data })
       .pipe(catchError(this.formatErrors));
   }
 
