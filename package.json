@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --bh ./ ",
+    "build": "ng build --prod --bh ./ && cp CNAME dist/CNAME",
     "test": "ng test",
     "lint": "ng lint --force",
     "e2e": "ng e2e"
