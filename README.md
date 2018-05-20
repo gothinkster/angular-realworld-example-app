@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gothinkster/angular-realworld-example-app.svg?branch=develop)](https://travis-ci.org/gothinkster/angular-realworld-example-app)
+[![Build Status](https://travis-ci.org/gothinkster/angular-realworld-example-app.svg?branch=master)](https://travis-ci.org/gothinkster/angular-realworld-example-app)
 
 # ![Angular 2 Example App](logo.png)
 
@@ -7,7 +7,7 @@
 
 <a href="https://stackblitz.com/edit/angular-realworld" target="_blank"><img width="187" src="https://github.com/gothinkster/realworld/blob/master/media/edit_on_blitz.png?raw=true" /></a>&nbsp;&nbsp;<a href="https://thinkster.io/tutorials/building-real-world-angular-2-apps" target="_blank"><img width="384" src="https://raw.githubusercontent.com/gothinkster/realworld/master/media/learn-btn-hr.png" /></a>
 
-### [Demo](https://angular2.realworld.io)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
+### [Demo](https://angular.realworld.io)&nbsp;&nbsp;&nbsp;&nbsp;[RealWorld](https://github.com/gothinkster/realworld)
 
 
 
@@ -31,7 +31,7 @@ If you want to change the API URL to a local server, simply edit `src/environmen
 
 # Getting started
 
-Make sure you have the [Angular CLI](https://github.com/angular/angular-cli#installation) installed globally, then run `npm install` to resolve all dependencies (might take a minute).
+Make sure you have the [Angular CLI](https://github.com/angular/angular-cli#installation) installed globally. We use [Yarn](https://yarnpkg.com) to manage the dependencies, so we strongly recommend you to use it. you can install it from [Here](https://yarnpkg.com/en/docs/install), then run `yarn install` to resolve all dependencies (might take a minute).
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
@@ -41,7 +41,7 @@ Run `ng build` to build the project. The build artifacts will be stored in the `
 
 ## Functionality overview
 
-The example application is a social blogging site (i.e. a Medium.com clone) called "Conduit". It uses a custom API for all requests, including authentication. You can view a live demo over at https://angular2.realworld.io
+The example application is a social blogging site (i.e. a Medium.com clone) called "Conduit". It uses a custom API for all requests, including authentication. You can view a live demo over at https://angular.realworld.io
 
 **General functionality:**
 
