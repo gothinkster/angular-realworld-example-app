@@ -2,9 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Profile, ProfilesService, UserService } from '../../core';
-import { concatMap } from 'rxjs/operators/concatMap';
-import { tap } from 'rxjs/operators/tap';
-import { of } from 'rxjs/observable/of';
+import { concatMap ,  tap } from 'rxjs/operators';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-follow-button',
