@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod --bh ./ && cp CNAME dist/CNAME",
+    "build": "ng build --prod  --base-href ./ && cp CNAME dist/CNAME",
     "test": "ng test",
     "lint": "ng lint --force",
     "e2e": "ng e2e"
@@ -15,6 +15,7 @@
   ],
   "private": true,
   "dependencies": {
+    "@angular-devkit/core": "^0.6.8",
     "@angular/animations": "5.2.9",
     "@angular/common": "5.2.9",
     "@angular/compiler": "5.2.9",
@@ -29,7 +30,8 @@
     "zone.js": "^0.8.25"
   },
   "devDependencies": {
-    "@angular/cli": "1.7.3",
+    "@angular-devkit/build-angular": "~0.7.0-beta.2",
+    "@angular/cli": "^6.1.0-rc.0",
     "@angular/compiler-cli": "5.2.9",
     "@angular/language-service": "5.2.9",
     "@types/jasmine": "~2.5.53",
