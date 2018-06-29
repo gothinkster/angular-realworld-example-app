@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 import { JwtService } from './jwt.service';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
-import { catchError } from 'rxjs/operators/catchError';
+import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class ApiService {
