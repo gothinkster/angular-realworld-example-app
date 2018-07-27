@@ -7,7 +7,7 @@
     "start": "ng serve",
     "build": "ng build --prod  --base-href ./ && cp CNAME dist/CNAME",
     "test": "ng test",
-    "lint": "ng lint --force",
+    "lint": "ng lint --force ang2-conduit ang2-conduit-e2e",
     "e2e": "ng e2e"
   },
   "pre-commit": [
