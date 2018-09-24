@@ -38,10 +38,7 @@ export class SettingsComponent implements OnInit {
     this.settingsForm.patchValue(this.user);
   }
 
-  logout() {
-    this.userService.purgeAuth();
-    this.router.navigateByUrl('/');
-  }
+
 
   submitForm() {
     this.isSubmitting = true;
