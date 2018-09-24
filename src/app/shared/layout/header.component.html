@@ -9,6 +9,7 @@
       <li class="nav-item">
         <a class="nav-link"
           routerLink="/">
+          <i class="ion-home"></i>
           Home
         </a>
       </li>
@@ -40,6 +41,7 @@
           routerLink="/"
           routerLinkActive="active"
           [routerLinkActiveOptions]="{ exact: true }">
+          <i class="ion-home"></i>
           Home
         </a>
       </li>
@@ -65,8 +67,16 @@
           [routerLink]="['/profile', currentUser.username]"
           routerLinkActive="active">
           <img [src]="currentUser.image" *ngIf="currentUser.image" class="user-pic" />
+          <i class="ion-android-person" *ngIf="!currentUser.image"></i>&nbsp;
           {{ currentUser.username }}
         </a>
+      </li>
+
+      <li class="nav-item">
+        <button class="btn btn-outline-danger"
+        (click)="logout()">
+        <i class="ion-log-out"></i>&nbsp;Logout.
+      </button>
       </li>
 
     </ul>
