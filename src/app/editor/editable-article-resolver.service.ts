@@ -29,7 +29,7 @@ export class EditableArticleResolver implements Resolve<Article> {
             }
           }
         ),
-        catchError((err) => this.router.navigateByUrl('/'))
+        catchError(err => this.router.navigateByUrl('/'))
       );
   }
 }

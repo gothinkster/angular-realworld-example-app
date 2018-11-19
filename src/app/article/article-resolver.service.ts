@@ -9,8 +9,7 @@ import { catchError } from 'rxjs/operators';
 export class ArticleResolver implements Resolve<Article> {
   constructor(
     private articlesService: ArticlesService,
-    private router: Router,
-    private userService: UserService
+    private router: Router
   ) {}
 
   resolve(
@@ -19,6 +18,6 @@ export class ArticleResolver implements Resolve<Article> {
   ): Observable<any> {
 
     return this.articlesService.get(route.params['slug'])
-      .pipe(catchError((err) => this.router.navigateByUrl('/')));
+      .pipe(catchError(err => this.router.navigateByUrl('/')));
   }
 }
