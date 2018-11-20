@@ -16,7 +16,7 @@ export class AuthComponent implements OnInit {
   authForm: FormGroup;
 
   constructor(
-    private route: ActivatedRoute,
+    private router: ActivatedRoute,
     private router: Router,
     private userService: UserService,
     private fb: FormBuilder
