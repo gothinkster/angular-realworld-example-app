@@ -8,6 +8,7 @@ import { ArticleListComponent, ArticleMetaComponent, ArticlePreviewComponent } f
 import { FavoriteButtonComponent, FollowButtonComponent } from './buttons';
 import { ListErrorsComponent } from './list-errors.component';
 import { ShowAuthedDirective } from './show-authed.directive';
+import {MatPaginatorModule, MatProgressSpinnerModule} from "@angular/material";
 
 @NgModule({
   imports: [
@@ -15,7 +16,10 @@ import { ShowAuthedDirective } from './show-authed.directive';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    RouterModule
+    RouterModule,
+
+    MatPaginatorModule,
+    MatProgressSpinnerModule
   ],
   declarations: [
     ArticleListComponent,

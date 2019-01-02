@@ -2,28 +2,23 @@
   *ngFor="let article of results"
   [article]="article">
 </app-article-preview>
-
 <div class="app-article-preview"
-  [hidden]="!loading">
-  Loading articles...
-</div>
-
-<div class="app-article-preview"
-  [hidden]="loading || results.length">
+     [hidden]="loading || results.length">
   No articles are here... yet.
 </div>
 
-<nav [hidden]="loading || totalPages.length <= 1">
-  <ul class="pagination">
+<div [hidden]="total <= 1">
+  <mat-progress-spinner *ngIf="loading"
+                        [ngStyle]="{'position'  : 'absolute'}"
+                        [attr.color]="'primary'"
+                        [mode]="'indeterminate'"
+                        [diameter]="40"
+                        [strokeWidth]="2"></mat-progress-spinner>
+  <nav>
+    <mat-paginator [length]="total"
+                   [pageSize]="10"
+                   [pageSizeOptions]="[10, 25, 100]">
+    </mat-paginator>
+  </nav>
+</div>
 
-    <li class="page-item"
-      [ngClass]="{'active': pageNumber === currentPage}"
-      *ngFor="let pageNumber of totalPages"
-      (click)="setPageTo(pageNumber)">
-
-      <a class="page-link" >{{ pageNumber }}</a>
-
-    </li>
-
-  </ul>
-</nav>
