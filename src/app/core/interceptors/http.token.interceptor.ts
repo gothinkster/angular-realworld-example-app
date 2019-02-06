@@ -13,6 +13,9 @@ export class HttpTokenInterceptor implements HttpInterceptor {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     };
+    if ( req.body instanceof FormData ) {
+      delete headersConfig['Content-Type'];  // FormData present: Remove Content-Type as it's set by Browser
+    }
 
     const token = this.jwtService.getToken();
 
