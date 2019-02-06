@@ -24,16 +24,22 @@ export class ApiService {
   }
 
   put(path: string, body: Object = {}): Observable<any> {
+    if (!(body instanceof FormData)) {
+      body = JSON.stringify(body);
+    }
     return this.http.put(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      body
     ).pipe(catchError(this.formatErrors));
   }
 
   post(path: string, body: Object = {}): Observable<any> {
+    if (!(body instanceof FormData)) {
+      body = JSON.stringify(body);
+    }
     return this.http.post(
       `${environment.api_url}${path}`,
-      JSON.stringify(body)
+      body
     ).pipe(catchError(this.formatErrors));
   }
 
