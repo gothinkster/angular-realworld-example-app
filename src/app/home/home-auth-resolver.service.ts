@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { UserService } from '../core';
 import { take } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class HomeAuthResolver implements Resolve<boolean> {
   constructor(
     private router: Router,

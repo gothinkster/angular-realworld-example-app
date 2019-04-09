@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import { Article, ArticlesService, UserService } from '../core';
 import { catchError } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ArticleResolver implements Resolve<Article> {
   constructor(
     private articlesService: ArticlesService,
