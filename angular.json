@@ -16,6 +16,7 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
+            "experimentalImportFactories": true,
             "assets": [
               "src/assets",
               "src/favicon.ico",
@@ -24,7 +25,8 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "aot": true
           },
           "configurations": {
             "production": {
@@ -52,8 +54,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ang2-conduit:build",
-            "aot": true
+            "browserTarget": "ang2-conduit:build"
           },
           "configurations": {
             "production": {
