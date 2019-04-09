@@ -14,7 +14,7 @@
     <span>Read more...</span>
     <ul class="tag-list">
       <li class="tag-default tag-pill tag-outline"
-        *ngFor="let tag of article.tagList">
+        *ngFor="let tag of article.tagList; trackBy: trackByFn">
         {{ tag }}
       </li>
     </ul>

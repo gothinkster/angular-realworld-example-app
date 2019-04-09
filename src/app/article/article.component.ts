@@ -64,6 +64,10 @@ export class ArticleComponent implements OnInit {
     }
   }
 
+  trackByFn(index, item) {
+    return index;
+  }
+
   onToggleFollowing(following: boolean) {
     this.article.author.following = following;
   }

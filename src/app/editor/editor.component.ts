@@ -45,6 +45,10 @@ export class EditorComponent implements OnInit {
     });
   }
 
+  trackByFn(index, item) {
+    return index;
+  }
+
   addTag() {
     // retrieve tag control
     const tag = this.tagField.value;

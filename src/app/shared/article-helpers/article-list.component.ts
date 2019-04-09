@@ -32,6 +32,10 @@ export class ArticleListComponent {
     this.runQuery();
   }
 
+  trackByFn(index, item) {
+    return index;
+  }
+
   runQuery() {
     this.loading = true;
     this.results = [];

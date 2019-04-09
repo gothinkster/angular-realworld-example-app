@@ -44,7 +44,7 @@
         <div [innerHTML]="article.body | markdown"></div>
 
         <ul class="tag-list">
-          <li *ngFor="let tag of article.tagList"
+          <li *ngFor="let tag of article.tagList; trackBy: trackByFn"
             class="tag-default tag-pill tag-outline">
             {{ tag }}
           </li>
@@ -116,7 +116,7 @@
         </div>
 
         <app-article-comment
-          *ngFor="let comment of comments"
+          *ngFor="let comment of comments; trackBy: trackByFn"
           [comment]="comment"
           (deleteComment)="onDeleteComment(comment)">
         </app-article-comment>

@@ -38,7 +38,7 @@
                 (keyup.enter)="addTag()" />
 
               <div class="tag-list">
-                <span *ngFor="let tag of article.tagList"
+                <span *ngFor="let tag of article.tagList; trackBy: trackByFn"
                   class="tag-default tag-pill">
                   <i class="ion-close-round" (click)="removeTag(tag)"></i>
                   {{ tag }}

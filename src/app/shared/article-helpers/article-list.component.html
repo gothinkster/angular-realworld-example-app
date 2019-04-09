@@ -1,5 +1,5 @@
 <app-article-preview
-  *ngFor="let article of results"
+  *ngFor="let article of results; trackBy: trackByFn"
   [article]="article">
 </app-article-preview>
 
@@ -18,7 +18,7 @@
 
     <li class="page-item"
       [ngClass]="{'active': pageNumber === currentPage}"
-      *ngFor="let pageNumber of totalPages"
+      *ngFor="let pageNumber of totalPages; trackBy: trackByFn"
       (click)="setPageTo(pageNumber)">
 
       <a class="page-link" >{{ pageNumber }}</a>
