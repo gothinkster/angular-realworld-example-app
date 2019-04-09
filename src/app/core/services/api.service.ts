@@ -3,14 +3,14 @@ import { environment } from '../../../environments/environment';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 import { Observable ,  throwError } from 'rxjs';
 
-import { JwtService } from './jwt.service';
 import { catchError } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ApiService {
   constructor(
-    private http: HttpClient,
-    private jwtService: JwtService
+    private http: HttpClient
   ) {}
 
   private formatErrors(error: any) {
