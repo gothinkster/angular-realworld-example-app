@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Profile, ProfilesService, UserService } from '../../core';
@@ -7,13 +7,15 @@ import { of } from 'rxjs';
 
 @Component({
   selector: 'app-follow-button',
-  templateUrl: './follow-button.component.html'
+  templateUrl: './follow-button.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FollowButtonComponent {
   constructor(
     private profilesService: ProfilesService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private cd: ChangeDetectorRef
   ) {}
 
   @Input() profile: Profile;
@@ -55,6 +57,8 @@ export class FollowButtonComponent {
           ));
         }
       }
-    )).subscribe();
+    )).subscribe(() => {
+      this.cd.markForCheck();
+    });
   }
 }

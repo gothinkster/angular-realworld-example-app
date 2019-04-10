@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { User, UserService, Profile } from '../core';
@@ -6,12 +6,14 @@ import { concatMap ,  tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-page',
-  templateUrl: './profile.component.html'
+  templateUrl: './profile.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private userService: UserService
+    private userService: UserService,
+    private cd: ChangeDetectorRef
   ) { }
 
   profile: Profile;
@@ -30,7 +32,9 @@ export class ProfileComponent implements OnInit {
           }
         ));
       })
-    ).subscribe();
+    ).subscribe((() => {
+      this.cd.markForCheck();
+    }));
   }
 
   onToggleFollowing(following: boolean) {

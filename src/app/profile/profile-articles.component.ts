@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { ArticleListConfig, Profile } from '../core';
 
 @Component({
   selector: 'app-profile-articles',
-  templateUrl: './profile-articles.component.html'
+  templateUrl: './profile-articles.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProfileArticlesComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private cd: ChangeDetectorRef
   ) {}
 
   profile: Profile;
@@ -28,6 +30,7 @@ export class ProfileArticlesComponent implements OnInit {
           filters: {}
         }; // Only method I found to refresh article load on swap
         this.articlesConfig.filters.author = this.profile.username;
+        this.cd.markForCheck();
       }
     );
   }

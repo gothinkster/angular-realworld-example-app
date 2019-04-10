@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -13,7 +13,8 @@ import {
 
 @Component({
   selector: 'app-article-page',
-  templateUrl: './article.component.html'
+  templateUrl: './article.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArticleComponent implements OnInit {
   article: Article;
@@ -31,6 +32,7 @@ export class ArticleComponent implements OnInit {
     private commentsService: CommentsService,
     private router: Router,
     private userService: UserService,
+    private cd: ChangeDetectorRef
   ) { }
 
   ngOnInit() {
@@ -41,6 +43,7 @@ export class ArticleComponent implements OnInit {
 
         // Load the comments on this article
         this.populateComments();
+        this.cd.markForCheck();
       }
     );
 
@@ -50,6 +53,7 @@ export class ArticleComponent implements OnInit {
         this.currentUser = userData;
 
         this.canModify = (this.currentUser.username === this.article.author.username);
+        this.cd.markForCheck();
       }
     );
   }
@@ -85,7 +89,10 @@ export class ArticleComponent implements OnInit {
 
   populateComments() {
     this.commentsService.getAll(this.article.slug)
-      .subscribe(comments => this.comments = comments);
+      .subscribe(comments => {
+        this.comments = comments;
+        this.cd.markForCheck();
+      });
   }
 
   addComment() {
@@ -100,10 +107,12 @@ export class ArticleComponent implements OnInit {
           this.comments.unshift(comment);
           this.commentControl.reset('');
           this.isSubmitting = false;
+          this.cd.markForCheck();
         },
         errors => {
           this.isSubmitting = false;
           this.commentFormErrors = errors;
+          this.cd.markForCheck();
         }
       );
   }
@@ -113,6 +122,7 @@ export class ArticleComponent implements OnInit {
       .subscribe(
         success => {
           this.comments = this.comments.filter((item) => item !== comment);
+          this.cd.markForCheck();
         }
       );
   }

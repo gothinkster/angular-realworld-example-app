@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -6,7 +6,8 @@ import { Article, ArticlesService } from '../core';
 
 @Component({
   selector: 'app-editor-page',
-  templateUrl: './editor.component.html'
+  templateUrl: './editor.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditorComponent implements OnInit {
   article: Article = {} as Article;
@@ -19,7 +20,8 @@ export class EditorComponent implements OnInit {
     private articlesService: ArticlesService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef
   ) {
     // use the FormBuilder to create a form group
     this.articleForm = this.fb.group({
@@ -41,6 +43,7 @@ export class EditorComponent implements OnInit {
       if (data.article) {
         this.article = data.article;
         this.articleForm.patchValue(data.article);
+        this.cd.markForCheck();
       }
     });
   }
@@ -72,10 +75,14 @@ export class EditorComponent implements OnInit {
 
     // post the changes
     this.articlesService.save(this.article).subscribe(
-      article => this.router.navigateByUrl('/article/' + article.slug),
+      article => {
+        this.router.navigateByUrl('/article/' + article.slug)
+        this.cd.markForCheck();
+      },
       err => {
         this.errors = err;
         this.isSubmitting = false;
+        this.cd.markForCheck();
       }
     );
   }

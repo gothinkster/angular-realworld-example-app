@@ -1,14 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { User, UserService } from '../../core';
 
 @Component({
   selector: 'app-layout-header',
-  templateUrl: './header.component.html'
+  templateUrl: './header.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeaderComponent implements OnInit {
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private cd: ChangeDetectorRef
   ) {}
 
   currentUser: User;
@@ -17,6 +19,7 @@ export class HeaderComponent implements OnInit {
     this.userService.currentUser.subscribe(
       (userData) => {
         this.currentUser = userData;
+        this.cd.markForCheck();
       }
     );
   }

@@ -1,14 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 
 import { Article, ArticleListConfig, ArticlesService } from '../../core';
 @Component({
   selector: 'app-article-list',
   styleUrls: ['article-list.component.css'],
-  templateUrl: './article-list.component.html'
+  templateUrl: './article-list.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArticleListComponent {
   constructor (
-    private articlesService: ArticlesService
+    private articlesService: ArticlesService,
+    private cd: ChangeDetectorRef
   ) {}
 
   @Input() limit: number;
@@ -53,6 +55,7 @@ export class ArticleListComponent {
 
       // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
       this.totalPages = Array.from(new Array(Math.ceil(data.articlesCount / this.limit)), (val, index) => index + 1);
+      this.cd.markForCheck();
     });
   }
 }

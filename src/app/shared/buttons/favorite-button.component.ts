@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Article, ArticlesService, UserService } from '../../core';
@@ -7,13 +7,15 @@ import { concatMap ,  tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-favorite-button',
-  templateUrl: './favorite-button.component.html'
+  templateUrl: './favorite-button.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FavoriteButtonComponent {
   constructor(
     private articlesService: ArticlesService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private cd: ChangeDetectorRef
   ) {}
 
   @Input() article: Article;
@@ -55,6 +57,8 @@ export class FavoriteButtonComponent {
         }
 
       }
-    )).subscribe();
+    )).subscribe(() => {
+      this.cd.markForCheck();
+    });
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { ArticleListConfig, TagsService, UserService } from '../core';
@@ -6,13 +6,15 @@ import { ArticleListConfig, TagsService, UserService } from '../core';
 @Component({
   selector: 'app-home-page',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private tagsService: TagsService,
-    private userService: UserService
+    private userService: UserService,
+    private cd: ChangeDetectorRef
   ) {}
 
   isAuthenticated: boolean;
@@ -34,6 +36,7 @@ export class HomeComponent implements OnInit {
         } else {
           this.setListTo('all');
         }
+        this.cd.markForCheck();
       }
     );
 
@@ -41,6 +44,7 @@ export class HomeComponent implements OnInit {
     .subscribe(tags => {
       this.tags = tags;
       this.tagsLoaded = true;
+      this.cd.markForCheck();
     });
   }
 

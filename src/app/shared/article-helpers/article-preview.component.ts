@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { Article } from '../../core';
 
 @Component({
   selector: 'app-article-preview',
-  templateUrl: './article-preview.component.html'
+  templateUrl: './article-preview.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArticlePreviewComponent {
   @Input() article: Article;

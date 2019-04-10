@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -6,7 +6,8 @@ import { Errors, UserService } from '../core';
 
 @Component({
   selector: 'app-auth-page',
-  templateUrl: './auth.component.html'
+  templateUrl: './auth.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AuthComponent implements OnInit {
   authType: String = '';
@@ -19,7 +20,8 @@ export class AuthComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private cd: ChangeDetectorRef
   ) {
     // use FormBuilder to create a form group
     this.authForm = this.fb.group({
@@ -38,6 +40,7 @@ export class AuthComponent implements OnInit {
       if (this.authType === 'register') {
         this.authForm.addControl('username', new FormControl());
       }
+      this.cd.markForCheck();
     });
   }
 
@@ -53,6 +56,7 @@ export class AuthComponent implements OnInit {
       err => {
         this.errors = err;
         this.isSubmitting = false;
+        this.cd.markForCheck();
       }
     );
   }

@@ -1,15 +1,17 @@
-import { Component, EventEmitter, Input, Output, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Input, Output, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { Comment, User, UserService } from '../core';
 import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-article-comment',
-  templateUrl: './article-comment.component.html'
+  templateUrl: './article-comment.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArticleCommentComponent implements OnInit, OnDestroy {
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private cd: ChangeDetectorRef
   ) {}
 
   private subscription: Subscription;
@@ -24,6 +26,7 @@ export class ArticleCommentComponent implements OnInit, OnDestroy {
     this.subscription = this.userService.currentUser.subscribe(
       (userData: User) => {
         this.canModify = (userData.username === this.comment.author.username);
+        this.cd.markForCheck();
       }
     );
   }
