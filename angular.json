@@ -16,7 +16,6 @@
             "main": "src/main.ts",
             "tsConfig": "src/tsconfig.app.json",
             "polyfills": "src/polyfills.ts",
-            "experimentalImportFactories": true,
             "assets": [
               "src/assets",
               "src/favicon.ico",
@@ -26,7 +25,8 @@
               "src/styles.css"
             ],
             "scripts": [],
-            "aot": true
+            "aot": true,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
