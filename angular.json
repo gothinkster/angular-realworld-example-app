@@ -38,7 +38,7 @@
               "aot": true,
               "es5BrowserSupport": false,
               "extractLicenses": true,
-              "vendorChunk": true,
+              "vendorChunk": false,
               "buildOptimizer": true,
               "fileReplacements": [
                 {
