@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
-import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   {
@@ -9,8 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: ProfileComponent,
-    // loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+    loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
   },
   {
     path: 'editor',
