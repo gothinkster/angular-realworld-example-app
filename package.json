@@ -23,6 +23,7 @@
     "@angular/forms": "next",
     "@angular/platform-browser": "next",
     "@angular/platform-browser-dynamic": "next",
+    "@angular/platform-server": "next",
     "@angular/pwa": "next",
     "@angular/router": "next",
     "@angular/service-worker": "next",

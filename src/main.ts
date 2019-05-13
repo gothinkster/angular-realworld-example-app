@@ -8,8 +8,10 @@ if (environment.production) {
   enableProdMode();
 }
 
-const bootstrapPromise =  platformBrowserDynamic().bootstrapModule(AppModule);
+document.addEventListener('DOMContentLoaded', () => {
+  const bootstrapPromise =  platformBrowserDynamic().bootstrapModule(AppModule);
+  // Logging bootstrap information
+  bootstrapPromise.then(success => console.log(`Bootstrap success`))
+    .catch(err => console.error(err));
+});
 
-// Logging bootstrap information
-bootstrapPromise.then(success => console.log(`Bootstrap success`))
-  .catch(err => console.error(err));
