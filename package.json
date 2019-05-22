@@ -15,7 +15,6 @@
   ],
   "private": true,
   "dependencies": {
-    "@angular-devkit/core": "^0.6.8",
     "@angular/animations": "7.2.4",
     "@angular/common": "7.2.4",
     "@angular/compiler": "7.2.4",
