@@ -8,6 +8,7 @@ branches:
 
 before_script:
   - yarn install --frozen-lockfile
+  - npx ng analytics on
 
 script:
   - yarn build
