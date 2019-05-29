@@ -1,14 +1,14 @@
 language: node_js
 node_js:
-  - "10.9.0"
+  - "12.3.1"
 
 branches:
   only:
     - master
 
 before_script:
-  - yarn install --frozen-lockfile
   - npx ng analytics on
+  - yarn install --frozen-lockfile
 
 script:
   - yarn build
