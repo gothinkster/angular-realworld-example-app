@@ -7,8 +7,10 @@ branches:
     - master
 
 before_script:
-  - npx ng analytics on
   - yarn install --frozen-lockfile
+
+env:
+  - NG_CLI_ANALYTICS=ci
 
 script:
   - yarn build
