@@ -22,7 +22,6 @@
     "@angular/forms": "8.0.0",
     "@angular/platform-browser": "8.0.0",
     "@angular/platform-browser-dynamic": "8.0.0",
-    "@angular/platform-server": "8.0.0",
     "@angular/pwa": "0.800.0",
     "@angular/router": "8.0.0",
     "@angular/service-worker": "8.0.0",

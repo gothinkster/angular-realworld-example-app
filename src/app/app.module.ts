@@ -13,12 +13,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './core/core.module';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-// import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [AppComponent, FooterComponent, HeaderComponent],
   imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    BrowserModule,
     CoreModule,
     SharedModule,
     HomeModule,
