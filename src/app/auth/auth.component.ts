@@ -29,6 +29,9 @@ export class AuthComponent implements OnInit {
   }
 
   ngOnInit() {
+    // you would normally unsubscribe from this observable subscription
+    // the active route observables are exemptions from unsubribe always rule
+    // see notes on: https://angular.io/guide/router#observable-parammap-and-component-reuse
     this.route.url.subscribe(data => {
       // Get the last piece of the URL (it's either 'login' or 'register')
       this.authType = data[data.length - 1].path;
