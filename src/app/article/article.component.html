@@ -102,7 +102,7 @@
                 ></textarea>
               </div>
               <div class="card-footer">
-                <img [src]="currentUser.image" alt="user image" class="comment-author-img" />
+                <img [src]="currentUser.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" alt="user image" class="comment-author-img" />
                 <button class="btn btn-sm btn-primary" type="submit">
                  Post Comment
                 </button>

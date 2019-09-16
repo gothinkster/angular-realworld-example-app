@@ -6,7 +6,7 @@
   </div>
   <div class="card-footer">
     <a class="comment-author" [routerLink]="['/profile', comment.author.username]">
-      <img [src]="comment.author.image" alt="author image" class="comment-author-img" />
+      <img [src]="comment.author.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" alt="author image" class="comment-author-img" />
     </a>
     &nbsp;
     <a class="comment-author" [routerLink]="['/profile', comment.author.username]">

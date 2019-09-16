@@ -5,7 +5,7 @@
       <div class="row">
 
         <div class="col-xs-12 col-md-10 offset-md-1">
-          <img [src]="profile.image" alt="user image" class="user-img" />
+          <img [src]="profile.image || 'https://static.productionready.io/images/smiley-cyrus.jpg'" alt="user image" class="user-img" />
           <h4>{{ profile.username }}</h4>
           <p>{{ profile.bio }}</p>
           <app-follow-button
