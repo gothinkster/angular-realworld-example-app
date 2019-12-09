@@ -3,21 +3,39 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 const routes: Routes = [
   {
+    path: '',
+    children: [
+      {
+        path: '',
+        loadChildren: './home/home.module#HomeModule'
+      },
+      {
+        path: 'login',
+        loadChildren: './auth/auth.module#AuthModule'
+      },
+      {
+        path: 'register',
+        loadChildren: './auth/auth.module#AuthModule'
+      }
+    ]
+  },
+  {
     path: 'settings',
-    loadChildren: './settings/settings.module#SettingsModule'
+    loadChildren: './settings/settings.module#SettingsModule',
   },
   {
     path: 'profile',
-    loadChildren: './profile/profile.module#ProfileModule'
+    loadChildren: './profile/profile.module#ProfileModule',
   },
   {
     path: 'editor',
-    loadChildren: './editor/editor.module#EditorModule'
+    loadChildren: './editor/editor.module#EditorModule',
   },
   {
     path: 'article',
-    loadChildren: './article/article.module#ArticleModule'
-  }
+    loadChildren: './article/article.module#ArticleModule',
+  },
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

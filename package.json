@@ -5,10 +5,18 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --prod  --base-href ./ && cp CNAME dist/CNAME",
+    "prebuild": "rimraf dist",
+    "build": "ng build --prod  --base-href ./",
+    "build:stats": "yarn build --stats-json",
+    "build:ssr": "yarn build:client-and-server-bundles && yarn compile:server",
+    "postbuild": "cp CNAME dist/CNAME",
+    "analyze": "webpack-bundle-analyzer dist/browser/stats.json",
     "test": "ng test",
     "lint": "ng lint --force",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "compile:server": "webpack --config webpack.server.config.js --progress --colors",
+    "serve:ssr": "node dist/server",
+    "build:client-and-server-bundles": "ng build --prod && ng run ang2-conduit:server:production"
   },
   "pre-commit": [
     "lint"
@@ -20,23 +28,31 @@
     "@angular/compiler": "7.2.4",
     "@angular/core": "7.2.4",
     "@angular/forms": "7.2.4",
+    "@angular/http": "7.2.4",
     "@angular/platform-browser": "7.2.4",
     "@angular/platform-browser-dynamic": "7.2.4",
+    "@angular/platform-server": "7.2.4",
+    "@angular/pwa": "^0.12.4",
     "@angular/router": "7.2.4",
+    "@angular/service-worker": "7.2.4",
+    "@nguniversal/express-engine": "7.1.1",
+    "@nguniversal/module-map-ngfactory-loader": "0.0.0",
+    "@types/marked": "^0.7.2",
     "core-js": "^2.4.1",
-    "marked": "^0.3.9",
+    "express": "^4.15.2",
+    "mock-browser": "^0.92.14",
     "rxjs": "^6.4.0",
     "tslib": "^1.9.0",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.13.0",
-    "@angular/cli": "^7.3.1",
+    "@angular-devkit/build-angular": "^0.13.9",
+    "@angular/cli": "^7.3.9",
     "@angular/compiler-cli": "7.2.4",
     "@angular/language-service": "7.2.4",
     "@types/jasmine": "~2.5.53",
-    "@types/jasminewd2": "~2.0.2",
-    "@types/node": "^9.4.0",
+    "@types/jasminewd2": "^2.0.8",
+    "@types/node": "^9.6.55",
     "codelyzer": "^4.5.0",
     "jasmine-core": "~2.6.2",
     "jasmine-spec-reporter": "~4.1.0",
@@ -46,10 +62,14 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "marked": "^0.8.0",
     "pre-commit": "^1.2.2",
     "protractor": "^5.4.2",
+    "ts-loader": "^5.2.0",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "3.2.4"
+    "typescript": "3.2.4",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-cli": "^3.1.0"
   }
 }

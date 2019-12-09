@@ -73,7 +73,7 @@ export class ArticleComponent implements OnInit {
 
     this.articlesService.destroy(this.article.slug)
       .subscribe(
-        success => {
+        () => {
           this.router.navigateByUrl('/');
         }
       );
@@ -107,7 +107,7 @@ export class ArticleComponent implements OnInit {
   onDeleteComment(comment) {
     this.commentsService.destroy(comment.id, this.article.slug)
       .subscribe(
-        success => {
+        () => {
           this.comments = this.comments.filter((item) => item !== comment);
         }
       );

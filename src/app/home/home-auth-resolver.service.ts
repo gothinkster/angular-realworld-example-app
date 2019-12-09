@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, Resolve, Router, RouterStateSnapshot } from '@a
 import { Observable } from 'rxjs';
 
 import { UserService } from '../core';
-import { take } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 @Injectable()
 export class HomeAuthResolver implements Resolve<boolean> {
@@ -17,7 +17,7 @@ export class HomeAuthResolver implements Resolve<boolean> {
     state: RouterStateSnapshot
   ): Observable<boolean> {
 
-    return this.userService.isAuthenticated.pipe(take(1));
+    return this.userService.isAuthenticated.pipe(first());
 
   }
 }
