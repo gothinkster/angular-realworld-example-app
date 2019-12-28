@@ -1,0 +1,5 @@
+app:
+- redirects:
+    - from: /*
+      to: /index.html
+      html: true
