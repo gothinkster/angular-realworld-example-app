@@ -9,7 +9,7 @@
     "test": "ng test",
     "lint": "ng lint --force",
     "e2e": "ng e2e",
-    "postinstall": "ngcc"
+    "postinstall": "ngcc --properties es2015 browser module main --first-only --create-ivy-entry-points"
   },
   "pre-commit": [
     "lint"
@@ -37,10 +37,10 @@
     "@angular/cli": "9.0.1",
     "@angular/compiler-cli": "9.0.0",
     "@angular/language-service": "9.0.0",
-    "@types/jasmine": "~3.5.0",
+    "@types/jasmine": "~3.5.3",
     "@types/jasminewd2": "~2.0.8",
-    "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
+    "@types/node": "^13.7.0",
+    "codelyzer": "^5.2.1",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.4.1",
@@ -48,11 +48,11 @@
     "karma-cli": "~2.0.0",
     "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-jasmine": "~3.1.0",
-    "karma-jasmine-html-reporter": "^1.5.1",
+    "karma-jasmine-html-reporter": "^1.5.2",
     "pre-commit": "^1.2.2",
-    "protractor": "^5.4.2",
+    "protractor": "^5.4.3",
     "ts-node": "~8.6.2",
-    "tslint": "~5.20.1",
+    "tslint": "~6.0.0",
     "typescript": "^3.7.5"
   }
 }
