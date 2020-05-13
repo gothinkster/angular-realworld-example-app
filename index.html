@@ -27,8 +27,10 @@
       // Call this whenever information about your visitors becomes available
       // Please use Strings, Numbers, or Bools for value types.
       pendo.initialize({
+        excludeAllText: true,
+        allowedText: ["Settings", "Submit", "Close", "Your Feed", "Global Feed", "Configuration & Reporting", "Profile", "Done", "Exit"],
         visitor: {
-          id:              'VISITOR-UNIQUE-ID'   // Required if user is logged in
+          id:              'Jordan'   // Required if user is logged in
           // email:        // Optional
           // role:         // Optional
 
@@ -37,7 +39,7 @@
         },
 
         account: {
-          id:           'ACCOUNT-UNIQUE-ID' // Highly recommended
+          id:           'Pendo' // Highly recommended
           // name:         // Optional
           // planLevel:    // Optional
           // planPrice:    // Optional
@@ -45,7 +47,8 @@
 
           // You can add any additional account level key-values here,
           // as long as it's not one of the above reserved names.
-        }
+        },
+        
       });
     })('d9e30fcc-6ddc-48bd-7843-8bce634e1b8a');
 </script>
