@@ -1,5 +1,5 @@
-import { ModuleWithProviders, NgModule } from "@angular/core";
-import { RouterModule } from "@angular/router";
+import { /*ModuleWithProviders,*/ NgModule } from "@angular/core";
+// import { RouterModule } from '@angular/router';
 
 import { EditorComponent } from "./editor.component";
 import { EditableArticleResolver } from "./editable-article-resolver.service";
