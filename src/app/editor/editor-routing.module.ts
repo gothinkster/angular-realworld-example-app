@@ -7,12 +7,12 @@ import { AuthGuard } from '../core';
 
 const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: EditorComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: ":slug",
+    path: ':slug',
     component: EditorComponent,
     canActivate: [AuthGuard],
     resolve: {
