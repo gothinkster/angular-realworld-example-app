@@ -1,8 +1,8 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { EditorComponent } from "./editor.component";
-import { EditableArticleResolver } from "./editable-article-resolver.service";
-import { AuthGuard } from "../core";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { EditorComponent } from './editor.component';
+import { EditableArticleResolver } from './editable-article-resolver.service';
+import { AuthGuard } from '../core';
 // import { SharedModule } from '../shared';
 
 const routes: Routes = [
