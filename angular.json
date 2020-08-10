@@ -35,7 +35,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": true,
-              "es5BrowserSupport": false,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -140,7 +139,7 @@
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",
-      "styleext": "css"
+      "style": "css"
     },
     "@schematics/angular:directive": {
       "prefix": "app"
