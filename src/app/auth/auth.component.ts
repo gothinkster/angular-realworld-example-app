@@ -9,8 +9,8 @@ import { Errors, UserService } from '../core';
   templateUrl: './auth.component.html'
 })
 export class AuthComponent implements OnInit {
-  authType: String = '';
-  title: String = '';
+  authType = '';
+  title = '';
   errors: Errors = {errors: {}};
   isSubmitting = false;
   authForm: FormGroup;

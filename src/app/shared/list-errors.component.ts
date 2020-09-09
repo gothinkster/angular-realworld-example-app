@@ -7,7 +7,7 @@ import { Errors } from '../core';
   templateUrl: './list-errors.component.html'
 })
 export class ListErrorsComponent {
-  formattedErrors: Array<string> = [];
+  formattedErrors: string[] = [];
 
   @Input()
   set errors(errorList: Errors) {

@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
     type: 'all',
     filters: {}
   };
-  tags: Array<string> = [];
+  tags: string[] = [];
   tagsLoaded = false;
 
   ngOnInit() {
@@ -44,7 +44,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  setListTo(type: string = '', filters: Object = {}) {
+  setListTo(type: string = '', filters: any = {}) {
     // If feed is requested but user is not authenticated, redirect to login
     if (type === 'feed' && !this.isAuthenticated) {
       this.router.navigateByUrl('/login');
@@ -52,6 +52,6 @@ export class HomeComponent implements OnInit {
     }
 
     // Otherwise, set the list object
-    this.listConfig = {type: type, filters: filters};
+    this.listConfig = {type, filters};
   }
 }
