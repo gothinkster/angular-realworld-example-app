@@ -81,7 +81,7 @@
     
     pendo.drawSecondaryHomeViewBadge = function() {
       var targetModule = document.querySelector('[data-pendo-module-guide-id="LmGbUlAezONF1-hGE-kJh5BGDbg@RQEFDBOf2sqeN8xgZmibcIcrueU"] > ._pendo-text-link > ._pendo-row > .pendo-mock-flexbox-row > .pendo-mock-flexbox-element');
-      if(targetModule.length){
+      if(targetModule){
         targetModule.innerHTML += pendo.secondaryHomeViewBubble; //need to update this one's guide-id to your custom rc module guide id
         pendo.secondaryHomeViewBadgeCountElem = document.getElementById('pendo-secondary-home-view-count')
         pendo.updateSecondaryHomeViewBadge();
@@ -104,7 +104,7 @@
       // create an observer instance
       var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-          if (mutation.addedNodes.length) {
+          if (mutation.addedNodes.length && pendo.alerts > 0) {
             if (mutation.addedNodes[0].id == 'pendo-resource-center-container') {
               pendo.drawSecondaryHomeViewBadge();
               pendo.isSecondaryBadgeDrawn = true;
