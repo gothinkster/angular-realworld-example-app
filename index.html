@@ -59,30 +59,39 @@
       },
       events: {
         ready: function() {
-          pendo.secondaryHomeViewBubble = '<div class="_pendo-secondary-home-view-bubble" style="position: absolute; border-radius: 20px; height: 26px; line-height: 0px; padding: 0px 10px; right: 20px; top: 50%; margin-top: -14px; box-sizing: content-box; background-color: rgb(236, 32, 89); display: block;"><div id="pendo-secondary-home-view-count" style="display: inline-block; vertical-align: middle; line-height: 26px; font-weight: 400; font-family: inherit; color: rgb(255, 255, 255); white-space: pre-wrap;"></div></div>';
-          pendo.secondaryBadgeTemplate = '<div id="pendo-secondary-badge" class="pendo-resource-center-badge-secondary-notification-bubble" style="position: absolute; border-radius: 20px; line-height: 0px; height: 26px; box-sizing: content-box; top: -2px; left: -12px; padding: 0px 10px; margin-left: 0px; margin-top: 0px;">' +
+          pendo.secondaryHomeViewBubble = '<div id="pendo-secondary-home-view-bubble" class="_pendo-secondary-home-view-bubble" style="position: absolute; border-radius: 20px; height: 26px; line-height: 0px; padding: 0px 10px; right: 20px; top: 50%; margin-top: -14px; box-sizing: content-box; background-color: rgb(236, 32, 89); display: block;"><div id="pendo-secondary-home-view-count" style="display: inline-block; vertical-align: middle; line-height: 26px; font-weight: 400; font-family: inherit; color: rgb(255, 255, 255); white-space: pre-wrap;"></div></div>';
+          pendo.secondaryRCBadgeTemplate = '<div id="pendo-secondary-badge-bubble" class="pendo-resource-center-badge-secondary-notification-bubble" style="position: absolute; border-radius: 20px; line-height: 0px; height: 26px; box-sizing: content-box; top: -2px; left: -12px; padding: 0px 10px; margin-left: 0px; margin-top: 0px;">' +
             '<div class="pendo-secondary-notification-bubble-unread-count" style="font-weight: 400; font-family: inherit; height: 100%; display: inline-block; line-height: 26px; vertical-align: middle; color: rgb(255, 255, 255); white-space: pre-wrap;"></div>' + '</div> ';
           pendo.backUpPulseAnimation = '<style id="pendo-secondary-resource-center-bubble-animation">@keyframes pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.6) } } .pendo-resource-center-badge-secondary-notification-bubble::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 100%; z-index: -1; animation: pulse 2s infinite; will-change: transform; }</style>';
-        },
-        guidesLoaded: function() {
+          pendo.isSecondaryBadgeDrawn = false;
+          pendo.alerts = 0;
           pendo.addRCMutationListener();
         }
-      },
-      excludeAllText: true,
-      allowedText: ["Back", "Next", "New Article", "Home", "Settings", "Your Feed", "Profile", "Done", "Exit"]
+      }
     });
 
-    pendo.drawSecondaryBadge = function() {
+    pendo.drawSecondaryRCBadge = function() {
       document
         .getElementsByClassName("_pendo-resource-center-badge-container")[0]
-        .innerHTML += pendo.secondaryBadgeTemplate + pendo.backUpPulseAnimation;
-      pendo.secondaryBadgeUnreadCount = document.getElementsByClassName('pendo-secondary-notification-bubble-unread-count')[0];
-      pendo.updateSecondaryBadge();
-
+        .innerHTML += pendo.secondaryRCBadgeTemplate + pendo.backUpPulseAnimation;
+      pendo.secondaryRCBadgeUnreadCount = document.getElementsByClassName('pendo-secondary-notification-bubble-unread-count')[0];
+      pendo.updateSecondaryRCBadge();
+      pendo.isSecondaryRCBadgeDrawn = true; 
     };
+    
+    pendo.drawSecondaryHomeViewBadge = function() {
+      var targetModule = document.querySelector('[data-pendo-module-guide-id="LmGbUlAezONF1-hGE-kJh5BGDbg@RQEFDBOf2sqeN8xgZmibcIcrueU"] > ._pendo-text-link > ._pendo-row > .pendo-mock-flexbox-row > .pendo-mock-flexbox-element');
+      if(targetModule.length){
+        targetModule.innerHTML += pendo.secondaryHomeViewBubble; //need to update this one's guide-id to your custom rc module guide id
+        pendo.secondaryHomeViewBadgeCountElem = document.getElementById('pendo-secondary-home-view-count')
+        pendo.updateSecondaryHomeViewBadge();
+        pendo.isSecondaryRCBadgeDrawn = true; 
 
-    pendo.updateSecondaryBadge = function() {
-      pendo.secondaryBadgeUnreadCount.innerText = pendo.alerts.length;
+      }
+    }
+
+    pendo.updateSecondaryRCBadge = function() {
+      pendo.secondaryRCBadgeUnreadCount.innerText = pendo.alerts.length;
     }
 
     pendo.updateSecondaryHomeViewBadge = function() {
@@ -98,8 +107,10 @@
           if (mutation.addedNodes.length) {
             if (mutation.addedNodes[0].id == 'pendo-resource-center-container') {
               pendo.drawSecondaryHomeViewBadge();
+              pendo.isSecondaryBadgeDrawn = true;
             } else if (mutation.addedNodes[0].classList.contains('_pendo-resource-center-badge-container')) {
-              pendo.drawSecondaryBadge();
+              pendo.drawSecondaryRCBadge();
+              pendo.isSecondaryRCBadgeDrawn = true;
             }
           }
         });
@@ -118,17 +129,43 @@
       observer.observe(target, config);
 
     }
-
-    pendo.drawSecondaryHomeViewBadge = function() {
-      document.querySelector('[data-pendo-module-guide-id="LmGbUlAezONF1-hGE-kJh5BGDbg@RQEFDBOf2sqeN8xgZmibcIcrueU"] > ._pendo-text-link > ._pendo-row > .pendo-mock-flexbox-row > .pendo-mock-flexbox-element').innerHTML += pendo.secondaryHomeViewBubble; //need to update this one's guide-id to your custom rc module guide id
-      pendo.secondaryHomeViewBadgeCountElem = document.getElementById('pendo-secondary-home-view-count')
+    
+    pendo.setAlerts = function(alertNum) {
+      pendo.alerts = alertNum
+       if(pendo.isSecondaryBadgeDrawn && pendo.alerts <= 0){ // if the badge is drawn but the alert number is now 0 or less
+         pendo.removeSecondaryBadges()
+       }else if(!pendo.isSecondaryBadgeDrawn && pendo.alerts > 0){ //if the badge isn't drawn and the number of alerts is greater than 0
+         pendo.attemptToDrawSecondaryBadges()
+       }else if(pendo.isSecondaryBadgeDrawn && pendo.alerts > 0){ // if the badge is drawn and the number of alerts is greater than 0
+         pendo.attemptToUpdateSecondaryBadges()
+       }
+    }
+    
+    pendo.attemptToDrawSecondaryBadges = function(){
+      pendo.drawSecondaryHomeViewBadge();
+      pendo.drawSecondaryRCBadge();
+    }
+    
+    pendo.attemptToUpdateSecondaryBadges = function(){
       pendo.updateSecondaryHomeViewBadge();
+      pendo.updateSecondaryRCBadge();
     }
 
-    pendo.alerts = [{
-      type: "critical",
-      info: "this is the alert info",
-    }]
+    
+    pendo.removeSecondaryBadges = function() {
+      var homeViewBubble = document.getElementById('pendo-secondary-home-view-bubble')
+      var rcBadgeBubble = document.getElementById('pendo-secondary-badge-bubble')
+      if(homeViewBubble){
+        homeViewBubble.parentNode.removeChild(homeViewBubble) 
+      }
+      if(rcBadgeBubble){
+        rcBadgeBubble.parentNode.removeChild(rcBadgeBubble) 
+      }
+      pendo.isSecondaryRCBadgeDrawn = false; 
+    }
+
+
+    
   })('d9e30fcc-6ddc-48bd-7843-8bce634e1b8a');
 </script>
 
