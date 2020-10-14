@@ -1,56 +1,109 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Conduit</title>
-  <base href="https://jordan-milner.github.io/angular-realworld-example-app/">
+  <base href="/">
+
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="//code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" rel="stylesheet" type="text/css">
   <link href="//fonts.googleapis.com/css?family=Titillium+Web:700|Source+Serif+Pro:400,700|Merriweather+Sans:400,700|Source+Sans+Pro:400,300,600,700,300italic,400italic,600italic,700italic" rel="stylesheet" type="text/css">
   <link rel="stylesheet" href="//demo.productionready.io/main.css">
 
-<link rel="stylesheet" href="styles.34c57ab7888ec1573f9c.css"></head>
+</head>
+
 <body>
   <app-root>Loading...</app-root>
-<script type="text/javascript" src="runtime.9c71f4baf75d5a9a2e77.js"></script><script type="text/javascript" src="polyfills.74c949fb901fde2a61b1.js"></script><script type="text/javascript" src="main.f3d8bb64fb27f07f3590.js"></script></body>
+</body>
 
 
 <script>
-    console.log(window.location.href);
-    (function(apiKey){
-      (function(p,e,n,d,o){var v,w,x,y,z;o=p[d]=p[d]||{};o._q=[];
-        v=['initialize','identify','updateOptions','pageLoad'];for(w=0,x=v.length;w<x;++w)(function(m){
-        o[m]=o[m]||function(){o._q[m===v[0]?'unshift':'push']([m].concat([].slice.call(arguments,0)));};})(v[w]);
-        y=e.createElement(n);y.async=!0;y.src='https://cdn.pendo.io/agent/static/'+apiKey+'/pendo.js';
-        z=e.getElementsByTagName(n)[0];z.parentNode.insertBefore(y,z);})(window,document,'script','pendo');
+  (function(apiKey) {
+    (function(p, e, n, d, o) {
+      var v, w, x, y, z;
+      o = p[d] = p[d] || {};
+      o._q = [];
+      v = ['initialize', 'identify', 'updateOptions', 'pageLoad'];
+      for (w = 0, x = v.length; w < x; ++w)(function(m) {
+        o[m] = o[m] || function() {
+          o._q[m === v[0] ? 'unshift' : 'push']([m].concat([].slice.call(arguments, 0)));
+        };
+      })(v[w]);
+      y = e.createElement(n);
+      y.async = !0;
+      y.src = 'https://cdn.pendo.io/agent/static/' + apiKey + '/pendo.js';
+      z = e.getElementsByTagName(n)[0];
+      z.parentNode.insertBefore(y, z);
+    })(window, document, 'script', 'pendo');
 
-      // Call this whenever information about your visitors becomes available
-      // Please use Strings, Numbers, or Bools for value types.
-      pendo.initialize({
-        excludeAllText: true,
-        allowedText: ["Settings", "Submit", "Close", "Your Feed", "Global Feed", "Configuration & Reporting", "Profile", "Done", "Exit"],
-        visitor: {
-          id:              'Jordan'   // Required if user is logged in
-          // email:        // Optional
-          // role:         // Optional
+    // Call this whenever information about your visitors becomes available
+    // Please use Strings, Numbers, or Bools for value types.
+    pendo.initialize({
+      visitor: {
+        id: "jordan" // Required if user is logged in
+        // email:        // Optional
+        // role:         // Optional
 
-          // You can add any additional visitor level key-values here,
-          // as long as it's not one of the above reserved names.
-        },
+        // You can add any additional visitor level key-values here,
+        // as long as it's not one of the above reserved names.
+      },
 
-        account: {
-          id:           'Pendo' // Highly recommended
-          // name:         // Optional
-          // planLevel:    // Optional
-          // planPrice:    // Optional
-          // creationDate: // Optional
+      account: {
+        id: 'ACCOUNT-UNIQUE-ID' // Highly recommended
+        // name:         // Optional
+        // planLevel:    // Optional
+        // planPrice:    // Optional
+        // creationDate: // Optional
 
-          // You can add any additional account level key-values here,
-          // as long as it's not one of the above reserved names.
-        },
-        
-      });
-    })('d9e30fcc-6ddc-48bd-7843-8bce634e1b8a');
+        // You can add any additional account level key-values here,
+        // as long as it's not one of the above reserved names.
+      },
+      events: {
+        ready: function() {
+          var loadGuides = window.pendo.loadGuides;
+          window.pendo.loadGuides = function() {
+            loadGuides()
+            pendo.secondaryBadgeTemplate =
+              '<div id="pendo-secondary-badge" class="pendo-resource-center-badge-secondary-notification-bubble" style="position: absolute; border-radius: 20px; line-height: 0px; height: 26px; box-sizing: content-box; top: -2px; left: -12px; padding: 0px 10px; margin-left: 0px; margin-top: 0px;">' +
+              '<div class="pendo-secondary-notification-bubble-unread-count" style="font-weight: 400; font-family: inherit; height: 100%; display: inline-block; line-height: 26px; vertical-align: middle; color: rgb(255, 255, 255); white-space: pre-wrap;"></div>' +
+              '</div> '
+            pendo.drawSecondaryBadge();
+          }
+        }
+      },
+      excludeAllText: true,
+      allowedText: ["Back", "Next", "New Article", "Home", "Settings", "Your Feed", "Profile", "Done", "Exit"]
+    });
+  })('d9e30fcc-6ddc-48bd-7843-8bce634e1b8a');
+
+  pendo.drawSecondaryBadge = function() {
+    var checkExist = setInterval(function() {
+      if (
+        document.getElementsByClassName(
+          "_pendo-resource-center-badge-container"
+        ).length
+      ) {
+        document
+          .getElementsByClassName("_pendo-resource-center-badge-container")[0]
+          .innerHTML += pendo.secondaryBadgeTemplate;
+        pendo.secondaryBadgeUnreadCount = document.getElementsByClassName('pendo-secondary-notification-bubble-unread-count')[0]
+        pendo.updateSecondaryBadge()
+        clearInterval(checkExist);
+      }
+    }, 100);
+  };
+
+  pendo.updateSecondaryBadge = function() {
+    pendo.secondaryBadgeUnreadCount.innerText = alerts.length;
+  }
+
+  // Call this whenever information about your visitors becomes available
+  // Please use Strings, Numbers, or Bools for value types.
+  var alerts = [{
+    type: "critical",
+    info: "this is the alert info",
+  }]
 </script>
-        
+
 </html>
