@@ -91,11 +91,11 @@
     }
 
     pendo.updateSecondaryRCBadge = function() {
-      pendo.secondaryRCBadgeUnreadCount.innerText = pendo.alerts.length;
+      pendo.secondaryRCBadgeUnreadCount.innerText = pendo.alerts;
     }
 
     pendo.updateSecondaryHomeViewBadge = function() {
-      pendo.secondaryHomeViewBadgeCountElem.innerText = pendo.alerts.length;
+      pendo.secondaryHomeViewBadgeCountElem.innerText = pendo.alerts;
     }
 
     pendo.addRCMutationListener = function() {
