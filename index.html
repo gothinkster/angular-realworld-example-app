@@ -59,49 +59,76 @@
       },
       events: {
         ready: function() {
-          var loadGuides = window.pendo.loadGuides;
-          window.pendo.loadGuides = function() {
-            loadGuides()
-            pendo.secondaryBadgeTemplate =
-              '<div id="pendo-secondary-badge" class="pendo-resource-center-badge-secondary-notification-bubble" style="position: absolute; border-radius: 20px; line-height: 0px; height: 26px; box-sizing: content-box; top: -2px; left: -12px; padding: 0px 10px; margin-left: 0px; margin-top: 0px;">' +
-              '<div class="pendo-secondary-notification-bubble-unread-count" style="font-weight: 400; font-family: inherit; height: 100%; display: inline-block; line-height: 26px; vertical-align: middle; color: rgb(255, 255, 255); white-space: pre-wrap;"></div>' +
-              '</div> '
-            pendo.drawSecondaryBadge();
-          }
+          pendo.secondaryHomeViewBubble = '<div class="_pendo-secondary-home-view-bubble" style="position: absolute; border-radius: 20px; height: 26px; line-height: 0px; padding: 0px 10px; right: 20px; top: 50%; margin-top: -14px; box-sizing: content-box; background-color: rgb(236, 32, 89); display: block;"><div id="pendo-secondary-home-view-count" style="display: inline-block; vertical-align: middle; line-height: 26px; font-weight: 400; font-family: inherit; color: rgb(255, 255, 255); white-space: pre-wrap;"></div></div>'
+          pendo.secondaryBadgeTemplate = '<div id="pendo-secondary-badge" class="pendo-resource-center-badge-secondary-notification-bubble" style="position: absolute; border-radius: 20px; line-height: 0px; height: 26px; box-sizing: content-box; top: -2px; left: -12px; padding: 0px 10px; margin-left: 0px; margin-top: 0px;">' +
+            '<div class="pendo-secondary-notification-bubble-unread-count" style="font-weight: 400; font-family: inherit; height: 100%; display: inline-block; line-height: 26px; vertical-align: middle; color: rgb(255, 255, 255); white-space: pre-wrap;"></div>' + '</div> '
+        },
+        guidesLoaded: function() {
+          pendo.addRCMutationListener();
         }
       },
       excludeAllText: true,
       allowedText: ["Back", "Next", "New Article", "Home", "Settings", "Your Feed", "Profile", "Done", "Exit"]
     });
+
+    pendo.drawSecondaryBadge = function() {
+      document
+        .getElementsByClassName("_pendo-resource-center-badge-container")[0]
+        .innerHTML += pendo.secondaryBadgeTemplate;
+      pendo.secondaryBadgeUnreadCount = document.getElementsByClassName('pendo-secondary-notification-bubble-unread-count')[0]
+      pendo.updateSecondaryBadge()
+
+    };
+
+    pendo.updateSecondaryBadge = function() {
+      pendo.secondaryBadgeUnreadCount.innerText = alerts.length;
+    }
+
+    pendo.updateSecondaryHomeViewBadge = function() {
+      pendo.secondaryHomeViewBadgeCountElem.innerText = alerts.length;
+    }
+
+    pendo.addRCMutationListener = function() {
+      var target = document.querySelector('body');
+
+      // create an observer instance
+      var observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.addedNodes.length) {
+            if (mutation.addedNodes[0].id == 'pendo-resource-center-container') {
+              pendo.drawSecondaryHomeViewBadge();
+            } else if (mutation.addedNodes[0].classList.contains('_pendo-resource-center-badge-container')) {
+              pendo.drawSecondaryBadge();
+            }
+          }
+        });
+      });
+
+      // configuration of the observer:
+      var config = {
+        attributeFilter: ['data-layout'],
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: false
+      };
+
+      // start the observer, pass in the target node, as well as the observer options
+      observer.observe(target, config);
+
+    }
+
+    pendo.drawSecondaryHomeViewBadge = function() {
+      document.querySelector('[data-pendo-module-guide-id="LmGbUlAezONF1-hGE-kJh5BGDbg@RQEFDBOf2sqeN8xgZmibcIcrueU"] > ._pendo-text-link > ._pendo-row > .pendo-mock-flexbox-row > .pendo-mock-flexbox-element').innerHTML += pendo.secondaryHomeViewBubble; //need to update this one's guide-id to your custom rc module guide id
+      pendo.secondaryHomeViewBadgeCountElem = document.getElementById('pendo-secondary-home-view-count')
+      pendo.updateSecondaryHomeViewBadge();
+    }
+
+    var alerts = [{
+      type: "critical",
+      info: "this is the alert info",
+    }]
   })('d9e30fcc-6ddc-48bd-7843-8bce634e1b8a');
-
-  pendo.drawSecondaryBadge = function() {
-    var checkExist = setInterval(function() {
-      if (
-        document.getElementsByClassName(
-          "_pendo-resource-center-badge-container"
-        ).length
-      ) {
-        document
-          .getElementsByClassName("_pendo-resource-center-badge-container")[0]
-          .innerHTML += pendo.secondaryBadgeTemplate;
-        pendo.secondaryBadgeUnreadCount = document.getElementsByClassName('pendo-secondary-notification-bubble-unread-count')[0]
-        pendo.updateSecondaryBadge()
-        clearInterval(checkExist);
-      }
-    }, 100);
-  };
-
-  pendo.updateSecondaryBadge = function() {
-    pendo.secondaryBadgeUnreadCount.innerText = alerts.length;
-  }
-
-  // Call this whenever information about your visitors becomes available
-  // Please use Strings, Numbers, or Bools for value types.
-  var alerts = [{
-    type: "critical",
-    info: "this is the alert info",
-  }]
 </script>
 
 </html>
