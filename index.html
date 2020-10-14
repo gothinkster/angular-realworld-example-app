@@ -95,7 +95,9 @@
     }
 
     pendo.updateSecondaryHomeViewBadge = function() {
-      pendo.secondaryHomeViewBadgeCountElem.innerText = pendo.alerts;
+      if(pendo.secondaryHomeViewBadgeCountElem){
+        pendo.secondaryHomeViewBadgeCountElem.innerText = pendo.alerts;
+      }
     }
 
     pendo.addRCMutationListener = function() {
