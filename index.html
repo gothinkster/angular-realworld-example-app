@@ -76,7 +76,7 @@
         .innerHTML += pendo.secondaryRCBadgeTemplate + pendo.backUpPulseAnimation;
       pendo.secondaryRCBadgeUnreadCount = document.getElementsByClassName('pendo-secondary-notification-bubble-unread-count')[0];
       pendo.updateSecondaryRCBadge();
-      pendo.isSecondaryRCBadgeDrawn = true; 
+      pendo.isSecondaryBadgeDrawn = true; 
     };
     
     pendo.drawSecondaryHomeViewBadge = function() {
@@ -85,7 +85,7 @@
         targetModule.innerHTML += pendo.secondaryHomeViewBubble; //need to update this one's guide-id to your custom rc module guide id
         pendo.secondaryHomeViewBadgeCountElem = document.getElementById('pendo-secondary-home-view-count')
         pendo.updateSecondaryHomeViewBadge();
-        pendo.isSecondaryRCBadgeDrawn = true; 
+        pendo.isSecondaryBadgeDrawn = true; 
 
       }
     }
@@ -110,13 +110,12 @@
               pendo.isSecondaryBadgeDrawn = true;
             } else if (mutation.addedNodes[0].classList.contains('_pendo-resource-center-badge-container')) {
               pendo.drawSecondaryRCBadge();
-              pendo.isSecondaryRCBadgeDrawn = true;
+              pendo.isSecondaryBadgeDrawn = true;
             }
           }
         });
       });
-
-      // configuration of the observer:
+      
       var config = {
         attributeFilter: ['data-layout'],
         attributes: true,
@@ -125,9 +124,7 @@
         subtree: false
       };
 
-      // start the observer, pass in the target node, as well as the observer options
       observer.observe(target, config);
-
     }
     
     pendo.setAlerts = function(alertNum) {
@@ -150,7 +147,6 @@
       pendo.updateSecondaryHomeViewBadge();
       pendo.updateSecondaryRCBadge();
     }
-
     
     pendo.removeSecondaryBadges = function() {
       var homeViewBubble = document.getElementById('pendo-secondary-home-view-bubble')
@@ -161,10 +157,8 @@
       if(rcBadgeBubble){
         rcBadgeBubble.parentNode.removeChild(rcBadgeBubble) 
       }
-      pendo.isSecondaryRCBadgeDrawn = false; 
+      pendo.isSecondaryBadgeDrawn = false; 
     }
-
-
     
   })('d9e30fcc-6ddc-48bd-7843-8bce634e1b8a');
 </script>
