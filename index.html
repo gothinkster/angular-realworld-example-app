@@ -81,11 +81,11 @@
     };
 
     pendo.updateSecondaryBadge = function() {
-      pendo.secondaryBadgeUnreadCount.innerText = alerts.length;
+      pendo.secondaryBadgeUnreadCount.innerText = pendo.alerts.length;
     }
 
     pendo.updateSecondaryHomeViewBadge = function() {
-      pendo.secondaryHomeViewBadgeCountElem.innerText = alerts.length;
+      pendo.secondaryHomeViewBadgeCountElem.innerText = pendo.alerts.length;
     }
 
     pendo.addRCMutationListener = function() {
