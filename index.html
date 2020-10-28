@@ -66,6 +66,8 @@
           pendo.isSecondaryBadgeDrawn = false;
           pendo.customModuleSelector = '[data-pendo-module-guide-id="7WzvRuGBXu4FmRZzTotkcdbZrh8@RQEFDBOf2sqeN8xgZmibcIcrueU"] > ._pendo-text-link > ._pendo-row > .pendo-mock-flexbox-row > .pendo-mock-flexbox-element'
           pendo.alerts = 0;
+          pendo.bodyObserver = null;
+          pendo.RCObserver = null;
           pendo.addBodyMutationListener();
         }
       }
@@ -100,25 +102,30 @@
         pendo.secondaryHomeViewBadgeCountElem.innerText = pendo.alerts;
       }
     }
-
+    
     pendo.addBodyMutationListener = function() {
       var target = document.querySelector('body');
 
       // create an observer instance
-      var observer = new MutationObserver(function(mutations) {
+      pendo.bodyObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
           if (mutation.addedNodes.length && pendo.alerts > 0) {
             if (mutation.addedNodes[0].id == 'pendo-resource-center-container') {
               pendo.drawSecondaryHomeViewBadge();
+              pendo.addRCMutationListener(); //if the RC container is added start listening to what's happening inside
               pendo.isSecondaryBadgeDrawn = true;
             } else if (mutation.addedNodes[0].classList.contains('_pendo-resource-center-badge-container')) {
               pendo.drawSecondaryRCBadge();
               pendo.isSecondaryBadgeDrawn = true;
             }
+          }else if (mutation.removedNodes.length){
+            if (mutation.removedNodes[0].id == 'pendo-resource-center-container') {
+              pendo.RCObserver.disconnect(); // if the rc container is removed switch off the mutation listener
+            }
           }
         });
       });
-      
+
       var config = {
         attributeFilter: ['data-layout'],
         attributes: true,
@@ -127,7 +134,34 @@
         subtree: false
       };
 
-      observer.observe(target, config);
+      pendo.bodyObserver.observe(target, config);
+    }
+    
+    //observes rc container to draw Badge on Home view when modules are opened and closed.
+    pendo.addRCMutationListener = function () {
+      var target = document.getElementById('pendo-resource-center-container');
+
+      // create an observer instance
+      pendo.RCObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+          if (mutation.addedNodes.length && pendo.alerts > 0) {
+            if (mutation.addedNodes[0].classList.contains('_pendo-resource-center-view-transitions')) {
+              pendo.drawSecondaryHomeViewBadge();
+              pendo.isSecondaryBadgeDrawn = true;
+            }
+          }
+        });
+      });
+
+      var config = {
+        attributeFilter: ['data-layout'],
+        attributes: true,
+        childList: true,
+        characterData: true,
+        subtree: false
+      };
+
+      pendo.RCObserver.observe(target, config);
     }
     
     pendo.setAlerts = function(alertNum) {
