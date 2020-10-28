@@ -109,12 +109,14 @@
       // create an observer instance
       pendo.bodyObserver = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-          if (mutation.addedNodes.length && pendo.alerts > 0) {
+          if (mutation.addedNodes.length) {
             if (mutation.addedNodes[0].id == 'pendo-resource-center-container') {
-              pendo.drawSecondaryHomeViewBadge();
               pendo.addRCMutationListener(); //if the RC container is added start listening to what's happening inside
-              pendo.isSecondaryBadgeDrawn = true;
-            } else if (mutation.addedNodes[0].classList.contains('_pendo-resource-center-badge-container')) {
+              if(pendo.alerts > 0){
+                pendo.drawSecondaryHomeViewBadge();
+                pendo.isSecondaryBadgeDrawn = true;
+              }
+            } else if (mutation.addedNodes[0].classList.contains('_pendo-resource-center-badge-container') && pendo.alerts > 0) {
               pendo.drawSecondaryRCBadge();
               pendo.isSecondaryBadgeDrawn = true;
             }
