@@ -64,8 +64,9 @@
             '<div class="pendo-secondary-notification-bubble-unread-count" style="font-weight: 400; font-family: inherit; height: 100%; display: inline-block; line-height: 26px; vertical-align: middle; color: rgb(255, 255, 255); white-space: pre-wrap;"></div>' + '</div> ';
           pendo.backUpPulseAnimation = '<style id="pendo-secondary-resource-center-bubble-animation">@keyframes pulse { 0% { opacity: 1; transform: scale(1); } 100% { opacity: 0; transform: scale(1.6) } } .pendo-resource-center-badge-secondary-notification-bubble::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; border-radius: 100%; z-index: -1; animation: pulse 2s infinite; will-change: transform; }</style>';
           pendo.isSecondaryBadgeDrawn = false;
+          pendo.customModuleSelector = '[data-pendo-module-guide-id="7WzvRuGBXu4FmRZzTotkcdbZrh8@RQEFDBOf2sqeN8xgZmibcIcrueU"] > ._pendo-text-link > ._pendo-row > .pendo-mock-flexbox-row > .pendo-mock-flexbox-element'
           pendo.alerts = 0;
-          pendo.addRCMutationListener();
+          pendo.addBodyMutationListener();
         }
       }
     });
@@ -80,7 +81,7 @@
     };
     
     pendo.drawSecondaryHomeViewBadge = function() {
-      var targetModule = document.querySelector('[data-pendo-module-guide-id="LmGbUlAezONF1-hGE-kJh5BGDbg@RQEFDBOf2sqeN8xgZmibcIcrueU"] > ._pendo-text-link > ._pendo-row > .pendo-mock-flexbox-row > .pendo-mock-flexbox-element');
+      var targetModule = document.querySelector(pendo.customModuleSelector);
       if(targetModule){
         targetModule.innerHTML += pendo.secondaryHomeViewBubble; //need to update this one's guide-id to your custom rc module guide id
         pendo.secondaryHomeViewBadgeCountElem = document.getElementById('pendo-secondary-home-view-count')
@@ -100,7 +101,7 @@
       }
     }
 
-    pendo.addRCMutationListener = function() {
+    pendo.addBodyMutationListener = function() {
       var target = document.querySelector('body');
 
       // create an observer instance
