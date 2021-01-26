@@ -1,3 +1,8 @@
 .page-link {
   cursor: pointer;
+  width: 2.5rem;
+  height: 2.5rem;
+  text-align: center;
+  margin-right: 0.3rem;
+  margin-top: 0.3rem;
 }
