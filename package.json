@@ -15,6 +15,9 @@
     "lint"
   ],
   "private": true,
+  "resolutions": {
+    "webpack": "^5.0.0"
+  },
   "dependencies": {
     "@angular/animations": "11.1.0",
     "@angular/common": "11.1.0",
