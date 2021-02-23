@@ -1,0 +1,22 @@
+language: node_js
+node_js:
+  - "8.9.4"
+
+branches:
+  only:
+    - master
+
+before_script:
+  - yarn install --frozen-lockfile
+
+script:
+  - yarn build
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  keep-history: true
+  on:
+    branch: master
+  local_dir: dist
