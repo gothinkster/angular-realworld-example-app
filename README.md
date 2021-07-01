@@ -1,5 +1,5 @@
 [![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg)](http://realworld.io)
-
+[![Netlify Status](https://api.netlify.com/api/v1/badges/b0c71b0c-d430-4547-a10e-c84ce57cd2a1/deploy-status)](https://app.netlify.com/sites/angular-realworld/deploys)
 
 # ![Angular Example App](logo.png)
 
