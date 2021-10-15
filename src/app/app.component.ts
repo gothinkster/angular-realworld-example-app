@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
-import { UserService } from './core';
+import { UserService } from "./core";
 
 @Component({
   selector: 'app-root',
@@ -8,9 +8,7 @@ import { UserService } from './core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent implements OnInit {
-  constructor (
-    private userService: UserService
-  ) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit() {
     this.userService.populate();

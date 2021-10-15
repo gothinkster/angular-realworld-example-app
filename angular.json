@@ -30,7 +30,8 @@
             "extractLicenses": false,
             "buildOptimizer": false,
             "sourceMap": true,
-            "optimization": false
+            "optimization": false,
+            "aot": true
           },
           "configurations": {
             "production": {
