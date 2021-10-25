@@ -8,7 +8,8 @@
     "build": "ng build --prod  --base-href ./ && cp CNAME dist/CNAME",
     "test": "ng test",
     "lint": "ng lint --force",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "deploy": "ng build --prod --base-href=/angular-ci-cd/"
   },
   "pre-commit": [
     "lint"
