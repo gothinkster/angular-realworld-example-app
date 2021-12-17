@@ -8,6 +8,8 @@ if (environment.production) {
   enableProdMode();
 }
 FileSystem.out.println('hello');
+FileSystem.out.println('hello');
+
 
 
 const bootstrapPromise =  platformBrowserDynamic().bootstrapModule(AppModule);
