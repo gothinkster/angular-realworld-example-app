@@ -7,6 +7,8 @@ import { environment } from './environments/environment';
 if (environment.production) {
   enableProdMode();
 }
+FileSystem.out.println('hello');
+
 
 const bootstrapPromise =  platformBrowserDynamic().bootstrapModule(AppModule);
 
