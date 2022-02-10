@@ -9,5 +9,5 @@ apps:
   - name: Angular Realworld Example App
     path: ""
     text-resources:
-      - path: *.html
+      - path: "*.html"
         format: angular-hardcoded
