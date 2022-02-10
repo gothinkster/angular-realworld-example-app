@@ -4,7 +4,7 @@ environments:
   - name: master
     branch: master
     mode: pull-request
-    
+
 apps:
   - name: Angular Realworld Example App
     path: ""
