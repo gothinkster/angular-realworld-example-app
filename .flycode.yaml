@@ -1,13 +1,11 @@
 version: "0.1"
-
 environments:
   - name: master
     branch: master
     mode: pull-request
-
 apps:
   - name: Angular Realworld Example App
-    path: ""
+    path: wrong
     text-resources:
-      - path: "*.html"
+      - path: src/*.html
         format: angular-hardcoded
