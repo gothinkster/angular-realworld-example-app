@@ -11,3 +11,4 @@ apps:
     text-resources:
       - path: "*.html"
         format: angular-hardcoded
+
