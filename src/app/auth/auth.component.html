@@ -5,8 +5,8 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">{{ title }}</h1>
         <p class="text-xs-center">
-          <a [routerLink]="['/login']" *ngIf="authType == 'register'">Have an account?</a>
-          <a [routerLink]="['/register']" *ngIf="authType == 'login'">Need an account?</a>
+          <a [routerLink]="['/login']" *ngIf="authType === 'register'">Have an account?</a>
+          <a [routerLink]="['/register']" *ngIf="authType === 'login'">Need an account?</a>
         </p>
         <app-list-errors [errors]="errors"></app-list-errors>
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">
@@ -17,7 +17,7 @@
                 placeholder="Username"
                 class="form-control form-control-lg"
                 type="text"
-                *ngIf="authType == 'register'" />
+                *ngIf="authType === 'register'" />
             </fieldset>
             <fieldset class="form-group">
               <input
