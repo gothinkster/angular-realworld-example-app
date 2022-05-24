@@ -6,6 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build --prod  --base-href ./ && cp CNAME dist/CNAME",
+    "build-prod": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint --force",
     "e2e": "ng e2e"
