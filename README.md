@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/gothinkster/angular-realworld-example-app.svg?branch=master)](https://travis-ci.org/gothinkster/angular-realworld-example-app)
 
 <<<<<<< HEAD
-# ![Angular Example App](logo.png) jagadeesh
+# ![Angular Example App](logo.png) jagadeesh,sulochana
 =======
 # ![Angular Example App](logo.png) HELLO world
 >>>>>>> a1e0a1df8a07bb674406abae96c7dceab352062d
