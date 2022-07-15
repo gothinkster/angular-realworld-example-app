@@ -1,7 +1,11 @@
 [![RealWorld Frontend](https://img.shields.io/badge/realworld-frontend-%23783578.svg)](http://realworld.io)
 [![Build Status](https://travis-ci.org/gothinkster/angular-realworld-example-app.svg?branch=master)](https://travis-ci.org/gothinkster/angular-realworld-example-app)
 
+<<<<<<< HEAD
+# ![Angular Example App](logo.png) jagadeesh,sulochana
+=======
 # ![Angular Example App](logo.png) HELLO world
+>>>>>>> a1e0a1df8a07bb674406abae96c7dceab352062d
 
 > ### Angular codebase containing real world examples (CRUD, auth, advanced patterns, etc) that adheres to the [RealWorld](https://github.com/gothinkster/realworld-example-apps) spec and API.
 
