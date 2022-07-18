@@ -7,7 +7,7 @@ describe('ng-demo App', () => {
     page = new Ng2RealApp();
   });
 
-  it('should display message saying app works', () => {
+  it('should display message saying app works spexmojo', () => {
     page.navigateTo();
     expect(page.getParagraphText()).toContain('conduit');
   });
