@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Deploy this application into remote server"
+ssh -i /home/ubuntu/server ubuntu@13.232.120.80 <<EOF
+sudo su
+cd /home/ubuntu/angular-realworld-example-app/
+git pull
+ng build --prod
+EOF
