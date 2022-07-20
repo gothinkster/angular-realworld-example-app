@@ -5,7 +5,7 @@ import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-article-comment',
-  templateUrl:'article-comment.component.html'
+  templateUrl:'./article-comment.component.html'
 })
 export class ArticleCommentComponent implements OnInit, OnDestroy {
   constructor(
