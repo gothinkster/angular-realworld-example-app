@@ -43,7 +43,6 @@ Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app w
 ### Building the project
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
 
-
 ## Functionality overview
 
 The example application is a social blogging site (i.e. a Medium.com clone) called "Conduit". It uses a custom API for all requests, including authentication. You can view a live demo over at https://angular.realworld.io
