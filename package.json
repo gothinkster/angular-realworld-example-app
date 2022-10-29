@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "NODE_OPTIONS=--openssl-legacy-provider ng serve",
     "build": "ng build --prod  --base-href ./ && cp CNAME dist/CNAME",
     "test": "ng test",
     "lint": "ng lint --force",
