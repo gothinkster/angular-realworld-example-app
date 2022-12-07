@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   isUser: boolean;
 
   ngOnInit() {
+    console.log("Inside init")
     this.route.data.pipe(
       concatMap((data: { profile: Profile }) => {
         this.profile = data.profile;
