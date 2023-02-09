@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
+import { PreloadingModulesStrategy } from './core/strategies/preload-modules.strategy';
 
 const routes: Routes = [
   {
@@ -16,16 +17,14 @@ const routes: Routes = [
   },
   {
     path: 'article',
-    loadChildren: () => import('./article/article.module').then(m => m.ArticleModule)
+    loadChildren: () => import('./article/article.module').then(m => m.ArticleModule),
+    data: { preload: true }
   }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, {
-    // preload all modules; optionally we could
-    // implement a custom preloading strategy for just some
-    // of the modules (PRs welcome 😉)
-    preloadingStrategy: PreloadAllModules,
+    preloadingStrategy: PreloadingModulesStrategy,
     relativeLinkResolution: 'legacy'
 })],
   exports: [RouterModule]
