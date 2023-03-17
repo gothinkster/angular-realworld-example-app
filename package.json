@@ -14,6 +14,9 @@
   "pre-commit": [
     "lint"
   ],
+  "engines": {
+    "node": "^10.13.0 || ^12.11.1"
+  },
   "private": true,
   "dependencies": {
     "@angular/animations": "11.2.9",
