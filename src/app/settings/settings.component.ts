@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { User, UserService } from '../core';
@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit {
       username: '',
       bio: '',
       email: '',
-      password: ''
+      password: ['', Validators.required]
     });
     // Optional: subscribe to changes on the form
     // this.settingsForm.valueChanges.subscribe(values => this.updateUser(values));
