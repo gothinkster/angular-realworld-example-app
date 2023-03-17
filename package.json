@@ -25,7 +25,7 @@
     "@angular/platform-browser-dynamic": "11.2.8",
     "@angular/router": "11.2.8",
     "core-js": "^2.4.1",
-    "marked": "^0.3.9",
+    "marked": "^4.2.12",
     "rxjs": "^6.4.0",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
@@ -37,6 +37,7 @@
     "@angular/language-service": "11.2.8",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.2",
+    "@types/marked": "^4.0.8",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.1",
     "jasmine-core": "~3.6.0",

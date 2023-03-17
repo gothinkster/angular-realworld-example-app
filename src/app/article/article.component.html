@@ -41,7 +41,7 @@
     <div class="row article-content">
       <div class="col-md-12">
 
-        <div [innerHTML]="article.body | markdown"></div>
+        <div [innerHTML]="article.body | markdown | async"></div>
 
         <ul class="tag-list">
           <li *ngFor="let tag of article.tagList"
