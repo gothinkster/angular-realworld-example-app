@@ -1,12 +1,11 @@
 {
-  "name": "ang2-conduit",
+  "name": "angular-realworld",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --configuration production  --base-href ./ && cp CNAME dist/CNAME",
-    "build-prod": "ng build --configuration production",
+    "build": "ng build",
     "test": "ng test",
     "lint": "ng lint --force",
     "e2e": "ng e2e"
