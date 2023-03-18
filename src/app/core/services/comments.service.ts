@@ -6,7 +6,7 @@ import { Comment } from '../models';
 import { map } from 'rxjs/operators';
 
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class CommentsService {
   constructor (
     private apiService: ApiService
