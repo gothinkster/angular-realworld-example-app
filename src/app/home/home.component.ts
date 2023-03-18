@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-import { ArticleListConfig, TagsService, UserService } from '../core';
+import { ArticleListConfig, TagsService } from '../core';
 
 @Component({
   selector: 'app-home-page',
@@ -12,8 +12,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private router: Router,
     private tagsService: TagsService,
-    private userService: UserService
-  ) {}
+    private route:ActivatedRoute
+    ) {}
 
   isAuthenticated: boolean;
   listConfig: ArticleListConfig = {
@@ -24,18 +24,15 @@ export class HomeComponent implements OnInit {
   tagsLoaded = false;
 
   ngOnInit() {
-    this.userService.isAuthenticated.subscribe(
-      (authenticated) => {
-        this.isAuthenticated = authenticated;
-
+    this.route.data.subscribe((data: { isAuthenticated: boolean }) =>{
+      this.isAuthenticated = data.isAuthenticated;
         // set the article list accordingly
-        if (authenticated) {
+        if (data.isAuthenticated) {
           this.setListTo('feed');
         } else {
           this.setListTo('all');
         }
-      }
-    );
+    });
 
     this.tagsService.getAll()
     .subscribe(tags => {

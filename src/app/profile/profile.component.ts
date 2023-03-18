@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { User, UserService, Profile } from '../core';
-import { concatMap ,  tap } from 'rxjs/operators';
+import { map, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-profile-page',
@@ -20,17 +20,18 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.pipe(
-      concatMap((data: { profile: Profile }) => {
-        this.profile = data.profile;
+      map(data => data.profile),
+      switchMap((profile: Profile) => {
+        this.profile = profile;
+
         // Load the current user's data.
-        return this.userService.currentUser.pipe(tap(
-          (userData: User) => {
-            this.currentUser = userData;
-            this.isUser = (this.currentUser.username === this.profile.username);
-          }
-        ));
+        return this.userService.currentUser;
       })
-    ).subscribe();
+    ).subscribe(
+      (user: User) => {
+        this.currentUser = user;
+        this.isUser = (this.currentUser.username === this.profile.username);
+    });
   }
 
   onToggleFollowing(following: boolean) {
