@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, UntypedFormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Article, ArticlesService } from '../core';
@@ -10,8 +10,8 @@ import { Article, ArticlesService } from '../core';
 })
 export class EditorComponent implements OnInit {
   article: Article = {} as Article;
-  articleForm: FormGroup;
-  tagField = new FormControl();
+  articleForm: UntypedFormGroup;
+  tagField = new UntypedFormControl();
   errors: Object = {};
   isSubmitting = false;
 
@@ -19,7 +19,7 @@ export class EditorComponent implements OnInit {
     private articlesService: ArticlesService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     // use the FormBuilder to create a form group
     this.articleForm = this.fb.group({
