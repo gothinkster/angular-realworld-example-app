@@ -31,7 +31,6 @@ import {
     TagsService,
     UserService
   ],
-  declarations: [],
-  exports: [HttpClientModule]
+  declarations: []
 })
 export class CoreModule { }
