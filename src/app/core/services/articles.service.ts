@@ -6,7 +6,7 @@ import { ApiService } from './api.service';
 import { Article, ArticleListConfig } from '../models';
 import { map } from 'rxjs/operators';
 
-@Injectable()
+@Injectable({providedIn: 'root'})
 export class ArticlesService {
   constructor (
     private apiService: ApiService

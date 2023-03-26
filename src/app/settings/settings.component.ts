@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { User, UserService } from '../core';
@@ -10,14 +10,14 @@ import { User, UserService } from '../core';
 })
 export class SettingsComponent implements OnInit {
   user: User = {} as User;
-  settingsForm: FormGroup;
+  settingsForm: UntypedFormGroup;
   errors: Object = {};
   isSubmitting = false;
 
   constructor(
     private router: Router,
     private userService: UserService,
-    private fb: FormBuilder
+    private fb: UntypedFormBuilder
   ) {
     // create form group using the form builder
     this.settingsForm = this.fb.group({
@@ -25,7 +25,7 @@ export class SettingsComponent implements OnInit {
       username: '',
       bio: '',
       email: '',
-      password: ''
+      password: ['', Validators.required]
     });
     // Optional: subscribe to changes on the form
     // this.settingsForm.valueChanges.subscribe(values => this.updateUser(values));

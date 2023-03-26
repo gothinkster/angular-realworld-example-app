@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { ArticleListComponent, ArticleMetaComponent, ArticlePreviewComponent } from './article-helpers';
@@ -14,7 +13,6 @@ import { ShowAuthedDirective } from './show-authed.directive';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     RouterModule
   ],
   declarations: [
@@ -35,7 +33,6 @@ import { ShowAuthedDirective } from './show-authed.directive';
     FollowButtonComponent,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
     ListErrorsComponent,
     RouterModule,
     ShowAuthedDirective

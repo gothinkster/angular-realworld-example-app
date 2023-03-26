@@ -1,34 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpTokenInterceptor } from './interceptors/http.token.interceptor';
-
-import {
-  ApiService,
-  ArticlesService,
-  AuthGuard,
-  CommentsService,
-  JwtService,
-  ProfilesService,
-  TagsService,
-  UserService
-} from './services';
+import { NgModule, Optional, SkipSelf } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { HttpTokenInterceptor } from "./interceptors/http.token.interceptor";
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true },
-    ApiService,
-    ArticlesService,
-    AuthGuard,
-    CommentsService,
-    JwtService,
-    ProfilesService,
-    TagsService,
-    UserService
-  ],
-  declarations: []
+    { provide: HTTP_INTERCEPTORS, useClass: HttpTokenInterceptor, multi: true }
+  ]
 })
 export class CoreModule { }
