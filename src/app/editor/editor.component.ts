@@ -49,7 +49,7 @@ export class EditorComponent implements OnInit {
     // retrieve tag control
     const tag = this.tagField.value;
     // only add tag if it does not exist yet
-    if (this.article.tagList.indexOf(tag) < 0) {
+    if (tag != null && tag.trim() != "" && this.article.tagList.indexOf(tag) < 0) {
       this.article.tagList.push(tag);
     }
     // clear the input
