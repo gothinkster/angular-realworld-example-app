@@ -25,7 +25,7 @@ export class EditableArticleResolver implements Resolve<Article> {
             if (this.userService.getCurrentUser().username === article.author.username) {
               return article;
             } else {
-              this.router.navigateByUrl('/');
+              return this.router.navigateByUrl('/');
             }
           }
         ),

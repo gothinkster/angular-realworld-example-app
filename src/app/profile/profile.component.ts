@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.pipe(
-      map(data => data.profile),
+      map(data => data['profile']),
       switchMap((profile: Profile) => {
         this.profile = profile;
 
