@@ -1,0 +1,22 @@
+<div class="card" *ngIf="comment">
+  <div class="card-block">
+    <p class="card-text">
+      {{ comment.body }}
+    </p>
+  </div>
+  <div class="card-footer">
+    <a class="comment-author" [routerLink]="['/profile', comment.author.username]">
+      <img [src]="comment.author.image" class="comment-author-img"/>
+    </a>
+    &nbsp;
+    <a class="comment-author" [routerLink]="['/profile', comment.author.username]">
+      {{ comment.author.username }}
+    </a>
+    <span class="date-posted">
+      {{ comment.createdAt | date: 'longDate' }}
+    </span>
+    <span class="mod-options" *ngIf="canModify$ | async">
+      <i class="ion-trash-a" (click)="delete.emit(true)"></i>
+    </span>
+  </div>
+</div>

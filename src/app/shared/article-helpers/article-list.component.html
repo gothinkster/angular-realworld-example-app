@@ -4,16 +4,16 @@
 </app-article-preview>
 
 <div class="article-preview"
-  [hidden]="!loading">
+  *ngIf="loading === LoadingState.LOADING">
   Loading articles...
 </div>
 
 <div class="article-preview"
-  [hidden]="loading || results.length">
+  *ngIf="loading === LoadingState.LOADED  && !results.length">
   No articles are here... yet.
 </div>
 
-<nav [hidden]="loading || totalPages.length <= 1">
+<nav *ngIf="loading === LoadingState.LOADED && totalPages.length > 1">
   <ul class="pagination">
 
     <li class="page-item"

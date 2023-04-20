@@ -1,83 +1,68 @@
-import { Injectable } from '@angular/core';
-import { Observable ,  BehaviorSubject ,  ReplaySubject } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Observable, BehaviorSubject} from 'rxjs';
 
-import { ApiService } from './api.service';
-import { JwtService } from './jwt.service';
-import { User } from '../models';
-import { map ,  distinctUntilChanged } from 'rxjs/operators';
+import {JwtService} from './jwt.service';
+import {map, distinctUntilChanged, tap, shareReplay} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {User} from '../models/user.model';
+import {Router} from '@angular/router';
 
 
 @Injectable({providedIn: 'root'})
 export class UserService {
-  private currentUserSubject = new BehaviorSubject<User>({} as User);
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser = this.currentUserSubject.asObservable().pipe(distinctUntilChanged());
 
-  private isAuthenticatedSubject = new ReplaySubject<boolean>(1);
-  public isAuthenticated = this.isAuthenticatedSubject.asObservable();
+  public isAuthenticated = this.currentUser.pipe(map(user => !!user));
 
-  constructor (
-    private apiService: ApiService,
-    private jwtService: JwtService
-  ) {}
-
-  // Verify JWT in localstorage with server & load user's info.
-  // This runs once on application startup.
-  populate() {
-    // If JWT detected, attempt to get & store user's info
-    if (this.jwtService.getToken()) {
-      this.apiService.get('/user')
-      .subscribe(
-        data => this.setAuth(data.user),
-        err => this.purgeAuth()
-      );
-    } else {
-      // Remove any potential remnants of previous auth states
-      this.purgeAuth();
-    }
+  constructor(
+    private readonly http: HttpClient,
+    private readonly jwtService: JwtService,
+    private readonly router: Router
+  ) {
   }
 
-  setAuth(user: User) {
-    // Save JWT sent from server in localstorage
+  login(credentials: { email: string, password: string }): Observable<{ user: User }> {
+    return this.http.post<{ user: User }>('/users/login', {user: credentials})
+      .pipe(tap(({user}) => this.setAuth(user)));
+  }
+
+  register(credentials: { username: string, email: string, password: string }): Observable<{ user: User }> {
+    return this.http.post<{ user: User }>('/users', {user: credentials})
+      .pipe(tap(({user}) => this.setAuth(user)));
+  }
+
+  logout(): void {
+    this.purgeAuth();
+    void this.router.navigateByUrl('/');
+  }
+
+  getCurrentUser(): Observable<{ user: User }> {
+    return this.http.get<{ user: User }>('/user').pipe(
+      tap({
+          next: ({user}) => this.setAuth(user),
+          error: () => this.purgeAuth()
+        }
+      ),
+      shareReplay(1)
+    );
+  }
+
+  update(user: Partial<User>): Observable<{ user: User }> {
+    return this.http.put<{ user: User }>('/user', {user})
+      .pipe(tap(({user}) => {
+        this.currentUserSubject.next(user);
+      }));
+  }
+
+  setAuth(user: User): void {
     this.jwtService.saveToken(user.token);
-    // Set current user data into observable
     this.currentUserSubject.next(user);
-    // Set isAuthenticated to true
-    this.isAuthenticatedSubject.next(true);
   }
 
-  purgeAuth() {
-    // Remove JWT from localstorage
+  purgeAuth(): void {
     this.jwtService.destroyToken();
-    // Set current user to an empty object
-    this.currentUserSubject.next({} as User);
-    // Set auth status to false
-    this.isAuthenticatedSubject.next(false);
-  }
-
-  attemptAuth(type, credentials): Observable<User> {
-    const route = (type === 'login') ? '/login' : '';
-    return this.apiService.post('/users' + route, {user: credentials})
-      .pipe(map(
-      data => {
-        this.setAuth(data.user);
-        return data;
-      }
-    ));
-  }
-
-  getCurrentUser(): User {
-    return this.currentUserSubject.value;
-  }
-
-  // Update the user on the server (email, pass, etc)
-  update(user): Observable<User> {
-    return this.apiService
-    .put('/user', { user })
-    .pipe(map(data => {
-      // Update the currentUser observable
-      this.currentUserSubject.next(data.user);
-      return data.user;
-    }));
+    this.currentUserSubject.next(null);
   }
 
 }

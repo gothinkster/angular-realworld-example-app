@@ -1,17 +1,35 @@
-import { Component, Input } from '@angular/core';
+import {Component, Input, OnDestroy} from '@angular/core';
+import {ArticlesService} from '../../core/services/articles.service';
+import {ArticleListConfig} from '../../core/models/article-list-config.model';
+import {Article} from '../../core/models/article.model';
+import {ArticlePreviewComponent} from './article-preview.component';
+import {NgClass, NgForOf, NgIf} from '@angular/common';
+import {LoadingState} from '../../core/models/loading-state.model';
+import {Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
-import { Article, ArticleListConfig, ArticlesService } from '../../core';
 @Component({
   selector: 'app-article-list',
   styleUrls: ['article-list.component.css'],
-  templateUrl: './article-list.component.html'
+  templateUrl: './article-list.component.html',
+  imports: [
+    ArticlePreviewComponent,
+    NgForOf,
+    NgClass,
+    NgIf
+  ],
+  standalone: true
 })
-export class ArticleListComponent {
-  constructor (
-    private articlesService: ArticlesService
-  ) {}
+export class ArticleListComponent implements OnDestroy {
+  query!: ArticleListConfig;
+  results: Article[] = [];
+  currentPage = 1;
+  totalPages: Array<number> = [];
+  loading = LoadingState.NOT_LOADED;
+  LoadingState = LoadingState;
+  destroy$ = new Subject<void>();
 
-  @Input() limit: number;
+  @Input() limit!: number;
   @Input()
   set config(config: ArticleListConfig) {
     if (config) {
@@ -21,19 +39,22 @@ export class ArticleListComponent {
     }
   }
 
-  query: ArticleListConfig;
-  results: Article[];
-  loading = false;
-  currentPage = 1;
-  totalPages: Array<number> = [1];
+  constructor (
+    private articlesService: ArticlesService
+  ) {}
 
-  setPageTo(pageNumber) {
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  setPageTo(pageNumber: number) {
     this.currentPage = pageNumber;
     this.runQuery();
   }
 
   runQuery() {
-    this.loading = true;
+    this.loading = LoadingState.LOADING;
     this.results = [];
 
     // Create limit and offset filter (if necessary)
@@ -42,9 +63,10 @@ export class ArticleListComponent {
       this.query.filters.offset =  (this.limit * (this.currentPage - 1));
     }
 
-    this.articlesService.query(this.query)
-    .subscribe(data => {
-      this.loading = false;
+    this.articlesService.query(this.query).pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
+      this.loading = LoadingState.LOADED;
       this.results = data.articles;
 
       // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/

@@ -1,60 +1,65 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Router } from '@angular/router';
-
-import { Article, ArticlesService, UserService } from '../../core';
-import { of } from 'rxjs';
-import { concatMap ,  tap } from 'rxjs/operators';
+import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
+import {Router} from '@angular/router';
+import {EMPTY, Subject, switchMap} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
+import {NgClass} from '@angular/common';
+import {ArticlesService} from '../../core/services/articles.service';
+import {UserService} from '../../core/services/user.service';
+import {Article} from '../../core/models/article.model';
 
 @Component({
   selector: 'app-favorite-button',
-  templateUrl: './favorite-button.component.html'
+  templateUrl: './favorite-button.component.html',
+  imports: [
+    NgClass
+  ],
+  standalone: true
 })
-export class FavoriteButtonComponent {
-  constructor(
-    private articlesService: ArticlesService,
-    private router: Router,
-    private userService: UserService
-  ) {}
-
-  @Input() article: Article;
-  @Output() toggle = new EventEmitter<boolean>();
+export class FavoriteButtonComponent implements OnDestroy {
+  destroy$ = new Subject<void>();
   isSubmitting = false;
 
-  toggleFavorite() {
+  @Input() article!: Article;
+  @Output() toggle = new EventEmitter<boolean>();
+
+
+  constructor(
+    private readonly articleService: ArticlesService,
+    private readonly router: Router,
+    private readonly userService: UserService
+  ) {
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  toggleFavorite(): void {
     this.isSubmitting = true;
 
-    this.userService.isAuthenticated.pipe(concatMap(
-      (authenticated) => {
-        // Not authenticated? Push to login screen
-        if (!authenticated) {
-          this.router.navigateByUrl('/login');
-          return of(null);
+    this.userService.isAuthenticated.pipe(
+      switchMap((authenticated) => {
+          if (!authenticated) {
+            void this.router.navigateByUrl('/login');
+            return EMPTY;
+          }
+
+          if (!this.article.favorited) {
+            return this.articleService.favorite(this.article.slug);
+          } else {
+            return this.articleService.unfavorite(this.article.slug);
+          }
+
         }
-
-        // Favorite the article if it isn't favorited yet
-        if (!this.article.favorited) {
-          return this.articlesService.favorite(this.article.slug)
-          .pipe(tap(
-            data => {
-              this.isSubmitting = false;
-              this.toggle.emit(true);
-            },
-            err => this.isSubmitting = false
-          ));
-
-        // Otherwise, unfavorite the article
-        } else {
-          return this.articlesService.unfavorite(this.article.slug)
-          .pipe(tap(
-            data => {
-              this.isSubmitting = false;
-              this.toggle.emit(false);
-            },
-            err => this.isSubmitting = false
-          ));
-        }
-
-      }
-    )).subscribe();
+      ),
+      takeUntil(this.destroy$)
+    ).subscribe({
+      next: () => {
+        this.isSubmitting = false;
+        this.toggle.emit(!this.article.favorited);
+      },
+      error: () => this.isSubmitting = false
+    });
   }
 }

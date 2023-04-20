@@ -1,33 +1,31 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-
-import { ApiService } from './api.service';
-import { Comment } from '../models';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Comment} from '../models/comment.model';
 
 
 @Injectable({providedIn: 'root'})
 export class CommentsService {
-  constructor (
-    private apiService: ApiService
-  ) {}
-
-  add(slug, payload): Observable<Comment> {
-    return this.apiService
-    .post(
-      `/articles/${slug}/comments`,
-      { comment: { body: payload } }
-    ).pipe(map(data => data.comment));
+  constructor(
+    private readonly http: HttpClient
+  ) {
   }
 
-  getAll(slug): Observable<Comment[]> {
-    return this.apiService.get(`/articles/${slug}/comments`)
+  getAll(slug: string): Observable<Comment[]> {
+    return this.http.get<{ comments: Comment[] }>(`/articles/${slug}/comments`)
       .pipe(map(data => data.comments));
   }
 
-  destroy(commentId, articleSlug) {
-    return this.apiService
-           .delete(`/articles/${articleSlug}/comments/${commentId}`);
+  add(slug: string, payload: string): Observable<Comment> {
+    return this.http.post<{ comment: Comment }>(
+      `/articles/${slug}/comments`,
+      {comment: {body: payload}}
+    ).pipe(map(data => data.comment));
+  }
+
+  delete(commentId: string, slug: string): Observable<void> {
+    return this.http.delete<void>(`/articles/${slug}/comments/${commentId}`);
   }
 
 }
