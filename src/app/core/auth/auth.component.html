@@ -1,12 +1,15 @@
 <div class="auth-page">
   <div class="container page">
     <div class="row">
-
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">{{ title }}</h1>
         <p class="text-xs-center">
-          <a [routerLink]="['/login']" *ngIf="authType === 'register'">Have an account?</a>
-          <a [routerLink]="['/register']" *ngIf="authType === 'login'">Need an account?</a>
+          <a [routerLink]="['/login']" *ngIf="authType === 'register'"
+            >Have an account?</a
+          >
+          <a [routerLink]="['/register']" *ngIf="authType === 'login'"
+            >Need an account?</a
+          >
         </p>
         <app-list-errors [errors]="errors"></app-list-errors>
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">
@@ -15,31 +18,41 @@
               <input
                 formControlName="username"
                 placeholder="Username"
+                data-test="form-username"
                 class="form-control form-control-lg"
                 type="text"
-                *ngIf="authType === 'register'" />
+                *ngIf="authType === 'register'"
+              />
             </fieldset>
             <fieldset class="form-group">
               <input
                 formControlName="email"
                 placeholder="Email"
+                data-test="form-email"
                 class="form-control form-control-lg"
-                type="text" />
+                type="text"
+              />
             </fieldset>
             <fieldset class="form-group">
               <input
                 formControlName="password"
                 placeholder="Password"
+                data-test="form-password"
                 class="form-control form-control-lg"
-                type="password" />
+                type="password"
+              />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
+            <button
+              class="btn btn-lg btn-primary pull-xs-right"
+              [disabled]="!authForm.valid"
+              data-test="form-submit"
+              type="submit"
+            >
               {{ title }}
             </button>
           </fieldset>
         </form>
       </div>
-
     </div>
   </div>
 </div>

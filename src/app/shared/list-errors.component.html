@@ -1,4 +1,4 @@
-<ul class="error-messages" *ngIf="errorList">
+<ul class="error-messages" data-test="error-message" *ngIf="errorList">
   <li *ngFor="let error of errorList">
     {{ error }}
   </li>

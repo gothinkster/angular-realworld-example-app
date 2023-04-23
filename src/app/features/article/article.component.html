@@ -1,93 +1,129 @@
 <div class="article-page" *ngIf="article">
-
   <div class="banner">
     <div class="container">
       <h1>{{ article.title }}</h1>
 
       <app-article-meta [article]="article">
-
         <span *ngIf="canModify">
-          <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/editor', article.slug]">
+          <a
+            class="btn btn-sm btn-outline-secondary"
+            [routerLink]="['/editor', article.slug]"
+            data-test="article-editButtonTop"
+          >
             <i class="ion-edit"></i> Edit Article
           </a>
 
-          <button class="btn btn-sm btn-outline-danger" [ngClass]="{disabled: isDeleting}" (click)="deleteArticle()">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            [ngClass]="{ disabled: isDeleting }"
+            (click)="deleteArticle()"
+            data-test="article-deleteButtonTop"
+          >
             <i class="ion-trash-a"></i> Delete Article
           </button>
         </span>
 
         <span *ngIf="!canModify">
-          <app-follow-button [profile]="article.author" (toggle)="toggleFollowing($event)">
+          <app-follow-button
+            [profile]="article.author"
+            (toggle)="toggleFollowing($event)"
+          >
           </app-follow-button>
 
-          <app-favorite-button [article]="article" (toggle)="onToggleFavorite($event)">
-            {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Article
+          <app-favorite-button
+            [article]="article"
+            (toggle)="onToggleFavorite($event)"
+          >
+            {{ article.favorited ? "Unfavorite" : "Favorite" }} Article
             <span class="counter">({{ article.favoritesCount }})</span>
           </app-favorite-button>
         </span>
-
       </app-article-meta>
     </div>
   </div>
 
   <div class="container page">
-
     <div class="row article-content">
       <div class="col-md-12">
-
         <div [innerHTML]="article.body | markdown | async"></div>
 
         <ul class="tag-list">
-          <li *ngFor="let tag of article.tagList" class="tag-default tag-pill tag-outline">
+          <li
+            *ngFor="let tag of article.tagList"
+            class="tag-default tag-pill tag-outline"
+          >
             {{ tag }}
           </li>
         </ul>
-
       </div>
     </div>
 
-    <hr/>
+    <hr />
 
     <div class="article-actions">
       <app-article-meta [article]="article">
-
         <span *ngIf="canModify">
-          <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/editor', article.slug]">
+          <a
+            class="btn btn-sm btn-outline-secondary"
+            [routerLink]="['/editor', article.slug]"
+            data-test="article-editButtonDown"
+          >
             <i class="ion-edit"></i> Edit Article
           </a>
 
-          <button class="btn btn-sm btn-outline-danger" [ngClass]="{disabled: isDeleting}" (click)="deleteArticle()">
+          <button
+            class="btn btn-sm btn-outline-danger"
+            [ngClass]="{ disabled: isDeleting }"
+            (click)="deleteArticle()"
+            data-test="article-deleteButtonDown"
+          >
             <i class="ion-trash-a"></i> Delete Article
           </button>
         </span>
 
         <span *ngIf="!canModify">
-          <app-follow-button [profile]="article.author" (toggle)="toggleFollowing($event)">
+          <app-follow-button
+            [profile]="article.author"
+            (toggle)="toggleFollowing($event)"
+          >
           </app-follow-button>
 
-          <app-favorite-button [article]="article" (toggle)="onToggleFavorite($event)">
-            {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Article
+          <app-favorite-button
+            [article]="article"
+            (toggle)="onToggleFavorite($event)"
+          >
+            {{ article.favorited ? "Unfavorite" : "Favorite" }} Article
             <span class="counter">({{ article.favoritesCount }})</span>
           </app-favorite-button>
         </span>
-
       </app-article-meta>
     </div>
 
     <div class="row">
       <div class="col-xs-12 col-md-8 offset-md-2">
-
         <div *appShowAuthed="true">
           <app-list-errors [errors]="commentFormErrors"></app-list-errors>
           <form class="card comment-form" (ngSubmit)="addComment()">
             <fieldset [disabled]="isSubmitting">
               <div class="card-block">
-                <textarea class="form-control" placeholder="Write a comment..." rows="3"
-                          [formControl]="commentControl"></textarea>
+                <textarea
+                  class="form-control"
+                  placeholder="Write a comment..."
+                  rows="3"
+                  [formControl]="commentControl"
+                  data-test="article-CommentInput"
+                ></textarea>
               </div>
               <div class="card-footer">
-                <img [src]="currentUser?.image === null ? '' : currentUser?.image" class="comment-author-img"/>
-                <button class="btn btn-sm btn-primary" type="submit">
+                <img
+                  [src]="currentUser?.image === null ? '' : currentUser?.image"
+                  class="comment-author-img"
+                />
+                <button
+                  class="btn btn-sm btn-primary"
+                  data-test="article-postCommentButton"
+                  type="submit"
+                >
                   Post Comment
                 </button>
               </div>
@@ -97,15 +133,17 @@
 
         <div *appShowAuthed="false">
           <a [routerLink]="['/login']">Sign in</a> or
-          <a [routerLink]="['/register']">sign up</a> to add comments on this article.
+          <a [routerLink]="['/register']">sign up</a> to add comments on this
+          article.
         </div>
 
-        <app-article-comment *ngFor="let comment of comments; trackBy: trackById" [comment]="comment"
-                             (delete)="deleteComment(comment)">
+        <app-article-comment
+          *ngFor="let comment of comments; trackBy: trackById"
+          [comment]="comment"
+          (delete)="deleteComment(comment)"
+        >
         </app-article-comment>
-
       </div>
     </div>
-
   </div>
 </div>
