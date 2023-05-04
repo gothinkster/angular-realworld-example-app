@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {ArticleListComponent} from '../../shared/article-helpers/article-list.component';
-import {switchMap} from 'rxjs/operators';
+import {takeUntil} from 'rxjs/operators';
 import {ProfileService} from '../../core/services/profile.service';
 import {Profile} from '../../core/models/profile.model';
 import {ArticleListConfig} from '../../core/models/article-list-config.model';
@@ -26,8 +26,8 @@ export class ProfileFavoritesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.route.parent?.params.pipe(
-      switchMap(({username}) => this.profileService.get(username))
+    this.profileService.get(this.route.parent?.snapshot.params['username']).pipe(
+      takeUntil(this.destroy$)
     ).subscribe({
         next: (profile: Profile) => {
           this.profile = profile;

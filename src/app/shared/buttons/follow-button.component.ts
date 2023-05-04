@@ -39,7 +39,7 @@ export class FollowButtonComponent implements OnDestroy {
     this.userService.isAuthenticated.pipe(
       switchMap((isAuthenticated: boolean) => {
           if (!isAuthenticated) {
-            void this.router.navigateByUrl('/login');
+            void this.router.navigate(['/login']);
             return EMPTY;
           }
 

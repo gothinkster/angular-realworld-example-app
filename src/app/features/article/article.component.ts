@@ -13,8 +13,8 @@ import {FavoriteButtonComponent} from '../../shared/buttons/favorite-button.comp
 import {MarkdownPipe} from './markdown.pipe';
 import {ListErrorsComponent} from '../../shared/list-errors.component';
 import {ArticleCommentComponent} from './article-comment.component';
-import {catchError, switchMap, takeUntil} from 'rxjs/operators';
-import {of, Subject, combineLatest, throwError} from 'rxjs';
+import {catchError, takeUntil} from 'rxjs/operators';
+import {Subject, combineLatest, throwError} from 'rxjs';
 import {Comment} from '../../core/models/comment.model';
 import {ShowAuthedDirective} from '../../shared/show-authed.directive';
 import {Errors} from '../../core/models/errors.model';
@@ -66,16 +66,14 @@ export class ArticleComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.route.params.pipe(
-      switchMap(({slug}) => this.articleService.get(slug)),
-      switchMap(article => combineLatest([
-          of(article),
-          this.commentsService.getAll(article.slug),
-          this.userService.currentUser
-        ])
-      ),
+    const slug = this.route.snapshot.params['slug'];
+    combineLatest([
+      this.articleService.get(slug),
+      this.commentsService.getAll(slug),
+      this.userService.currentUser
+    ]).pipe(
       catchError((err) => {
-        this.router.navigateByUrl('/');
+        void this.router.navigate(['/']);
         return throwError(err);
       })
     ).subscribe(([article, comments, currentUser]) => {
@@ -111,7 +109,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
     this.articleService.delete(this.article.slug)
       .pipe(takeUntil(this.destroy$))
       .subscribe(() => {
-        void this.router.navigateByUrl('/');
+        void this.router.navigate(['/']);
       });
   }
 

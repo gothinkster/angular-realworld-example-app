@@ -11,7 +11,6 @@ import {EMPTY} from 'rxjs';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {TokenInterceptor} from './core/interceptors/token.interceptor';
 import {ErrorInterceptor} from './core/interceptors/error.interceptor';
-import {marked} from 'marked';
 import {ApiInterceptor} from './core/interceptors/api.interceptor';
 
 export function initAuth(jwtService: JwtService, userService: UserService) {

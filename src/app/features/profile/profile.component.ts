@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink, RouterLinkActive, RouterOutlet} from '@angular/router';
-import {catchError, map, switchMap, takeUntil} from 'rxjs/operators';
+import {catchError, switchMap, takeUntil} from 'rxjs/operators';
 import {combineLatest, of, Subject, throwError} from 'rxjs';
 import {UserService} from '../../core/services/user.service';
 import {Profile} from '../../core/models/profile.model';
@@ -35,11 +35,9 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.pipe(
-      map(({username}) => username),
-      switchMap(username => this.profileService.get(username)),
+     this.profileService.get(this.route.snapshot.params['username']).pipe(
       catchError((error) => {
-        void this.router.navigateByUrl('/')
+        void this.router.navigate(['/']);
         return throwError(error);
       }),
       switchMap(profile => {

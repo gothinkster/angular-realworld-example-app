@@ -41,7 +41,7 @@ export class FavoriteButtonComponent implements OnDestroy {
     this.userService.isAuthenticated.pipe(
       switchMap((authenticated) => {
           if (!authenticated) {
-            void this.router.navigateByUrl('/login');
+            void this.router.navigate(['/login']);
             return EMPTY;
           }
 

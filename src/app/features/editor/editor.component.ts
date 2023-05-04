@@ -3,10 +3,9 @@ import {UntypedFormGroup, ReactiveFormsModule, FormGroup, FormControl} from '@an
 import {ActivatedRoute, Router} from '@angular/router';
 import {ListErrorsComponent} from '../../shared/list-errors.component';
 import {NgForOf} from '@angular/common';
-import {Article} from '../../core/models/article.model';
 import {ArticlesService} from '../../core/services/articles.service';
-import {combineLatest, filter, Subject, switchMap} from 'rxjs';
-import {map, takeUntil} from 'rxjs/operators';
+import {combineLatest, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 import {UserService} from '../../core/services/user.service';
 import {Errors} from '../../core/models/errors.model';
 
@@ -48,25 +47,17 @@ export class EditorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.route.params.pipe(
-      filter(({slug}) => !!slug),
-      switchMap(({slug}) => combineLatest([
-        this.articleService.get(slug),
-        this.userService.getCurrentUser()
-      ])),
-      map(([article, {user}]) => {
-        if (user.username === article.author.username) {
-          return article;
-        } else {
-          void this.router.navigateByUrl('/');
-          return null;
-        }
-      }),
+    combineLatest([
+      this.articleService.get(this.route.snapshot.params['slug']),
+      this.userService.getCurrentUser()
+    ]).pipe(
       takeUntil(this.destroy$)
-    ).subscribe((article: Article | null) => {
-      if (article) {
+    ).subscribe(([article, {user}]) => {
+      if (user.username === article.author.username) {
         this.tagList = article.tagList;
         this.articleForm.patchValue(article);
+      } else {
+        void this.router.navigate(['/']);
       }
     });
   }
@@ -80,7 +71,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     // retrieve tag control
     const tag = this.tagField.value;
     // only add tag if it does not exist yet
-    if (tag != null && tag.trim() != '' && this.tagList.indexOf(tag) < 0) {
+    if (tag != null && tag.trim() !== '' && this.tagList.indexOf(tag) < 0) {
       this.tagList.push(tag);
     }
     // clear the input
@@ -104,7 +95,7 @@ export class EditorComponent implements OnInit, OnDestroy {
     })
       .pipe(takeUntil(this.destroy$))
       .subscribe({
-          next: article => this.router.navigateByUrl('/article/' + article.slug),
+          next: article => this.router.navigate(['/article/', article.slug]),
           error: err => {
             this.errors = err;
             this.isSubmitting = false;

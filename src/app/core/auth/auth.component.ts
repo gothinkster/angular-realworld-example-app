@@ -57,15 +57,14 @@ export class AuthComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.route.url.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe(data => {
-      this.authType = data[data.length - 1].path;
-      this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
-      if (this.authType === 'register') {
-        this.authForm.addControl('username', new FormControl('', {nonNullable: true}));
-      }
-    });
+    this.authType = this.route.snapshot.url.at(-1)!.path;
+    this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
+    if (this.authType === 'register') {
+      this.authForm.addControl('username', new FormControl('', {
+        validators: [Validators.required],
+        nonNullable: true
+      }));
+    }
   }
 
   ngOnDestroy() {
@@ -78,13 +77,13 @@ export class AuthComponent implements OnInit, OnDestroy {
     this.errors = {errors: {}};
 
     let observable = (this.authType === 'login')
-      ? this.userService.login(this.authForm.value as {email: string, password: string})
-      : this.userService.register(this.authForm.value as {email: string, password: string, username: string});
+      ? this.userService.login(this.authForm.value as { email: string, password: string })
+      : this.userService.register(this.authForm.value as { email: string, password: string, username: string });
 
     observable.pipe(
       takeUntil(this.destroy$)
     ).subscribe({
-        next: () => this.router.navigateByUrl('/'),
+        next: () => void this.router.navigate(['/']),
         error: err => {
           this.errors = err;
           this.isSubmitting = false;
