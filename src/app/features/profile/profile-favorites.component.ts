@@ -1,19 +1,17 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {ArticleListComponent} from '../../shared/article-helpers/article-list.component';
-import {takeUntil} from 'rxjs/operators';
-import {ProfileService} from '../../core/services/profile.service';
-import {Profile} from '../../core/models/profile.model';
-import {ArticleListConfig} from '../../core/models/article-list-config.model';
-import {Subject} from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { ArticleListComponent } from "../../shared/article-helpers/article-list.component";
+import { takeUntil } from "rxjs/operators";
+import { ProfileService } from "../../core/services/profile.service";
+import { Profile } from "../../core/models/profile.model";
+import { ArticleListConfig } from "../../core/models/article-list-config.model";
+import { Subject } from "rxjs";
 
 @Component({
-  selector: 'app-profile-favorites',
-  templateUrl: './profile-favorites.component.html',
-  imports: [
-    ArticleListComponent
-  ],
-  standalone: true
+  selector: "app-profile-favorites",
+  templateUrl: "./profile-favorites.component.html",
+  imports: [ArticleListComponent],
+  standalone: true,
 })
 export class ProfileFavoritesComponent implements OnInit, OnDestroy {
   profile!: Profile;
@@ -26,25 +24,24 @@ export class ProfileFavoritesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.profileService.get(this.route.parent?.snapshot.params['username']).pipe(
-      takeUntil(this.destroy$)
-    ).subscribe({
+    this.profileService
+      .get(this.route.parent?.snapshot.params["username"])
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
         next: (profile: Profile) => {
           this.profile = profile;
           this.favoritesConfig = {
-            type: 'all',
+            type: "all",
             filters: {
-              favorited: this.profile.username
-            }
-          }
-        }
-      }
-    );
+              favorited: this.profile.username,
+            },
+          };
+        },
+      });
   }
 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();
   }
-
 }

@@ -1,19 +1,23 @@
-import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {switchMap, takeUntil} from 'rxjs/operators';
-import {EMPTY, Subject} from 'rxjs';
-import {ProfileService} from '../../core/services/profile.service';
-import {UserService} from '../../core/services/user.service';
-import {Profile} from '../../core/models/profile.model';
-import {NgClass} from '@angular/common';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from "@angular/core";
+import { Router } from "@angular/router";
+import { switchMap, takeUntil } from "rxjs/operators";
+import { EMPTY, Subject } from "rxjs";
+import { ProfileService } from "../../core/services/profile.service";
+import { UserService } from "../../core/services/user.service";
+import { Profile } from "../../core/models/profile.model";
+import { NgClass } from "@angular/common";
 
 @Component({
-  selector: 'app-follow-button',
-  templateUrl: './follow-button.component.html',
-  imports: [
-    NgClass
-  ],
-  standalone: true
+  selector: "app-follow-button",
+  templateUrl: "./follow-button.component.html",
+  imports: [NgClass],
+  standalone: true,
 })
 export class FollowButtonComponent implements OnDestroy {
   @Input() profile!: Profile;
@@ -25,8 +29,7 @@ export class FollowButtonComponent implements OnDestroy {
     private readonly profileService: ProfileService,
     private readonly router: Router,
     private readonly userService: UserService
-  ) {
-  }
+  ) {}
 
   ngOnDestroy(): void {
     this.destroy$.next();
@@ -36,10 +39,11 @@ export class FollowButtonComponent implements OnDestroy {
   toggleFollowing(): void {
     this.isSubmitting = true;
 
-    this.userService.isAuthenticated.pipe(
-      switchMap((isAuthenticated: boolean) => {
+    this.userService.isAuthenticated
+      .pipe(
+        switchMap((isAuthenticated: boolean) => {
           if (!isAuthenticated) {
-            void this.router.navigate(['/login']);
+            void this.router.navigate(["/login"]);
             return EMPTY;
           }
 
@@ -48,17 +52,15 @@ export class FollowButtonComponent implements OnDestroy {
           } else {
             return this.profileService.unfollow(this.profile.username);
           }
-        }
-      ),
-      takeUntil(this.destroy$)
-    ).subscribe(
-      {
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
         next: (profile) => {
           this.isSubmitting = false;
           this.toggle.emit(profile);
         },
-        error: () => this.isSubmitting = false
-      }
-    );
+        error: () => (this.isSubmitting = false),
+      });
   }
 }

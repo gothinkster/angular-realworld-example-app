@@ -3,8 +3,9 @@
     <app-favorite-button
       [article]="article"
       (toggle)="toggleFavorite($event)"
-      class="pull-xs-right">
-      {{article.favoritesCount}}
+      class="pull-xs-right"
+    >
+      {{ article.favoritesCount }}
     </app-favorite-button>
   </app-article-meta>
 
@@ -13,8 +14,10 @@
     <p>{{ article.description }}</p>
     <span>Read more...</span>
     <ul class="tag-list">
-      <li class="tag-default tag-pill tag-outline"
-        *ngFor="let tag of article.tagList">
+      <li
+        class="tag-default tag-pill tag-outline"
+        *ngFor="let tag of article.tagList"
+      >
         {{ tag }}
       </li>
     </ul>

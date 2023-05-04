@@ -1,4 +1,4 @@
-import { Profile } from './profile.model';
+import { Profile } from "./profile.model";
 
 export interface Article {
   slug: string;

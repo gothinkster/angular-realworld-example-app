@@ -1,19 +1,23 @@
-import {Component, EventEmitter, Input, OnDestroy, Output} from '@angular/core';
-import {Router} from '@angular/router';
-import {EMPTY, Subject, switchMap} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
-import {NgClass} from '@angular/common';
-import {ArticlesService} from '../../core/services/articles.service';
-import {UserService} from '../../core/services/user.service';
-import {Article} from '../../core/models/article.model';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  Output,
+} from "@angular/core";
+import { Router } from "@angular/router";
+import { EMPTY, Subject, switchMap } from "rxjs";
+import { takeUntil } from "rxjs/operators";
+import { NgClass } from "@angular/common";
+import { ArticlesService } from "../../core/services/articles.service";
+import { UserService } from "../../core/services/user.service";
+import { Article } from "../../core/models/article.model";
 
 @Component({
-  selector: 'app-favorite-button',
-  templateUrl: './favorite-button.component.html',
-  imports: [
-    NgClass
-  ],
-  standalone: true
+  selector: "app-favorite-button",
+  templateUrl: "./favorite-button.component.html",
+  imports: [NgClass],
+  standalone: true,
 })
 export class FavoriteButtonComponent implements OnDestroy {
   destroy$ = new Subject<void>();
@@ -22,13 +26,11 @@ export class FavoriteButtonComponent implements OnDestroy {
   @Input() article!: Article;
   @Output() toggle = new EventEmitter<boolean>();
 
-
   constructor(
     private readonly articleService: ArticlesService,
     private readonly router: Router,
     private readonly userService: UserService
-  ) {
-  }
+  ) {}
 
   ngOnDestroy() {
     this.destroy$.next();
@@ -38,10 +40,11 @@ export class FavoriteButtonComponent implements OnDestroy {
   toggleFavorite(): void {
     this.isSubmitting = true;
 
-    this.userService.isAuthenticated.pipe(
-      switchMap((authenticated) => {
+    this.userService.isAuthenticated
+      .pipe(
+        switchMap((authenticated) => {
           if (!authenticated) {
-            void this.router.navigate(['/login']);
+            void this.router.navigate(["/login"]);
             return EMPTY;
           }
 
@@ -50,16 +53,15 @@ export class FavoriteButtonComponent implements OnDestroy {
           } else {
             return this.articleService.unfavorite(this.article.slug);
           }
-
-        }
-      ),
-      takeUntil(this.destroy$)
-    ).subscribe({
-      next: () => {
-        this.isSubmitting = false;
-        this.toggle.emit(!this.article.favorited);
-      },
-      error: () => this.isSubmitting = false
-    });
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe({
+        next: () => {
+          this.isSubmitting = false;
+          this.toggle.emit(!this.article.favorited);
+        },
+        error: () => (this.isSubmitting = false),
+      });
   }
 }

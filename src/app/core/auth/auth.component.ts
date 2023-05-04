@@ -1,17 +1,17 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
   Validators,
   FormGroup,
   FormControl,
-  ReactiveFormsModule
-} from '@angular/forms';
-import {ActivatedRoute, Router, RouterLink} from '@angular/router';
-import {NgIf} from '@angular/common';
-import {ListErrorsComponent} from '../../shared/list-errors.component';
-import {Errors} from '../models/errors.model';
-import {UserService} from '../services/user.service';
-import {takeUntil} from 'rxjs/operators';
-import {Subject} from 'rxjs';
+  ReactiveFormsModule,
+} from "@angular/forms";
+import { ActivatedRoute, Router, RouterLink } from "@angular/router";
+import { NgIf } from "@angular/common";
+import { ListErrorsComponent } from "../../shared/list-errors.component";
+import { Errors } from "../models/errors.model";
+import { UserService } from "../services/user.service";
+import { takeUntil } from "rxjs/operators";
+import { Subject } from "rxjs";
 
 interface AuthForm {
   email: FormControl<string>;
@@ -20,20 +20,15 @@ interface AuthForm {
 }
 
 @Component({
-  selector: 'app-auth-page',
-  templateUrl: './auth.component.html',
-  imports: [
-    RouterLink,
-    NgIf,
-    ListErrorsComponent,
-    ReactiveFormsModule
-  ],
-  standalone: true
+  selector: "app-auth-page",
+  templateUrl: "./auth.component.html",
+  imports: [RouterLink, NgIf, ListErrorsComponent, ReactiveFormsModule],
+  standalone: true,
 })
 export class AuthComponent implements OnInit, OnDestroy {
-  authType = '';
-  title = '';
-  errors: Errors = {errors: {}};
+  authType = "";
+  title = "";
+  errors: Errors = { errors: {} };
   isSubmitting = false;
   authForm: FormGroup<AuthForm>;
   destroy$ = new Subject<void>();
@@ -41,29 +36,32 @@ export class AuthComponent implements OnInit, OnDestroy {
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly userService: UserService,
+    private readonly userService: UserService
   ) {
     // use FormBuilder to create a form group
     this.authForm = new FormGroup<AuthForm>({
-      email: new FormControl('', {
+      email: new FormControl("", {
         validators: [Validators.required],
-        nonNullable: true
+        nonNullable: true,
       }),
-      password: new FormControl('', {
+      password: new FormControl("", {
         validators: [Validators.required],
-        nonNullable: true
-      })
+        nonNullable: true,
+      }),
     });
   }
 
   ngOnInit(): void {
     this.authType = this.route.snapshot.url.at(-1)!.path;
-    this.title = (this.authType === 'login') ? 'Sign in' : 'Sign up';
-    if (this.authType === 'register') {
-      this.authForm.addControl('username', new FormControl('', {
-        validators: [Validators.required],
-        nonNullable: true
-      }));
+    this.title = this.authType === "login" ? "Sign in" : "Sign up";
+    if (this.authType === "register") {
+      this.authForm.addControl(
+        "username",
+        new FormControl("", {
+          validators: [Validators.required],
+          nonNullable: true,
+        })
+      );
     }
   }
 
@@ -74,21 +72,27 @@ export class AuthComponent implements OnInit, OnDestroy {
 
   submitForm(): void {
     this.isSubmitting = true;
-    this.errors = {errors: {}};
+    this.errors = { errors: {} };
 
-    let observable = (this.authType === 'login')
-      ? this.userService.login(this.authForm.value as { email: string, password: string })
-      : this.userService.register(this.authForm.value as { email: string, password: string, username: string });
+    let observable =
+      this.authType === "login"
+        ? this.userService.login(
+            this.authForm.value as { email: string; password: string }
+          )
+        : this.userService.register(
+            this.authForm.value as {
+              email: string;
+              password: string;
+              username: string;
+            }
+          );
 
-    observable.pipe(
-      takeUntil(this.destroy$)
-    ).subscribe({
-        next: () => void this.router.navigate(['/']),
-        error: err => {
-          this.errors = err;
-          this.isSubmitting = false;
-        }
-      }
-    );
+    observable.pipe(takeUntil(this.destroy$)).subscribe({
+      next: () => void this.router.navigate(["/"]),
+      error: (err) => {
+        this.errors = err;
+        this.isSubmitting = false;
+      },
+    });
   }
 }
