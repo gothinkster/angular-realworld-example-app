@@ -29,7 +29,6 @@ const routes: Routes = [
     // implement a custom preloading strategy for just some
     // of the modules (PRs welcome 😉)
     preloadingStrategy: QuicklinkStrategy,
-    relativeLinkResolution: 'legacy'
 })],
   exports: [RouterModule]
 })
