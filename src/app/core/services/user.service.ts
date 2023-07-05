@@ -26,11 +26,13 @@ export class UserService {
   // This runs once on application startup.
   populate() {
     // If JWT detected, attempt to get & store user's info
-    if (this.jwtService.getToken()) {
-      this.apiService.get('/user')
-      .subscribe(
-        data => this.setAuth(data.user),
-        err => this.purgeAuth()
+    const token = this.jwtService.getToken();
+    if (token) {
+      this.apiService.get("/user").subscribe(
+        (data) => {
+          return this.setAuth({ ...data.user, token });
+        },
+        (err) => this.purgeAuth()
       );
     } else {
       // Remove any potential remnants of previous auth states
