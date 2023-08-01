@@ -6,7 +6,6 @@ import {
   HttpRequest,
 } from "@angular/common/http";
 import { Observable, throwError } from "rxjs";
-import { Router } from "@angular/router"
 import { catchError } from "rxjs/operators";
 import { UserService } from "../services/user.service";
 
