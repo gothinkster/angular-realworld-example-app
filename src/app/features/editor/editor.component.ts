@@ -1,18 +1,18 @@
+import { NgForOf } from "@angular/common";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import {
-  UntypedFormGroup,
-  ReactiveFormsModule,
-  FormGroup,
   FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  UntypedFormGroup,
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { ListErrorsComponent } from "../../shared/list-errors.component";
-import { NgForOf } from "@angular/common";
-import { ArticlesService } from "../../core/services/articles.service";
-import { combineLatest, Subject } from "rxjs";
+import { Subject, combineLatest } from "rxjs";
 import { takeUntil } from "rxjs/operators";
-import { UserService } from "../../core/services/user.service";
 import { Errors } from "../../core/models/errors.model";
+import { ArticlesService } from "../../core/services/articles.service";
+import { UserService } from "../../core/services/user.service";
+import { ListErrorsComponent } from "../../shared/list-errors.component";
 
 interface ArticleForm {
   title: FormControl<string>;
@@ -47,19 +47,21 @@ export class EditorComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    combineLatest([
-      this.articleService.get(this.route.snapshot.params["slug"]),
-      this.userService.getCurrentUser(),
-    ])
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(([article, { user }]) => {
-        if (user.username === article.author.username) {
-          this.tagList = article.tagList;
-          this.articleForm.patchValue(article);
-        } else {
-          void this.router.navigate(["/"]);
-        }
-      });
+    if (this.route.snapshot.params["slug"]) {
+      combineLatest([
+        this.articleService.get(this.route.snapshot.params["slug"]),
+        this.userService.getCurrentUser(),
+      ])
+        .pipe(takeUntil(this.destroy$))
+        .subscribe(([article, { user }]) => {
+          if (user.username === article.author.username) {
+            this.tagList = article.tagList;
+            this.articleForm.patchValue(article);
+          } else {
+            void this.router.navigate(["/"]);
+          }
+        });
+    }
   }
 
   ngOnDestroy() {
