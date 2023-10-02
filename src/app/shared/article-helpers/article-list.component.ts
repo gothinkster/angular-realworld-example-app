@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy } from "@angular/core";
+import { Component, Input, OnDestroy, OnInit } from "@angular/core";
 import { ArticlesService } from "../../core/services/articles.service";
 import { ArticleListConfig } from "../../core/models/article-list-config.model";
 import { Article } from "../../core/models/article.model";
@@ -7,6 +7,7 @@ import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { LoadingState } from "../../core/models/loading-state.model";
 import { Subject } from "rxjs";
 import { takeUntil } from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: "app-article-list",
@@ -30,11 +31,21 @@ export class ArticleListComponent implements OnDestroy {
     if (config) {
       this.query = config;
       this.currentPage = 1;
-      this.runQuery();
+      this.route.queryParams.subscribe((params) => {
+        const page = params["page"];
+        if (page) {
+          this.currentPage = Number(page);
+        }
+        this.runQuery();
+      });
     }
   }
 
-  constructor(private articlesService: ArticlesService) {}
+  constructor(
+    private articlesService: ArticlesService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {}
 
   ngOnDestroy() {
     this.destroy$.next();
@@ -44,6 +55,11 @@ export class ArticleListComponent implements OnDestroy {
   setPageTo(pageNumber: number) {
     this.currentPage = pageNumber;
     this.runQuery();
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { page: pageNumber },
+      queryParamsHandling: "merge",
+    });
   }
 
   runQuery() {
