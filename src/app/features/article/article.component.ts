@@ -72,7 +72,7 @@ export class ArticleComponent implements OnInit, OnDestroy {
       .pipe(
         catchError((err) => {
           void this.router.navigate(["/"]);
-          return throwError(err);
+          return throwError(() => err);
         })
       )
       .subscribe(([article, comments, currentUser]) => {

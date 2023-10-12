@@ -45,7 +45,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       .pipe(
         catchError((error) => {
           void this.router.navigate(["/"]);
-          return throwError(error);
+          return throwError(() => error);
         }),
         switchMap((profile) => {
           return combineLatest([of(profile), this.userService.currentUser]);
