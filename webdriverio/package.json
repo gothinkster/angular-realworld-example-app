@@ -1,0 +1,21 @@
+{
+  "name": "webdriverio",
+  "type": "module",
+  "devDependencies": {
+    "@badisi/wdio-harness": "^3.0.4",
+    "@faker-js/faker": "^8.3.1",
+    "@testing-library/webdriverio": "^3.2.1",
+    "@types/jasmine": "^5.1.4",
+    "@wdio/cli": "^8.26.2",
+    "@wdio/jasmine-framework": "^8.26.2",
+    "@wdio/local-runner": "^8.26.2",
+    "@wdio/spec-reporter": "^8.26.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3",
+    "wdio-ng-apimock-service": "^3.0.1",
+    "wdio-wait-for": "^3.0.10"
+  },
+  "scripts": {
+    "wdio": "wdio run ./wdio.conf.ts"
+  }
+}
