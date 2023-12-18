@@ -10,6 +10,7 @@
     "@wdio/jasmine-framework": "^8.26.2",
     "@wdio/local-runner": "^8.26.2",
     "@wdio/spec-reporter": "^8.26.2",
+    "axios": "^1.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
     "wdio-ng-apimock-service": "^3.0.1",

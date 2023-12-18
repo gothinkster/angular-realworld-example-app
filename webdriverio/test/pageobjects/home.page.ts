@@ -6,6 +6,7 @@ import { BasePage } from "./base.page.ts";
 class HomePage extends BasePage {
   async navigateTo(): Promise<void> {
     await browser.url("/");
+    await this.waitTillLoaded();
   }
   async waitTillLoaded() {
     await expect(FeedPage.yourFeedTab).toBeDisplayed();

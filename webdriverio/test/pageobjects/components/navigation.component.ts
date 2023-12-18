@@ -21,6 +21,10 @@ class NavigationComponent {
     return $(`=${username}`);
   };
 
+  newArticleLink = () => {
+    return browser.findByRole("link", { name: "New Article" });
+  };
+
   async assertSpecificUserLoggedIn(username: string) {
     await HomePage.waitTillLoaded();
     // const usernameValue = await browser.findByText(username)
@@ -37,6 +41,11 @@ class NavigationComponent {
   async goToProfile() {
     const usernameLink = await this.loggedInUserLink();
     await usernameLink.click();
+  }
+
+  async goToNewArticle() {
+    const newArticleLlink = await this.newArticleLink();
+    await newArticleLlink.click();
   }
 }
 export default new NavigationComponent();

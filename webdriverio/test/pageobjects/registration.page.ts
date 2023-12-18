@@ -64,7 +64,6 @@ class RegistrationPage extends BasePage {
       this.fillEmail(email),
       this.fillPassword(password),
     ]);
-    await browser.saveScreenshot("./screenshots/1.png");
     await this.submit();
   }
 
