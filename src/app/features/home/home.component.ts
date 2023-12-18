@@ -8,7 +8,7 @@ import { takeUntil, tap } from "rxjs/operators";
 import { Subject } from "rxjs";
 import { UserService } from "../../core/services/user.service";
 import { RxLet } from "@rx-angular/template/let";
-import { ShowAuthedDirective } from "../../shared/show-authed.directive";
+import { IfAuthenticatedDirective } from "../../shared/if-authenticated.directive";
 
 @Component({
   selector: "app-home-page",
@@ -20,7 +20,7 @@ import { ShowAuthedDirective } from "../../shared/show-authed.directive";
     AsyncPipe,
     RxLet,
     NgForOf,
-    ShowAuthedDirective,
+    IfAuthenticatedDirective,
   ],
   standalone: true,
 })

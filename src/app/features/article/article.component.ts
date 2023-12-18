@@ -16,7 +16,7 @@ import { ArticleCommentComponent } from "./article-comment.component";
 import { catchError, takeUntil } from "rxjs/operators";
 import { Subject, combineLatest, throwError } from "rxjs";
 import { Comment } from "../../core/models/comment.model";
-import { ShowAuthedDirective } from "../../shared/show-authed.directive";
+import { IfAuthenticatedDirective } from "../../shared/if-authenticated.directive";
 import { Errors } from "../../core/models/errors.model";
 import { Profile } from "../../core/models/profile.model";
 
@@ -36,7 +36,7 @@ import { Profile } from "../../core/models/profile.model";
     FormsModule,
     ArticleCommentComponent,
     ReactiveFormsModule,
-    ShowAuthedDirective,
+    IfAuthenticatedDirective,
     NgIf,
   ],
   standalone: true,

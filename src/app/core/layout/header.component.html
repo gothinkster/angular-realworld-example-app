@@ -3,7 +3,7 @@
     <a class="navbar-brand" routerLink="/">conduit</a>
 
     <!-- Show this for logged out users -->
-    <ul *appShowAuthed="false" class="nav navbar-nav pull-xs-right">
+    <ul *ifAuthenticated="false" class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
         <a class="nav-link" routerLink="/"> Home </a>
       </li>
@@ -22,7 +22,7 @@
     </ul>
 
     <!-- Show this for logged in users -->
-    <ul *appShowAuthed="true" class="nav navbar-nav pull-xs-right">
+    <ul *ifAuthenticated="true" class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
         <a
           class="nav-link"
