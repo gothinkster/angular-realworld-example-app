@@ -12,7 +12,7 @@ describe("as a user", () => {
     const username = faker.string.alpha({ length: 30 });
     const email = `${username}@mailinator.com`;
     await RegistrationPage.attemptRegister(username, email, "testpw");
-    await HomePage.navigation.assertLoggedInUser(username);
+    await HomePage.navigation.assertSpecificUserLoggedIn(username);
   });
 
   // logout is necessary due to webdriverio not having a clean context (like Playwright) for each test
@@ -25,6 +25,6 @@ describe("as a user", () => {
   it("should be possible to login", async () => {
     await SignInPage.navigateTo();
     await SignInPage.attemptLogin("gerwin@detesters.nl", "wachtwoord");
-    await HomePage.navigation.assertLoggedInUser("gerwin");
+    await HomePage.navigation.assertSpecificUserLoggedIn("gerwin");
   });
 });

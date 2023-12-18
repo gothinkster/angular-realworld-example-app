@@ -17,11 +17,14 @@ class NavigationComponent {
     return browser.findByTestId("logged-in-user-link");
   };
 
-  async assertLoggedInUser(username: string) {
-    console.log(username);
+  specificLoggedInUserLink = (username: string) => {
+    return $(`=${username}`);
+  };
+
+  async assertSpecificUserLoggedIn(username: string) {
     await HomePage.waitTillLoaded();
     // const usernameValue = await browser.findByText(username)
-    const usernameLink = await this.loggedInUserLink();
+    const usernameLink = await this.specificLoggedInUserLink(username);
     await usernameLink.waitForDisplayed();
   }
 
