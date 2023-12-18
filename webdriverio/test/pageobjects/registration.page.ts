@@ -1,10 +1,11 @@
-import { $, browser, expect } from "@wdio/globals";
+import { browser, expect } from "@wdio/globals";
 import { BasePage } from "./base.page.ts";
 import { setupBrowser } from "@testing-library/webdriverio";
 
 class RegistrationPage extends BasePage {
   constructor() {
     super();
+    // @ts-ignore
     setupBrowser(browser);
   }
 
@@ -31,9 +32,9 @@ class RegistrationPage extends BasePage {
   }
 
   async waitTillLoaded() {
-    expect(await this.username).toBeDisplayed();
-    expect(await this.email).toBeDisplayed();
-    expect(await this.password).toBeDisplayed();
+    await expect(await this.username).toBeDisplayed();
+    await expect(await this.email).toBeDisplayed();
+    await expect(await this.password).toBeDisplayed();
   }
 
   async fillUsername(username: string) {
@@ -52,7 +53,9 @@ class RegistrationPage extends BasePage {
   }
 
   async submit() {
-    await $('button[type="submit"]').click();
+    // await $('button[type="submit"]').click();
+    const signupButton = await browser.getByRole("button", { name: "Sign up" });
+    await signupButton.click();
   }
 
   async attemptRegister(username: string, email: string, password: string) {
@@ -61,16 +64,17 @@ class RegistrationPage extends BasePage {
       this.fillEmail(email),
       this.fillPassword(password),
     ]);
+    await browser.saveScreenshot("./screenshots/1.png");
     await this.submit();
   }
 
   async assertEmailError() {
     const emailError = await this.emailError;
-    expect(emailError).toBeDisplayed();
+    await expect(emailError).toBeDisplayed();
   }
   async assertPasswordError() {
     const passwordError = await this.password;
-    expect(passwordError).toBeDisplayed();
+    await expect(passwordError).toBeDisplayed();
   }
 }
 

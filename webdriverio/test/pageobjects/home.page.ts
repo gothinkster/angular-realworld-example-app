@@ -7,9 +7,9 @@ class HomePage extends BasePage {
   async navigateTo(): Promise<void> {
     await browser.url("/");
   }
-  waitTillLoaded(): void {
-    expect(FeedPage.yourFeedTab).toBeDisplayed();
-    expect(FeedPage.globalFeedTab).toBeDisplayed();
+  async waitTillLoaded() {
+    await expect(FeedPage.yourFeedTab).toBeDisplayed();
+    await expect(FeedPage.globalFeedTab).toBeDisplayed();
   }
 
   public get navigation() {

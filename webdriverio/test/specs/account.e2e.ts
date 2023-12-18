@@ -1,6 +1,9 @@
 import RegistrationPage from "../pageobjects/registration.page.ts";
 import { faker } from "@faker-js/faker";
 import HomePage from "../pageobjects/home.page.ts";
+import SignInPage from "../pageobjects/signIn.page.ts";
+import ProfilePage from "../pageobjects/profile.page.ts";
+import ProfilesettingsPage from "../pageobjects/profilesettings.page.ts";
 
 describe("as a user", () => {
   it("should be possible to register", async () => {
@@ -10,6 +13,18 @@ describe("as a user", () => {
     const email = `${username}@mailinator.com`;
     await RegistrationPage.attemptRegister(username, email, "testpw");
     await HomePage.navigation.assertLoggedInUser(username);
-    browser.saveScreenshot("./screenshots/afterReg.png");
+  });
+
+  // logout is necessary due to webdriverio not having a clean context (like Playwright) for each test
+  it("should be possible to log out", async () => {
+    await HomePage.navigation.goToProfile();
+    await ProfilePage.goToProfileSettings();
+    await ProfilesettingsPage.clickLogout();
+  });
+
+  it("should be possible to login", async () => {
+    await SignInPage.navigateTo();
+    await SignInPage.attemptLogin("gerwin@detesters.nl", "wachtwoord");
+    await HomePage.navigation.assertLoggedInUser("gerwin");
   });
 });

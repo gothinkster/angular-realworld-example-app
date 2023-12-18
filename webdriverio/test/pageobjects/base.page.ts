@@ -1,4 +1,4 @@
 export abstract class BasePage {
-  abstract navigateTo(): void;
+  abstract navigateTo(args?: {}): void;
   abstract waitTillLoaded(): void;
 }

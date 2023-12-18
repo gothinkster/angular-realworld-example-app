@@ -49,6 +49,7 @@
       <li class="nav-item" *ngIf="currentUser$ | async as currentUser">
         <a
           class="nav-link"
+          data-testid="logged-in-user-link"
           [routerLink]="['/profile', currentUser.username]"
           routerLinkActive="active"
         >
