@@ -1,4 +1,4 @@
-@for (article of results) {
+@for (article of results; track article.slug) {
   <app-article-preview [article]="article" />
 }
 

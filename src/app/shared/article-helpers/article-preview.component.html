@@ -14,7 +14,7 @@
     <p>{{ article.description }}</p>
     <span>Read more...</span>
     <ul class="tag-list">
-      @for (tag of article.tagList) {
+      @for (tag of article.tagList; track tag) {
         <li class="tag-default tag-pill tag-outline">
           {{ tag }}
         </li>
