@@ -39,7 +39,7 @@
           </ul>
         </div>
 
-        <app-article-list [limit]="10" [config]="listConfig"></app-article-list>
+        <app-article-list [limit]="10" [config]="listConfig" />
       </div>
 
       <div class="col-md-3" *rxLet="tags$; let tags">
@@ -47,13 +47,14 @@
           <p>Popular Tags</p>
 
           <div class="tag-list">
-            <a
-              *ngFor="let tag of tags"
-              (click)="setListTo('all', { tag: tag })"
-              class="tag-default tag-pill"
-            >
-              {{ tag }}
-            </a>
+            @for (tag of tags; track tag) {
+              <a
+                class="tag-default tag-pill"
+                (click)="setListTo('all', { tag: tag })"
+              >
+                {{ tag }}
+              </a>
+            }
           </div>
 
           <div [hidden]="tagsLoaded">Loading tags...</div>

@@ -2,7 +2,7 @@
   <div class="container page">
     <div class="row">
       <div class="col-md-10 offset-md-1 col-xs-12">
-        <app-list-errors [errors]="errors"></app-list-errors>
+        <app-list-errors [errors]="errors" />
 
         <form [formGroup]="articleForm">
           <fieldset [disabled]="isSubmitting">
@@ -43,10 +43,12 @@
                 (keyup.enter)="addTag()"
               />
               <div class="tag-list">
-                <span *ngFor="let tag of tagList" class="tag-default tag-pill">
-                  <i class="ion-close-round" (click)="removeTag(tag)"></i>
-                  {{ tag }}
-                </span>
+                @for (tag of tagList; track tag) {
+                  <span class="tag-default tag-pill">
+                    <i class="ion-close-round" (click)="removeTag(tag)"></i>
+                    {{ tag }}
+                  </span>
+                }
               </div>
             </fieldset>
 

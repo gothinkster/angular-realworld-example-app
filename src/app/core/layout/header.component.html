@@ -46,20 +46,22 @@
         </a>
       </li>
 
-      <li class="nav-item" *ngIf="currentUser$ | async as currentUser">
-        <a
-          class="nav-link"
-          [routerLink]="['/profile', currentUser.username]"
-          routerLinkActive="active"
-        >
-          <img
-            [src]="currentUser.image"
-            *ngIf="currentUser.image"
-            class="user-pic"
-          />
-          {{ currentUser.username }}
-        </a>
-      </li>
+      @if (currentUser$ | async; as currentUser) {
+        <li class="nav-item">
+          <a
+            class="nav-link"
+            [routerLink]="['/profile', currentUser.username]"
+            routerLinkActive="active"
+          >
+            <img
+              [src]="currentUser.image"
+              *ngIf="currentUser.image"
+              class="user-pic"
+            />
+            {{ currentUser.username }}
+          </a>
+        </li>
+      }
     </ul>
   </div>
 </nav>

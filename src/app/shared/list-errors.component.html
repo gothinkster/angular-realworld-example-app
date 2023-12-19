@@ -1,5 +1,7 @@
-<ul class="error-messages" *ngIf="errorList">
-  <li *ngFor="let error of errorList">
-    {{ error }}
-  </li>
-</ul>
+@if (errorList) {
+  <ul class="error-messages">
+    @for (error of errorList; track error) {
+      <li>{{ error }}</li>
+    }
+  </ul>
+}

@@ -14,12 +14,11 @@
     <p>{{ article.description }}</p>
     <span>Read more...</span>
     <ul class="tag-list">
-      <li
-        class="tag-default tag-pill tag-outline"
-        *ngFor="let tag of article.tagList"
-      >
-        {{ tag }}
-      </li>
+      @for (tag of article.tagList) {
+        <li class="tag-default tag-pill tag-outline">
+          {{ tag }}
+        </li>
+      }
     </ul>
   </a>
 </div>
