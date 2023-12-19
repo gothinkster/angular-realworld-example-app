@@ -1,12 +1,11 @@
-import { Component, Input, OnDestroy } from "@angular/core";
+import { Component, DestroyRef, inject, Input } from "@angular/core";
 import { ArticlesService } from "../../core/services/articles.service";
 import { ArticleListConfig } from "../../core/models/article-list-config.model";
 import { Article } from "../../core/models/article.model";
 import { ArticlePreviewComponent } from "./article-preview.component";
 import { NgClass, NgForOf, NgIf } from "@angular/common";
 import { LoadingState } from "../../core/models/loading-state.model";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "app-article-list",
@@ -15,14 +14,14 @@ import { takeUntil } from "rxjs/operators";
   imports: [ArticlePreviewComponent, NgForOf, NgClass, NgIf],
   standalone: true,
 })
-export class ArticleListComponent implements OnDestroy {
+export class ArticleListComponent {
   query!: ArticleListConfig;
   results: Article[] = [];
   currentPage = 1;
   totalPages: Array<number> = [];
   loading = LoadingState.NOT_LOADED;
   LoadingState = LoadingState;
-  destroy$ = new Subject<void>();
+  destroyRef = inject(DestroyRef);
 
   @Input() limit!: number;
   @Input()
@@ -35,11 +34,6 @@ export class ArticleListComponent implements OnDestroy {
   }
 
   constructor(private articlesService: ArticlesService) {}
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
   setPageTo(pageNumber: number) {
     this.currentPage = pageNumber;
@@ -58,7 +52,7 @@ export class ArticleListComponent implements OnDestroy {
 
     this.articlesService
       .query(this.query)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         this.loading = LoadingState.LOADED;
         this.results = data.articles;
@@ -66,7 +60,7 @@ export class ArticleListComponent implements OnDestroy {
         // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
         this.totalPages = Array.from(
           new Array(Math.ceil(data.articlesCount / this.limit)),
-          (val, index) => index + 1
+          (val, index) => index + 1,
         );
       });
   }

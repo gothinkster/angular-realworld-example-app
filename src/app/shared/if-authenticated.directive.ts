@@ -1,22 +1,25 @@
 import {
+  DestroyRef,
   Directive,
+  inject,
   Input,
   OnInit,
   TemplateRef,
   ViewContainerRef,
 } from "@angular/core";
 import { UserService } from "../core/services/user.service";
-import { take } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Directive({
   selector: "[ifAuthenticated]",
   standalone: true,
 })
 export class IfAuthenticatedDirective<T> implements OnInit {
+  destroyRef = inject(DestroyRef);
   constructor(
     private templateRef: TemplateRef<T>,
     private userService: UserService,
-    private viewContainer: ViewContainerRef
+    private viewContainer: ViewContainerRef,
   ) {}
 
   condition: boolean = false;
@@ -24,7 +27,7 @@ export class IfAuthenticatedDirective<T> implements OnInit {
 
   ngOnInit() {
     this.userService.isAuthenticated
-      .pipe(take(1))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((isAuthenticated: boolean) => {
         const authRequired = isAuthenticated && this.condition;
         const unauthRequired = !isAuthenticated && !this.condition;

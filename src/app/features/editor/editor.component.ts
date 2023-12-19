@@ -1,5 +1,5 @@
 import { NgForOf } from "@angular/common";
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -7,12 +7,12 @@ import {
   UntypedFormGroup,
 } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Subject, combineLatest } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { combineLatest } from "rxjs";
 import { Errors } from "../../core/models/errors.model";
 import { ArticlesService } from "../../core/services/articles.service";
 import { UserService } from "../../core/services/user.service";
 import { ListErrorsComponent } from "../../shared/list-errors.component";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 interface ArticleForm {
   title: FormControl<string>;
@@ -26,7 +26,7 @@ interface ArticleForm {
   imports: [ListErrorsComponent, ReactiveFormsModule, NgForOf],
   standalone: true,
 })
-export class EditorComponent implements OnInit, OnDestroy {
+export class EditorComponent implements OnInit {
   tagList: string[] = [];
   articleForm: UntypedFormGroup = new FormGroup<ArticleForm>({
     title: new FormControl("", { nonNullable: true }),
@@ -37,13 +37,13 @@ export class EditorComponent implements OnInit, OnDestroy {
 
   errors: Errors | null = null;
   isSubmitting = false;
-  destroy$ = new Subject<void>();
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly articleService: ArticlesService,
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {}
 
   ngOnInit() {
@@ -52,7 +52,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         this.articleService.get(this.route.snapshot.params["slug"]),
         this.userService.getCurrentUser(),
       ])
-        .pipe(takeUntil(this.destroy$))
+        .pipe(takeUntilDestroyed(this.destroyRef))
         .subscribe(([article, { user }]) => {
           if (user.username === article.author.username) {
             this.tagList = article.tagList;
@@ -62,11 +62,6 @@ export class EditorComponent implements OnInit, OnDestroy {
           }
         });
     }
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   addTag() {
@@ -96,7 +91,7 @@ export class EditorComponent implements OnInit, OnDestroy {
         ...this.articleForm.value,
         tagList: this.tagList,
       })
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (article) => this.router.navigate(["/article/", article.slug]),
         error: (err) => {

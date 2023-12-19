@@ -1,17 +1,18 @@
 import {
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
-  OnDestroy,
   Output,
 } from "@angular/core";
 import { Router } from "@angular/router";
-import { EMPTY, Subject, switchMap } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { EMPTY, switchMap } from "rxjs";
 import { NgClass } from "@angular/common";
 import { ArticlesService } from "../../core/services/articles.service";
 import { UserService } from "../../core/services/user.service";
 import { Article } from "../../core/models/article.model";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "app-favorite-button",
@@ -19,8 +20,8 @@ import { Article } from "../../core/models/article.model";
   imports: [NgClass],
   standalone: true,
 })
-export class FavoriteButtonComponent implements OnDestroy {
-  destroy$ = new Subject<void>();
+export class FavoriteButtonComponent {
+  destroyRef = inject(DestroyRef);
   isSubmitting = false;
 
   @Input() article!: Article;
@@ -29,13 +30,8 @@ export class FavoriteButtonComponent implements OnDestroy {
   constructor(
     private readonly articleService: ArticlesService,
     private readonly router: Router,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {}
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
   toggleFavorite(): void {
     this.isSubmitting = true;
@@ -54,7 +50,7 @@ export class FavoriteButtonComponent implements OnDestroy {
             return this.articleService.unfavorite(this.article.slug);
           }
         }),
-        takeUntil(this.destroy$)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
         next: () => {

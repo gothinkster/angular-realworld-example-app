@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import {
   FormControl,
   FormGroup,
@@ -10,8 +10,7 @@ import { User } from "../../core/models/user.model";
 import { UserService } from "../../core/services/user.service";
 import { ListErrorsComponent } from "../../shared/list-errors.component";
 import { Errors } from "../../core/models/errors.model";
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 interface SettingsForm {
   image: FormControl<string>;
@@ -27,7 +26,7 @@ interface SettingsForm {
   imports: [ListErrorsComponent, ReactiveFormsModule],
   standalone: true,
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent implements OnInit {
   user!: User;
   settingsForm = new FormGroup<SettingsForm>({
     image: new FormControl("", { nonNullable: true }),
@@ -41,22 +40,17 @@ export class SettingsComponent implements OnInit, OnDestroy {
   });
   errors: Errors | null = null;
   isSubmitting = false;
-  destroy$ = new Subject<void>();
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly router: Router,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {}
 
   ngOnInit(): void {
     this.settingsForm.patchValue(
-      this.userService.getCurrentUser() as Partial<User>
+      this.userService.getCurrentUser() as Partial<User>,
     );
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   logout(): void {
@@ -68,7 +62,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     this.userService
       .update(this.settingsForm.value)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: ({ user }) =>
           void this.router.navigate(["/profile/", user.username]),

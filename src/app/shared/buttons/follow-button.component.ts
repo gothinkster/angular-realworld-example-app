@@ -1,17 +1,19 @@
 import {
   Component,
+  DestroyRef,
   EventEmitter,
+  inject,
   Input,
-  OnDestroy,
   Output,
 } from "@angular/core";
 import { Router } from "@angular/router";
-import { switchMap, takeUntil } from "rxjs/operators";
-import { EMPTY, Subject } from "rxjs";
+import { switchMap } from "rxjs/operators";
+import { EMPTY } from "rxjs";
 import { ProfileService } from "../../core/services/profile.service";
 import { UserService } from "../../core/services/user.service";
 import { Profile } from "../../core/models/profile.model";
 import { NgClass } from "@angular/common";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "app-follow-button",
@@ -19,22 +21,17 @@ import { NgClass } from "@angular/common";
   imports: [NgClass],
   standalone: true,
 })
-export class FollowButtonComponent implements OnDestroy {
+export class FollowButtonComponent {
   @Input() profile!: Profile;
   @Output() toggle = new EventEmitter<Profile>();
   isSubmitting = false;
-  destroy$ = new Subject<void>();
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly profileService: ProfileService,
     private readonly router: Router,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {}
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
 
   toggleFollowing(): void {
     this.isSubmitting = true;
@@ -53,7 +50,7 @@ export class FollowButtonComponent implements OnDestroy {
             return this.profileService.unfollow(this.profile.username);
           }
         }),
-        takeUntil(this.destroy$)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe({
         next: (profile) => {

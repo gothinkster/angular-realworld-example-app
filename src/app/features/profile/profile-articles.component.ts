@@ -1,11 +1,10 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { ArticleListComponent } from "../../shared/article-helpers/article-list.component";
-import { takeUntil } from "rxjs/operators";
 import { ProfileService } from "../../core/services/profile.service";
 import { Profile } from "../../core/models/profile.model";
 import { ArticleListConfig } from "../../core/models/article-list-config.model";
-import { Subject } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "app-profile-articles",
@@ -13,20 +12,20 @@ import { Subject } from "rxjs";
   imports: [ArticleListComponent],
   standalone: true,
 })
-export class ProfileArticlesComponent implements OnInit, OnDestroy {
+export class ProfileArticlesComponent implements OnInit {
   profile!: Profile;
   articlesConfig!: ArticleListConfig;
-  destroy$ = new Subject<void>();
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private route: ActivatedRoute,
-    private readonly profileService: ProfileService
+    private readonly profileService: ProfileService,
   ) {}
 
   ngOnInit(): void {
     this.profileService
       .get(this.route.snapshot.params["username"])
-      .pipe(takeUntil(this.destroy$))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
         next: (profile: Profile) => {
           this.profile = profile;
@@ -38,10 +37,5 @@ export class ProfileArticlesComponent implements OnInit, OnDestroy {
           };
         },
       });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 }

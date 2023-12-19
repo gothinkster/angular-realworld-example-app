@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import {
   ActivatedRoute,
   Router,
@@ -6,13 +6,14 @@ import {
   RouterLinkActive,
   RouterOutlet,
 } from "@angular/router";
-import { catchError, switchMap, takeUntil } from "rxjs/operators";
-import { combineLatest, of, Subject, throwError } from "rxjs";
+import { catchError, switchMap } from "rxjs/operators";
+import { combineLatest, of, throwError } from "rxjs";
 import { UserService } from "../../core/services/user.service";
 import { Profile } from "../../core/models/profile.model";
 import { ProfileService } from "../../core/services/profile.service";
 import { FollowButtonComponent } from "../../shared/buttons/follow-button.component";
 import { AsyncPipe, NgIf } from "@angular/common";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "app-profile-page",
@@ -27,16 +28,16 @@ import { AsyncPipe, NgIf } from "@angular/common";
   ],
   standalone: true,
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   profile!: Profile;
   isUser: boolean = false;
-  destroy$ = new Subject<void>();
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
     private readonly userService: UserService,
-    private readonly profileService: ProfileService
+    private readonly profileService: ProfileService,
   ) {}
 
   ngOnInit() {
@@ -50,17 +51,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
         switchMap((profile) => {
           return combineLatest([of(profile), this.userService.currentUser]);
         }),
-        takeUntil(this.destroy$)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(([profile, user]) => {
         this.profile = profile;
         this.isUser = profile.username === user?.username;
       });
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   onToggleFollowing(profile: Profile) {

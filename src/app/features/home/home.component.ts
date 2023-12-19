@@ -1,14 +1,14 @@
-import { Component, inject, OnDestroy, OnInit } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { TagsService } from "../../core/services/tags.service";
 import { ArticleListConfig } from "../../core/models/article-list-config.model";
 import { AsyncPipe, NgClass, NgForOf } from "@angular/common";
 import { ArticleListComponent } from "../../shared/article-helpers/article-list.component";
-import { takeUntil, tap } from "rxjs/operators";
-import { Subject } from "rxjs";
+import { tap } from "rxjs/operators";
 import { UserService } from "../../core/services/user.service";
 import { RxLet } from "@rx-angular/template/let";
 import { IfAuthenticatedDirective } from "../../shared/if-authenticated.directive";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: "app-home-page",
@@ -24,7 +24,7 @@ import { IfAuthenticatedDirective } from "../../shared/if-authenticated.directiv
   ],
   standalone: true,
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
   isAuthenticated = false;
   listConfig: ArticleListConfig = {
     type: "all",
@@ -34,11 +34,11 @@ export class HomeComponent implements OnInit, OnDestroy {
     .getAll()
     .pipe(tap(() => (this.tagsLoaded = true)));
   tagsLoaded = false;
-  destroy$ = new Subject<void>();
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly router: Router,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {}
 
   ngOnInit(): void {
@@ -51,16 +51,11 @@ export class HomeComponent implements OnInit, OnDestroy {
             this.setListTo("all");
           }
         }),
-        takeUntil(this.destroy$)
+        takeUntilDestroyed(this.destroyRef),
       )
       .subscribe(
-        (isAuthenticated: boolean) => (this.isAuthenticated = isAuthenticated)
+        (isAuthenticated: boolean) => (this.isAuthenticated = isAuthenticated),
       );
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   setListTo(type: string = "", filters: Object = {}): void {

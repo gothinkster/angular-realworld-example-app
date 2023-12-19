@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import {
   Validators,
   FormGroup,
@@ -10,8 +10,7 @@ import { NgIf } from "@angular/common";
 import { ListErrorsComponent } from "../../shared/list-errors.component";
 import { Errors } from "../models/errors.model";
 import { UserService } from "../services/user.service";
-import { takeUntil } from "rxjs/operators";
-import { Subject } from "rxjs";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 interface AuthForm {
   email: FormControl<string>;
@@ -25,18 +24,18 @@ interface AuthForm {
   imports: [RouterLink, NgIf, ListErrorsComponent, ReactiveFormsModule],
   standalone: true,
 })
-export class AuthComponent implements OnInit, OnDestroy {
+export class AuthComponent implements OnInit {
   authType = "";
   title = "";
   errors: Errors = { errors: {} };
   isSubmitting = false;
   authForm: FormGroup<AuthForm>;
-  destroy$ = new Subject<void>();
+  destroyRef = inject(DestroyRef);
 
   constructor(
     private readonly route: ActivatedRoute,
     private readonly router: Router,
-    private readonly userService: UserService
+    private readonly userService: UserService,
   ) {
     // use FormBuilder to create a form group
     this.authForm = new FormGroup<AuthForm>({
@@ -60,14 +59,9 @@ export class AuthComponent implements OnInit, OnDestroy {
         new FormControl("", {
           validators: [Validators.required],
           nonNullable: true,
-        })
+        }),
       );
     }
-  }
-
-  ngOnDestroy() {
-    this.destroy$.next();
-    this.destroy$.complete();
   }
 
   submitForm(): void {
@@ -77,17 +71,17 @@ export class AuthComponent implements OnInit, OnDestroy {
     let observable =
       this.authType === "login"
         ? this.userService.login(
-            this.authForm.value as { email: string; password: string }
+            this.authForm.value as { email: string; password: string },
           )
         : this.userService.register(
             this.authForm.value as {
               email: string;
               password: string;
               username: string;
-            }
+            },
           );
 
-    observable.pipe(takeUntil(this.destroy$)).subscribe({
+    observable.pipe(takeUntilDestroyed(this.destroyRef)).subscribe({
       next: () => void this.router.navigate(["/"]),
       error: (err) => {
         this.errors = err;
