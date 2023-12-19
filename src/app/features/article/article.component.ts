@@ -42,7 +42,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   ],
   standalone: true,
 })
-export class ArticleComponent implements OnInit {
+export default class ArticleComponent implements OnInit {
   article!: Article;
   currentUser!: User | null;
   comments: Comment[] = [];

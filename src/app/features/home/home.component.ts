@@ -24,7 +24,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   ],
   standalone: true,
 })
-export class HomeComponent implements OnInit {
+export default class HomeComponent implements OnInit {
   isAuthenticated = false;
   listConfig: ArticleListConfig = {
     type: "all",

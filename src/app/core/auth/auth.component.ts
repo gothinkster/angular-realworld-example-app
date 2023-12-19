@@ -24,7 +24,7 @@ interface AuthForm {
   imports: [RouterLink, NgIf, ListErrorsComponent, ReactiveFormsModule],
   standalone: true,
 })
-export class AuthComponent implements OnInit {
+export default class AuthComponent implements OnInit {
   authType = "";
   title = "";
   errors: Errors = { errors: {} };

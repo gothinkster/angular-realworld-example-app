@@ -12,7 +12,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   imports: [ArticleListComponent],
   standalone: true,
 })
-export class ProfileFavoritesComponent implements OnInit {
+export default class ProfileFavoritesComponent implements OnInit {
   profile!: Profile;
   favoritesConfig!: ArticleListConfig;
   destroyRef = inject(DestroyRef);

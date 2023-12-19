@@ -26,7 +26,7 @@ interface ArticleForm {
   imports: [ListErrorsComponent, ReactiveFormsModule, NgForOf],
   standalone: true,
 })
-export class EditorComponent implements OnInit {
+export default class EditorComponent implements OnInit {
   tagList: string[] = [];
   articleForm: UntypedFormGroup = new FormGroup<ArticleForm>({
     title: new FormControl("", { nonNullable: true }),

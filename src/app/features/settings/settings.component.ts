@@ -26,7 +26,7 @@ interface SettingsForm {
   imports: [ListErrorsComponent, ReactiveFormsModule],
   standalone: true,
 })
-export class SettingsComponent implements OnInit {
+export default class SettingsComponent implements OnInit {
   user!: User;
   settingsForm = new FormGroup<SettingsForm>({
     image: new FormControl("", { nonNullable: true }),
