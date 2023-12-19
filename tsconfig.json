@@ -26,6 +26,5 @@
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true
-  },
-  "useDefineForClassFields": false
+  }
 }
