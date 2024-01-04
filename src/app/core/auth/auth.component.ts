@@ -50,6 +50,7 @@ export default class AuthComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isSubmitting = true;
     this.authType = this.route.snapshot.url.at(-1)!.path;
     this.title = this.authType === "login" ? "Sign in" : "Sign up";
     if (this.authType === "register") {
