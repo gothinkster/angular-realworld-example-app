@@ -36,6 +36,7 @@
     "@angular/compiler-cli": "17.0.7",
     "@types/jasmine": "~4.3.0",
     "@types/marked": "^6.0.0",
+    "@web/test-runner": "^0.17.3",
     "husky": "^8.0.3",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.1",
