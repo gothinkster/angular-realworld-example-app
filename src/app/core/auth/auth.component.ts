@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { NgIf } from "@angular/common";
-import { ListErrorsComponent } from "../../shared/list-errors.component";
+import { ListErrorsComponent } from "../../shared/components/list-errors.component";
 import { Errors } from "../models/errors.model";
 import { UserService } from "../services/user.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
@@ -37,7 +37,6 @@ export default class AuthComponent implements OnInit {
     private readonly router: Router,
     private readonly userService: UserService,
   ) {
-    // use FormBuilder to create a form group
     this.authForm = new FormGroup<AuthForm>({
       email: new FormControl("", {
         validators: [Validators.required],
