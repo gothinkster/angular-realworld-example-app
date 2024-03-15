@@ -6,8 +6,8 @@ import {
   Validators,
 } from "@angular/forms";
 import { Router } from "@angular/router";
-import { User } from "../../core/models/user.model";
-import { UserService } from "../../core/services/user.service";
+import { User } from "../../core/auth/user.model";
+import { UserService } from "../../core/auth/services/user.service";
 import { ListErrorsComponent } from "../../shared/components/list-errors.component";
 import { Errors } from "../../core/models/errors.model";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";

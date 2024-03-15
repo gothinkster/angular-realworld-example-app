@@ -8,7 +8,7 @@ import {
 } from "@angular/router";
 import { catchError, switchMap } from "rxjs/operators";
 import { combineLatest, of, throwError } from "rxjs";
-import { UserService } from "../../../../core/services/user.service";
+import { UserService } from "../../../../core/auth/services/user.service";
 import { Profile } from "../../models/profile.model";
 import { ProfileService } from "../../services/profile.service";
 import { AsyncPipe, NgIf } from "@angular/common";

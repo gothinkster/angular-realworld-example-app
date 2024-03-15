@@ -10,7 +10,7 @@ import { Router } from "@angular/router";
 import { switchMap } from "rxjs/operators";
 import { EMPTY } from "rxjs";
 import { ProfileService } from "../services/profile.service";
-import { UserService } from "../../../core/services/user.service";
+import { UserService } from "../../../core/auth/services/user.service";
 import { Profile } from "../models/profile.model";
 import { NgClass } from "@angular/common";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";

@@ -10,7 +10,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { combineLatest } from "rxjs";
 import { Errors } from "../../../../core/models/errors.model";
 import { ArticlesService } from "../../services/articles.service";
-import { UserService } from "../../../../core/services/user.service";
+import { UserService } from "../../../../core/auth/services/user.service";
 import { ListErrorsComponent } from "../../../../shared/components/list-errors.component";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 

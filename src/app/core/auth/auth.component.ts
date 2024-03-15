@@ -9,7 +9,7 @@ import { ActivatedRoute, Router, RouterLink } from "@angular/router";
 import { NgIf } from "@angular/common";
 import { ListErrorsComponent } from "../../shared/components/list-errors.component";
 import { Errors } from "../models/errors.model";
-import { UserService } from "../services/user.service";
+import { UserService } from "./services/user.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 interface AuthForm {

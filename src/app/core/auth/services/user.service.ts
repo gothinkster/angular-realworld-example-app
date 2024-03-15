@@ -4,7 +4,7 @@ import { Observable, BehaviorSubject } from "rxjs";
 import { JwtService } from "./jwt.service";
 import { map, distinctUntilChanged, tap, shareReplay } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
-import { User } from "../models/user.model";
+import { User } from "../user.model";
 import { Router } from "@angular/router";
 
 @Injectable({ providedIn: "root" })
@@ -19,7 +19,7 @@ export class UserService {
   constructor(
     private readonly http: HttpClient,
     private readonly jwtService: JwtService,
-    private readonly router: Router
+    private readonly router: Router,
   ) {}
 
   login(credentials: {
@@ -52,7 +52,7 @@ export class UserService {
         next: ({ user }) => this.setAuth(user),
         error: () => this.purgeAuth(),
       }),
-      shareReplay(1)
+      shareReplay(1),
     );
   }
 
@@ -60,7 +60,7 @@ export class UserService {
     return this.http.put<{ user: User }>("/user", { user }).pipe(
       tap(({ user }) => {
         this.currentUserSubject.next(user);
-      })
+      }),
     );
   }
 

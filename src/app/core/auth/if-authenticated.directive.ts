@@ -7,7 +7,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from "@angular/core";
-import { UserService } from "../../core/services/user.service";
+import { UserService } from "./services/user.service";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Directive({

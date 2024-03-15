@@ -5,9 +5,9 @@ import { ArticleListConfig } from "../../models/article-list-config.model";
 import { AsyncPipe, NgClass, NgForOf } from "@angular/common";
 import { ArticleListComponent } from "../../components/article-list.component";
 import { tap } from "rxjs/operators";
-import { UserService } from "../../../../core/services/user.service";
+import { UserService } from "../../../../core/auth/services/user.service";
 import { RxLet } from "@rx-angular/template/let";
-import { IfAuthenticatedDirective } from "../../../../shared/directives/if-authenticated.directive";
+import { IfAuthenticatedDirective } from "../../../../core/auth/if-authenticated.directive";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
