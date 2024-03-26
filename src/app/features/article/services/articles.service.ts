@@ -5,13 +5,17 @@ import { map } from "rxjs/operators";
 import { ArticleListConfig } from "../models/article-list-config.model";
 import { Article } from "../models/article.model";
 
+export type ArticleListResponse = {
+  articles: Article[];
+  articlesCount: number;
+  firstArticleTitle?: string;
+};
+
 @Injectable({ providedIn: "root" })
 export class ArticlesService {
   constructor(private readonly http: HttpClient) {}
 
-  query(
-    config: ArticleListConfig,
-  ): Observable<{ articles: Article[]; articlesCount: number }> {
+  query(config: ArticleListConfig): Observable<ArticleListResponse> {
     // Convert any filters over to Angular's URLSearchParams
     let params = new HttpParams();
 
@@ -20,10 +24,20 @@ export class ArticlesService {
       params = params.set(key, config.filters[key]);
     });
 
-    return this.http.get<{ articles: Article[]; articlesCount: number }>(
-      "/articles" + (config.type === "feed" ? "/feed" : ""),
-      { params },
-    );
+    return this.http
+      .get<ArticleListResponse>(
+        "/articles" + (config.type === "feed" ? "/feed" : ""),
+        { params },
+      )
+      .pipe(
+        map((response) => {
+          if (response.articlesCount > 0) {
+            response.firstArticleTitle = response.articles[0].title;
+          }
+
+          return response;
+        }),
+      );
   }
 
   get(slug: string): Observable<Article> {

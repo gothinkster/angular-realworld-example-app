@@ -1,5 +1,8 @@
 import { Component, DestroyRef, inject, Input } from "@angular/core";
-import { ArticlesService } from "../services/articles.service";
+import {
+  ArticleListResponse,
+  ArticlesService,
+} from "../services/articles.service";
 import { ArticleListConfig } from "../models/article-list-config.model";
 import { Article } from "../models/article.model";
 import { ArticlePreviewComponent } from "./article-preview.component";
@@ -15,7 +18,9 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
     }
 
     @if (loading === LoadingState.LOADED) {
-      @for (article of results; track article.slug) {
+      <div class="article-preview">{{ results.firstArticleTitle }}</div>
+
+      @for (article of results.articles; track article.slug) {
         <app-article-preview [article]="article" />
       } @empty {
         <div class="article-preview">No articles are here... yet.</div>
@@ -47,7 +52,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 })
 export class ArticleListComponent {
   query!: ArticleListConfig;
-  results: Article[] = [];
+  results: ArticleListResponse | undefined;
   currentPage = 1;
   totalPages: Array<number> = [];
   loading = LoadingState.NOT_LOADED;
@@ -73,7 +78,7 @@ export class ArticleListComponent {
 
   runQuery() {
     this.loading = LoadingState.LOADING;
-    this.results = [];
+    this.results = undefined;
 
     // Create limit and offset filter (if necessary)
     if (this.limit) {
@@ -86,7 +91,7 @@ export class ArticleListComponent {
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         this.loading = LoadingState.LOADED;
-        this.results = data.articles;
+        this.results = data;
 
         // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
         this.totalPages = Array.from(
