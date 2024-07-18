@@ -2,7 +2,6 @@ import { Routes } from "@angular/router";
 import { inject } from "@angular/core";
 import { UserService } from "./core/auth/services/user.service";
 import { map } from "rxjs/operators";
-import { ProfileComponent } from "./features/profile/pages/profile/profile.component";
 
 export const routes: Routes = [
   {
