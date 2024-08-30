@@ -30,7 +30,7 @@ jobs:
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
           api_location: "api" # Api source code path - optional
-          output_location: "dist/angular-conduit" # Built app content directory - optional
+          output_location: "dist/angular-conduit/browser" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
 
   close_pull_request_job:
