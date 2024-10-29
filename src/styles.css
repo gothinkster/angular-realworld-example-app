@@ -1,1 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+a {
+    color: #03801e;
+  }
+  a.nav-link {
+    color: rgba(80, 4, 127, 0.772);
+  }
+  
+  .navbar-light .navbar-nav .nav-link {
+    color: #036218;
+  }
+  x p {
+    color: black;
+  }
+  
