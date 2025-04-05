@@ -14,7 +14,6 @@ import { IfAuthenticatedDirective } from "../auth/if-authenticated.directive";
     NgIf,
     IfAuthenticatedDirective,
   ],
-  standalone: true,
 })
 export class HeaderComponent {
   currentUser$ = inject(UserService).currentUser;

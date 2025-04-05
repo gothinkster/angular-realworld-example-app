@@ -7,7 +7,6 @@ import { RouterLink } from "@angular/router";
   templateUrl: "./footer.component.html",
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [DatePipe, RouterLink],
-  standalone: true,
 })
 export class FooterComponent {
   today: number = Date.now();

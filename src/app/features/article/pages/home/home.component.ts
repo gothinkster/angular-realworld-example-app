@@ -22,7 +22,6 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
     NgForOf,
     IfAuthenticatedDirective,
   ],
-  standalone: true,
 })
 export default class HomeComponent implements OnInit {
   isAuthenticated = false;

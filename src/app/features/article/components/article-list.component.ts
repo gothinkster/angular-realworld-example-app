@@ -43,7 +43,6 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
       cursor: pointer;
     }
   `,
-  standalone: true,
 })
 export class ArticleListComponent {
   query!: ArticleListConfig;

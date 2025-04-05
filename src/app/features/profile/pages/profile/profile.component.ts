@@ -27,7 +27,6 @@ import { FollowButtonComponent } from "../../components/follow-button.component"
     RouterOutlet,
     FollowButtonComponent,
   ],
-  standalone: true,
 })
 export class ProfileComponent implements OnInit {
   profile!: Profile;
