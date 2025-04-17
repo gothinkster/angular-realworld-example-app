@@ -11,7 +11,10 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{matrix.os}}
+    strategy: 
+    matrix: 
+     os: [ubuntu-latest, windows-latest, macos-lateest]
 
     steps:
       - name: Checkout repository
@@ -25,10 +28,9 @@ jobs:
       - name: Clean install with legacy peer deps
         run: npm install --legacy-peer-deps
 
-     - name: Run lint (continue even if it fails)
-      run: npm run lint || true
-
-
+      - name: Run lint
+        run: npm run lint
+  
       - name: Run unit tests
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
