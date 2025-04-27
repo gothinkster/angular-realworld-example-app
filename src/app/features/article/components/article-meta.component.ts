@@ -25,7 +25,6 @@ import { DatePipe } from "@angular/common";
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, DatePipe],
-  standalone: true,
 })
 export class ArticleMetaComponent {
   @Input() article!: Article;

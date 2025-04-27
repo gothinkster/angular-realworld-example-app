@@ -30,7 +30,6 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
     </button>
   `,
   imports: [NgClass],
-  standalone: true,
 })
 export class FavoriteButtonComponent {
   destroyRef = inject(DestroyRef);

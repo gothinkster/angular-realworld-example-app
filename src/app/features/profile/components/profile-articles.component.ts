@@ -10,7 +10,6 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   selector: "app-profile-articles",
   template: `<app-article-list [limit]="10" [config]="articlesConfig" />`,
   imports: [ArticleListComponent],
-  standalone: true,
 })
 export default class ProfileArticlesComponent implements OnInit {
   profile!: Profile;

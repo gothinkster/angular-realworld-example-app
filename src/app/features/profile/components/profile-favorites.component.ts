@@ -10,7 +10,6 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
   selector: "app-profile-favorites",
   template: `<app-article-list [limit]="10" [config]="favoritesConfig" />`,
   imports: [ArticleListComponent],
-  standalone: true,
 })
 export default class ProfileFavoritesComponent implements OnInit {
   profile!: Profile;

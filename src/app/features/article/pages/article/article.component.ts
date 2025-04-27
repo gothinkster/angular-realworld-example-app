@@ -40,7 +40,6 @@ import { FollowButtonComponent } from "../../../profile/components/follow-button
     IfAuthenticatedDirective,
     NgIf,
   ],
-  standalone: true,
 })
 export default class ArticleComponent implements OnInit {
   article!: Article;

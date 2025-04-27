@@ -24,7 +24,6 @@ interface SettingsForm {
   selector: "app-settings-page",
   templateUrl: "./settings.component.html",
   imports: [ListErrorsComponent, ReactiveFormsModule],
-  standalone: true,
 })
 export default class SettingsComponent implements OnInit {
   user!: User;

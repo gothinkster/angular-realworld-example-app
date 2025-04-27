@@ -43,7 +43,6 @@ import { AsyncPipe, DatePipe, NgIf } from "@angular/common";
     }
   `,
   imports: [RouterLink, DatePipe, NgIf, AsyncPipe],
-  standalone: true,
 })
 export class ArticleCommentComponent {
   @Input() comment!: Comment;
