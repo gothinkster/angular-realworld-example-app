@@ -33,8 +33,7 @@ import { FavoriteButtonComponent } from "./favorite-button.component";
       </a>
     </div>
   `,
-  imports: [ArticleMetaComponent, FavoriteButtonComponent, RouterLink, NgForOf],
-  standalone: true,
+  imports: [ArticleMetaComponent, FavoriteButtonComponent, RouterLink],
 })
 export class ArticlePreviewComponent {
   @Input() article!: Article;

@@ -11,7 +11,6 @@ import { combineLatest, of, throwError } from "rxjs";
 import { UserService } from "../../../../core/auth/services/user.service";
 import { Profile } from "../../models/profile.model";
 import { ProfileService } from "../../services/profile.service";
-import { AsyncPipe, NgIf } from "@angular/common";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import { FollowButtonComponent } from "../../components/follow-button.component";
 
@@ -20,14 +19,11 @@ import { FollowButtonComponent } from "../../components/follow-button.component"
   templateUrl: "./profile.component.html",
   imports: [
     FollowButtonComponent,
-    NgIf,
     RouterLink,
-    AsyncPipe,
     RouterLinkActive,
     RouterOutlet,
     FollowButtonComponent,
   ],
-  standalone: true,
 })
 export class ProfileComponent implements OnInit {
   profile!: Profile;

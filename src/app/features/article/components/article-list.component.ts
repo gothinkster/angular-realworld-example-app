@@ -3,7 +3,7 @@ import { ArticlesService } from "../services/articles.service";
 import { ArticleListConfig } from "../models/article-list-config.model";
 import { Article } from "../models/article.model";
 import { ArticlePreviewComponent } from "./article-preview.component";
-import { NgClass, NgForOf, NgIf } from "@angular/common";
+import { NgClass } from "@angular/common";
 import { LoadingState } from "../../../core/models/loading-state.model";
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
@@ -37,13 +37,12 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
       </nav>
     }
   `,
-  imports: [ArticlePreviewComponent, NgForOf, NgClass, NgIf],
+  imports: [ArticlePreviewComponent, NgClass],
   styles: `
     .page-link {
       cursor: pointer;
     }
   `,
-  standalone: true,
 })
 export class ArticleListComponent {
   query!: ArticleListConfig;

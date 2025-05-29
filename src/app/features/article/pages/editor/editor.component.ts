@@ -1,4 +1,3 @@
-import { NgForOf } from "@angular/common";
 import { Component, DestroyRef, inject, OnInit } from "@angular/core";
 import {
   FormControl,
@@ -23,8 +22,7 @@ interface ArticleForm {
 @Component({
   selector: "app-editor-page",
   templateUrl: "./editor.component.html",
-  imports: [ListErrorsComponent, ReactiveFormsModule, NgForOf],
-  standalone: true,
+  imports: [ListErrorsComponent, ReactiveFormsModule],
 })
 export default class EditorComponent implements OnInit {
   tagList: string[] = [];

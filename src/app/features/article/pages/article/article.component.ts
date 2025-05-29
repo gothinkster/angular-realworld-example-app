@@ -7,7 +7,7 @@ import { ArticlesService } from "../../services/articles.service";
 import { CommentsService } from "../../services/comments.service";
 import { UserService } from "../../../../core/auth/services/user.service";
 import { ArticleMetaComponent } from "../../components/article-meta.component";
-import { AsyncPipe, NgClass, NgForOf, NgIf } from "@angular/common";
+import { AsyncPipe, NgClass } from "@angular/common";
 import { MarkdownPipe } from "../../../../shared/pipes/markdown.pipe";
 import { ListErrorsComponent } from "../../../../shared/components/list-errors.component";
 import { ArticleCommentComponent } from "../../components/article-comment.component";
@@ -30,7 +30,6 @@ import { FollowButtonComponent } from "../../../profile/components/follow-button
     NgClass,
     FollowButtonComponent,
     FavoriteButtonComponent,
-    NgForOf,
     MarkdownPipe,
     AsyncPipe,
     ListErrorsComponent,
@@ -38,9 +37,7 @@ import { FollowButtonComponent } from "../../../profile/components/follow-button
     ArticleCommentComponent,
     ReactiveFormsModule,
     IfAuthenticatedDirective,
-    NgIf,
   ],
-  standalone: true,
 })
 export default class ArticleComponent implements OnInit {
   article!: Article;
