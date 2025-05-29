@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { Article } from "../models/article.model";
 import { ArticleMetaComponent } from "./article-meta.component";
 import { RouterLink } from "@angular/router";
-import { NgForOf } from "@angular/common";
+
 import { FavoriteButtonComponent } from "./favorite-button.component";
 
 @Component({

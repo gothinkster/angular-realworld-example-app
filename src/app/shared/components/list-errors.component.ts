@@ -1,6 +1,5 @@
 import { Component, Input } from "@angular/core";
 import { Errors } from "../../core/models/errors.model";
-import { NgForOf, NgIf } from "@angular/common";
 
 @Component({
   selector: "app-list-errors",

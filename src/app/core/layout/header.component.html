@@ -53,11 +53,9 @@
             [routerLink]="['/profile', currentUser.username]"
             routerLinkActive="active"
           >
-            <img
-              [src]="currentUser.image"
-              *ngIf="currentUser.image"
-              class="user-pic"
-            />
+            @if (currentUser.image) {
+              <img [src]="currentUser.image" class="user-pic" />
+            }
             {{ currentUser.username }}
           </a>
         </li>
