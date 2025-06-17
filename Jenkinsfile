@@ -1,3 +1,5 @@
+def FIRST_TAG_IMAGE
+def SECOND_TAG_IMAGE
 String FIRST_IMAGE_TAG
 String SECOND_IMAGE_TAG
 
@@ -21,10 +23,29 @@ pipeline {
                         FIRST_IMAGE_TAG = env.BUILD_NUMBER
                     }
 
-                    echo "${FIRST_IMAGE_TAG}"
-                    echo "${SECOND_IMAGE_TAG}"
+                    FIRST_TAG_IMAGE = docker.build("angular-app-devops:${FIRST_IMAGE_TAG}")
+                    SECOND_TAG_IMAGE = docker.build("angular-app-devops:${SECOND_IMAGE_TAG}")
                 }
             }
         }
+
+        stage("Push") {
+            steps {
+                script {
+                    def release_number = SECOND_IMAGE_TAG.split("-")[1] as Integer
+
+                    if(env.BRANCH_NAME == 'master' || (SECOND_IMAGE_TAG.startsWith('release') && release_number % 4 == 0)) {
+                        if(env.BRANCH_NAME == 'master') {
+                            // push firstImage;
+                            FIRST_TAG_IMAGE.imageName
+                        } else {
+                            // push secondImage;
+                            SECOND_TAG_IMAGE.imageName
+                        }
+                    } 
+                }
+            }
+        }
+        
     }
 }
