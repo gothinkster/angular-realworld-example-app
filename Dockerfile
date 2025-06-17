@@ -1,4 +1,4 @@
-FROM node:21-alpine
+FROM node:20.19.0-alpine
 
 WORKDIR /app
 
@@ -12,5 +12,5 @@ COPY . .
 
 EXPOSE 4200
 
-CMD [ "ng", "serve" ]
+CMD [ "npm", "start" ]
 
