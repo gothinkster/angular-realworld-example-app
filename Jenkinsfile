@@ -4,10 +4,10 @@ pipeline {
     }
 
     stages {
-        stage('Build') {
+        stage("Build") {
             steps {
                 script {
-                    def version = readJSON(file: 'package.json').version
+                    def version=readJSON(file: 'package.json').version
                     echo "${version}"
                     echo "${env.BUILD_NUMBER}"
                 }
