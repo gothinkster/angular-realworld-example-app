@@ -33,23 +33,26 @@ pipeline {
             steps {
                 script {
                     if(env.BRANCH_NAME == 'master') {
-                        echo FIRST_TAG_IMAGE.toString()
+                        withCredentials([usernamePassword(credentialsId: 'yarin-dockerhub',
+                                  usernameVariable: 'DOCKER_USER',
+                                  passwordVariable: 'DOCKER_PASS')]) {
+                                sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
+                            }
+
+                        FIRST_TAG_IMAGE.push()
+
                     } else if(SECOND_IMAGE_TAG.startsWith('release')) {
                         def release_number = SECOND_IMAGE_TAG.split("-")[1] as Integer
                         if(release_number % 4 == 0) {
-                            echo SECOND_TAG_IMAGE.toString()
+                            withCredentials([usernamePassword(credentialsId: 'yarin-dockerhub',
+                                  usernameVariable: 'DOCKER_USER',
+                                  passwordVariable: 'DOCKER_PASS')]) {
+                                sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
+                            }
+
+                            SECOND_TAG_IMAGE.push()
                         }
                     }
-
-                    // if(env.BRANCH_NAME == 'master' || (SECOND_IMAGE_TAG.startsWith('release') && release_number % 4 == 0)) {
-                    //     if(env.BRANCH_NAME == 'master') {
-                    //         // push firstImage;
-                    //        echo FIRST_TAG_IMAGE.imageName
-                    //     } else {
-                    //         // push secondImage;
-                    //         echo SECOND_TAG_IMAGE.imageName
-                    //     }
-                    // } 
                 }
             }
         }
