@@ -33,21 +33,21 @@ pipeline {
             steps {
                 script {
                     if(env.BRANCH_NAME == 'master') {
-                        echo FIRST_TAG_IMAGE.imageName
+                        echo FIRST_TAG_IMAGE.imageTag
                     } else if(SECOND_IMAGE_TAG.startsWith('release')) {
                         def release_number = SECOND_IMAGE_TAG.split("-")[1] as Integer
                         if(release_number % 4 == 0) {
-                            echo SECOND_TAG_IMAGE.imageName
+                            echo SECOND_TAG_IMAGE.imageTag
                         }
                     }
 
                     // if(env.BRANCH_NAME == 'master' || (SECOND_IMAGE_TAG.startsWith('release') && release_number % 4 == 0)) {
                     //     if(env.BRANCH_NAME == 'master') {
                     //         // push firstImage;
-                    //        echo FIRST_TAG_IMAGE.imageName
+                    //        echo FIRST_TAG_IMAGE.imageTag
                     //     } else {
                     //         // push secondImage;
-                    //         echo SECOND_TAG_IMAGE.imageName
+                    //         echo SECOND_TAG_IMAGE.imageTag
                     //     }
                     // } 
                 }
