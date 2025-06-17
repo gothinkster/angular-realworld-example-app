@@ -1,6 +1,8 @@
 String FIRST_IMAGE_TAG
 String SECOND_IMAGE_TAG
 
+
+
 pipeline {
     agent {
         label 'devops-final-try'
@@ -26,5 +28,18 @@ pipeline {
                 }
             }
         }
+
+        stage("Push") {
+            steps {
+                script {
+                    def release_number = SECOND_IMAGE_TAG.split("-")[1] as Integer
+
+                    if(env.BRANCH_NAME == 'master' || (SECOND_IMAGE_TAG.startsWith('release') && release_number % 4 == 0)) {
+                        // image.push;
+                    } 
+                }
+            }
+        }
+        
     }
 }
