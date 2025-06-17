@@ -22,6 +22,7 @@ pipeline {
                     }
 
                     echo "${FIRST_IMAGE_TAG}"
+                    echo "${SECOND_IMAGE_TAG}"
                 }
             }
         }
