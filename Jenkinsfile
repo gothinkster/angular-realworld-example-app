@@ -8,9 +8,16 @@ pipeline {
         label 'devops-final-try'
     }
 
+    environment {
+    DOCKER_REPO = 'devops-yarin'  // repo name can be static or param
+  }
+
     stages {
         stage("Build") {
             steps {
+                withCredentials([usernamePassword(credentialsId: 'yarin-dockerhub', 
+                                    usernameVariable: 'DOCKER_USERNAME', 
+                                    passwordVariable: 'DOCKER_PASSWORD')]) {
                 script {
                     def version = readJSON(file: 'package.json').version
 
@@ -23,34 +30,31 @@ pipeline {
                         FIRST_IMAGE_TAG = env.BUILD_NUMBER
                     }
 
-                    FIRST_TAG_IMAGE = docker.build("angular-app-devops:${FIRST_IMAGE_TAG}")
-                    SECOND_TAG_IMAGE = docker.build("angular-app-devops:${SECOND_IMAGE_TAG}")
+                       FIRST_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:${FIRST_IMAGE_TAG}")
+                       SECOND_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:${SECOND_IMAGE_TAG}")
+
                 }
+              }
             }
         }
 
         stage("Push") {
             steps {
                 script {
+
+                    DOCKERHUB_CREDENTIALS = credentials('yarin-dockerhub')
+                    
+
                     if(env.BRANCH_NAME == 'master') {
-                        withCredentials([usernamePassword(credentialsId: 'yarin-dockerhub',
-                                  usernameVariable: 'DOCKER_USER',
-                                  passwordVariable: 'DOCKER_PASS')]) {
-                                sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
-                            }
-
+                        docker.withRegistry('https://index.docker.io/v1/', 'yarin-dockerhub') {
                         FIRST_TAG_IMAGE.push()
-
+                        }
                     } else if(SECOND_IMAGE_TAG.startsWith('release')) {
                         def release_number = SECOND_IMAGE_TAG.split("-")[1] as Integer
                         if(release_number % 4 == 0) {
-                            withCredentials([usernamePassword(credentialsId: 'yarin-dockerhub',
-                                  usernameVariable: 'DOCKER_USER',
-                                  passwordVariable: 'DOCKER_PASS')]) {
-                                sh "echo ${DOCKER_PASS} | docker login -u ${DOCKER_USER} --password-stdin"
-                            }
-
+                            docker.withRegistry('https://index.docker.io/v1/', 'yarin-dockerhub') {
                             SECOND_TAG_IMAGE.push()
+                        }
                         }
                     }
                 }
