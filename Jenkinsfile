@@ -10,6 +10,7 @@ pipeline {
                     def version=readJSON(file: 'package.json').version
                     echo "${version}"
                     echo "${env.BUILD_NUMBER}"
+                    echo "${env.BRANCH_NAME}"
                 }
             }
         }
