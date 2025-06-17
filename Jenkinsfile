@@ -16,6 +16,8 @@ pipeline {
                     } else {
                         IMAGE_TAG = env.BUILD_NUMBER
                     }
+
+                    echo "${IMAGE_TAG}"
                 }
             }
         }
