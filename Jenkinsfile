@@ -9,7 +9,7 @@ pipeline {
     }
 
     environment {
-    DOCKER_REPO = 'devops-yarin'  // repo name can be static or param
+    DOCKER_REPO = 'devops-yarin'
   }
 
     stages {
