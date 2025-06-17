@@ -1,3 +1,5 @@
+String IMAGE_TAG
+
 pipeline {
     agent {
         label 'devops-final-try'
@@ -7,10 +9,13 @@ pipeline {
         stage("Build") {
             steps {
                 script {
-                    def version=readJSON(file: 'package.json').version
-                    echo "${version}"
-                    echo "${env.BUILD_NUMBER}"
-                    echo "${env.BRANCH_NAME}"
+                    def version = readJSON(file: 'package.json').version
+
+                    if(env.BRANCH_NAME == 'master') {
+                        IMAGE_TAG = version
+                    } else {
+                        IMAGE_TAG = env.BUILD_NUMBER
+                    }
                 }
             }
         }
