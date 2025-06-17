@@ -37,10 +37,10 @@ pipeline {
                     if(env.BRANCH_NAME == 'master' || (SECOND_IMAGE_TAG.startsWith('release') && release_number % 4 == 0)) {
                         if(env.BRANCH_NAME == 'master') {
                             // push firstImage;
-                            FIRST_TAG_IMAGE.imageName
+                           echo FIRST_TAG_IMAGE.imageName
                         } else {
                             // push secondImage;
-                            SECOND_TAG_IMAGE.imageName
+                            echo SECOND_TAG_IMAGE.imageName
                         }
                     } 
                 }
