@@ -8,9 +8,16 @@ pipeline {
         label 'devops-final-try'
     }
 
+    environment {
+    DOCKER_REPO = 'devops-yarin'
+  }
+
     stages {
         stage("Build") {
             steps {
+                withCredentials([usernamePassword(credentialsId: 'yarin-dockerhub', 
+                                    usernameVariable: 'DOCKER_USERNAME', 
+                                    passwordVariable: 'DOCKER_PASSWORD')]) {
                 script {
                     def version = readJSON(file: 'package.json').version
 
@@ -23,36 +30,40 @@ pipeline {
                         FIRST_IMAGE_TAG = env.BUILD_NUMBER
                     }
 
-                    FIRST_TAG_IMAGE = docker.build("angular-app-devops:${FIRST_IMAGE_TAG}")
-                    SECOND_TAG_IMAGE = docker.build("angular-app-devops:${SECOND_IMAGE_TAG}")
+                       FIRST_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:angular-app-${FIRST_IMAGE_TAG}")
+                       SECOND_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:angular-app-${SECOND_IMAGE_TAG}")
+
                 }
+              }
             }
         }
 
         stage("Push") {
             steps {
                 script {
+
+                    DOCKERHUB_CREDENTIALS = credentials('yarin-dockerhub')
+                    
+
                     if(env.BRANCH_NAME == 'master') {
-                        echo FIRST_TAG_IMAGE.imageName
+                        docker.withRegistry('https://index.docker.io/v1/', 'yarin-dockerhub') {
+                        FIRST_TAG_IMAGE.push()
+                        }
                     } else if(SECOND_IMAGE_TAG.startsWith('release')) {
                         def release_number = SECOND_IMAGE_TAG.split("-")[1] as Integer
                         if(release_number % 4 == 0) {
-                            echo SECOND_TAG_IMAGE.imageName
+                            docker.withRegistry('https://index.docker.io/v1/', 'yarin-dockerhub') {
+                            SECOND_TAG_IMAGE.push()
+                        }
                         }
                     }
-
-                    // if(env.BRANCH_NAME == 'master' || (SECOND_IMAGE_TAG.startsWith('release') && release_number % 4 == 0)) {
-                    //     if(env.BRANCH_NAME == 'master') {
-                    //         // push firstImage;
-                    //        echo FIRST_TAG_IMAGE.imageName
-                    //     } else {
-                    //         // push secondImage;
-                    //         echo SECOND_TAG_IMAGE.imageName
-                    //     }
-                    // } 
                 }
             }
         }
         
+    }
+
+    post {
+
     }
 }
