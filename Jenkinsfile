@@ -41,20 +41,20 @@ pipeline {
         stage("Push") {
             steps {
                 script {                    
-                    def shouldPushFirstTag = env.BRANCH_NAME == 'master'
-                    def shouldPushSecondTag = SECOND_IMAGE_TAG.startsWith('release') && (
+                    def shouldPushFirstTagImage = env.BRANCH_NAME == 'master'
+                    def shouldPushSecondTagImage = SECOND_IMAGE_TAG.startsWith('release') && (
                     (SECOND_IMAGE_TAG.split("-")[1] as Integer) % 4 == 0)
 
-                    if (shouldPushFirstTag || shouldPushSecondTag) {
+                    if (shouldPushFirstTagImage || shouldPushSecondTagImage) {
                         docker.withRegistry('https://index.docker.io/v1/', 'yarin-dockerhub') {
-                        if (shouldPushFirstTag) {
+                        if (shouldPushFirstTagImage) {
                             FIRST_TAG_IMAGE.push()
                         }
-                        if (shouldPushSecondTag) {
+                        if (shouldPushSecondTagImage) {
                             SECOND_TAG_IMAGE.push()
                         }               
                     }
-                }
+                    }
                 }
             }
         }
