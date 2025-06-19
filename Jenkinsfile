@@ -5,7 +5,7 @@ String SECOND_IMAGE_TAG
 
 pipeline {
     agent {
-        label 'devops-final-try'
+        label 'devops-training-yarin'
     }
 
     environment {
