@@ -62,9 +62,7 @@ pipeline {
         stage("upgrade helm") {
             steps {
                 script {
-                    dir('/home/jenkins/projects/fake-helm-charts-yarin-training') {
-                        sh "cat values.yaml"
-                    }
+                    git(url: 'https://github.com/Yarin134/fake-helm-charts-yarin-training.git', branch: 'main')
                 }
             }
         }
