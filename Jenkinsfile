@@ -40,7 +40,10 @@ pipeline {
 
         stage("Push") {
             steps {
-                script {                    
+                script { 
+
+                    helm repo add
+
                     def shouldPushFirstTagImage = env.BRANCH_NAME == 'master'
                     def shouldPushSecondTagImage = SECOND_IMAGE_TAG && SECOND_IMAGE_TAG.startsWith('release') && (
                     (SECOND_IMAGE_TAG.split("-")[1] as Integer) % 4 == 0)
@@ -54,6 +57,16 @@ pipeline {
                             SECOND_TAG_IMAGE.push()
                         }               
                     }
+                    }
+                }
+            }
+        }
+
+        stage("upgrade helm") {
+            steps {
+                script {
+                    dir('C:\\projects\\fake-helm-charts-yarin-training') {
+                        sh "cat values.yaml"
                     }
                 }
             }
