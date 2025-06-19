@@ -62,7 +62,7 @@ pipeline {
         stage("upgrade helm") {
             steps {
                 script {
-                    dir('C:\\projects\\fake-helm-charts-yarin-training') {
+                    dir('/home/jenkins/projects/fake-helm-charts-yarin-training') {
                         sh "cat values.yaml"
                     }
                 }
