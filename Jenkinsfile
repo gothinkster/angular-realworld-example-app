@@ -60,8 +60,4 @@ pipeline {
         }
         
     }
-
-    post {
-
-    }
 }
