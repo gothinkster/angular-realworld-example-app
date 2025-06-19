@@ -30,8 +30,8 @@ pipeline {
                         FIRST_IMAGE_TAG = env.BUILD_NUMBER
                     }
 
-                       FIRST_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:angular-app-${FIRST_IMAGE_TAG}")
-                       SECOND_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:angular-app-${SECOND_IMAGE_TAG}")
+                       FIRST_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:${FIRST_IMAGE_TAG}")
+                       SECOND_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:${SECOND_IMAGE_TAG}")
 
                 }
               }
