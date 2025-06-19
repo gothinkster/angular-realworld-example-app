@@ -42,7 +42,7 @@ pipeline {
             steps {
                 script {                    
                     def shouldPushFirstTagImage = env.BRANCH_NAME == 'master'
-                    def shouldPushSecondTagImage = SECOND_IMAGE_TAG.startsWith('release') && (
+                    def shouldPushSecondTagImage = SECOND_IMAGE_TAG && SECOND_IMAGE_TAG.startsWith('release') && (
                     (SECOND_IMAGE_TAG.split("-")[1] as Integer) % 4 == 0)
 
                     if (shouldPushFirstTagImage || shouldPushSecondTagImage) {
