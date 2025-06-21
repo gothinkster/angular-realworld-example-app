@@ -67,7 +67,7 @@ pipeline {
                     sh "sed -i '/realworld:/{n;s/tag:.*/tag: ${FIRST_IMAGE_TAG}/;}' values.yaml"
                     sh 'cat values.yaml'
                     sh 'git config --global user.name "Yarin134"'
-                    sh 'git config --global user.email yarindavid@gmail.com'
+                    sh 'git config --global user.email yarindavid24@gmail.com'
                     sh 'git add values.yaml'
                     sh "git commit -m 'change to tag: ${FIRST_IMAGE_TAG} '"
                     sh 'git push'
