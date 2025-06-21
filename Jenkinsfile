@@ -66,6 +66,8 @@ pipeline {
                     git(url: 'https://github.com/Yarin134/fake-helm-charts-yarin-training.git', branch: 'main')
                     sh "sed -i '/realworld:/{n;s/tag:.*/tag: ${FIRST_IMAGE_TAG}/;}' values.yaml"
                     sh 'cat values.yaml'
+                    sh "git commit -m 'change to tag: ${FIRST_IMAGE_TAG} '"
+                    sh 'git push'
                     }
                 }
             }
