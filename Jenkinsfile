@@ -64,7 +64,7 @@ pipeline {
                 script {
                     if(env.BRANCH_NAME == 'master') { // use FIRST_IMAGE_TAG
                     git(url: 'https://github.com/Yarin134/fake-helm-charts-yarin-training.git', branch: 'main')
-                    sh "sed -i '/realworld:/{n;s/tag:.*/tag: 2.5.9/;}' test.yaml"
+                    sh "sed -i '/realworld:/{n;s/tag:.*/tag: ${FIRST_IMAGE_TAG}/;}' values.yaml"
                     sh 'cat values.yaml'
                     }
                 }
