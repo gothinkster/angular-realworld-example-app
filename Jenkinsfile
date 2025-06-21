@@ -63,6 +63,7 @@ pipeline {
             steps {
                 script {
                     git(url: 'https://github.com/Yarin134/fake-helm-charts-yarin-training.git', branch: 'main')
+                    sh 'cat values.yaml'
                 }
             }
         }
