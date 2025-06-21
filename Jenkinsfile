@@ -70,8 +70,9 @@ pipeline {
                         usernameVariable: 'GIT_USERNAME', 
                         passwordVariable: 'GIT_PASSWORD')]) {
                             sh '''
-                            git config --global user.name "${GIT_USERNAME}"
-                            git config --global user.password "${GIT_PASSWORD}"
+                            git config --global user.name "Yarin134"
+                            git config --global user.email "yarindavid24@gmail.com"
+                            git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${GIT_USERNAME}/fake-helm-charts-yarin-training.git
                             git add values.yaml
                             git commit -m 'change to tag: ${FIRST_IMAGE_TAG} '
                             git push
