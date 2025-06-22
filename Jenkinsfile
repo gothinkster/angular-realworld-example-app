@@ -1,7 +1,7 @@
-def FIRST_TAG_IMAGE
-def SECOND_TAG_IMAGE
-String FIRST_IMAGE_TAG
-String SECOND_IMAGE_TAG
+def FIRST_IMAGE
+def SECOND_IMAGE
+String FIRST_IMAGE_TAG_NAME
+String SECOND_IMAGE_TAG_NAME
 
 pipeline {
     agent {
@@ -19,15 +19,15 @@ pipeline {
                     script {
                         def version = readJSON(file: 'package.json').version
                         if(env.BRANCH_NAME == 'master') {
-                            FIRST_IMAGE_TAG = version
+                            FIRST_IMAGE_TAG_NAME = version
                         } else if(env.BRANCH_NAME.startsWith('release')) {
-                            FIRST_IMAGE_TAG = "latest-dev"
-                            SECOND_IMAGE_TAG = "release-${env.BUILD_NUMBER}"
+                            FIRST_IMAGE_TAG_NAME = "latest-dev"
+                            SECOND_IMAGE_TAG_NAME = "release-${env.BUILD_NUMBER}"
                         } else {
-                            FIRST_IMAGE_TAG = env.BUILD_NUMBER
+                            FIRST_IMAGE_TAG_NAME = env.BUILD_NUMBER
                         }
-                        FIRST_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:${FIRST_IMAGE_TAG}")
-                        SECOND_TAG_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:${SECOND_IMAGE_TAG}")
+                        FIRST_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:${FIRST_IMAGE_TAG_NAME}")
+                        SECOND_IMAGE = docker.build("${DOCKER_USERNAME}/${DOCKER_REPO}:${SECOND_IMAGE_TAG_NAME}")
                     }
                 }
             }  
@@ -36,16 +36,16 @@ pipeline {
             steps {
                 script { 
                     def shouldPushFirstTagImage = env.BRANCH_NAME == 'master'
-                    def shouldPushSecondTagImage = SECOND_IMAGE_TAG && SECOND_IMAGE_TAG.startsWith('release') && (
-                    (SECOND_IMAGE_TAG.split("-")[1] as Integer) % 4 == 0)
+                    def shouldPushSecondTagImage = SECOND_IMAGE_TAG_NAME && SECOND_IMAGE_TAG_NAME.startsWith('release') && (
+                    (SECOND_IMAGE_TAG_NAME.split("-")[1] as Integer) % 4 == 0)
 
                     if (shouldPushFirstTagImage || shouldPushSecondTagImage) {
                         docker.withRegistry('https://index.docker.io/v1/', 'yarin-dockerhub') {
                             if (shouldPushFirstTagImage) {
-                                FIRST_TAG_IMAGE.push()
+                                FIRST_IMAGE.push()
                             }
                             if (shouldPushSecondTagImage) {
-                                SECOND_TAG_IMAGE.push()
+                                SECOND_IMAGE.push()
                             }             
                         }   
                     }
@@ -57,7 +57,7 @@ pipeline {
                 script {
                     if(env.BRANCH_NAME == 'master') {
                         git(url: 'https://github.com/Yarin134/fake-helm-charts-yarin-training.git', branch: 'main')
-                        sh "sed -i '/realworld:/{n;s/tag:.*/tag: ${FIRST_IMAGE_TAG}/;}' values.yaml"
+                        sh "sed -i '/realworld:/{n;s/tag:.*/tag: ${FIRST_IMAGE_TAG_NAME}/;}' values.yaml"
                         sh 'cat values.yaml'
                         withCredentials([usernamePassword(credentialsId: 'git_credentials', usernameVariable: 'GIT_USERNAME', passwordVariable: 'GIT_PASSWORD')]) {
                             sh '''
@@ -65,7 +65,7 @@ pipeline {
                             git config --global user.email "yarindavid24@gmail.com"
                             git remote set-url origin https://$GIT_USERNAME:$GIT_PASSWORD@github.com/${GIT_USERNAME}/fake-helm-charts-yarin-training.git
                             git add values.yaml
-                            git commit -m 'change to tag: ${FIRST_IMAGE_TAG} '
+                            git commit -m 'change to tag: ${FIRST_IMAGE_TAG_NAME} '
                             git push
                             '''
                         }
