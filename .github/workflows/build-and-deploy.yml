@@ -1,0 +1,52 @@
+name: Build Angular App
+
+on:
+  push:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20.19.0'
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Build Angular app
+        run: npm run build
+
+      - name: Deploy to build branch
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: build
+          folder: dist/angular-conduit
+          clean: true
+
+  notify-server:
+    runs-on: ubuntu-latest
+    needs: build  # Waits for the 'build' job to finish
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+        with:
+          ref: build  # ✅ checkout the build branch
+
+      - name: Get latest commit hash
+        id: commit
+        run: echo "commit_hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: POST to FastAPI deploy endpoint
+        run: |
+          curl -X POST https://solid-primate-strangely.ngrok-free.app/deploy \
+            -H "Authorization: Bearer supersecrettoken" \
+            -H "Content-Type: application/json" \
+            -d "{\"commit_hash\": \"${{ steps.commit.outputs.commit_hash }}\"}"
