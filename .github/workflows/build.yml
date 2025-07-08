@@ -22,7 +22,7 @@ jobs:
         run: yarn install
 
       - name: Build Angular app
-        run: ng build  
+        run: npm build  
 
       - name: Deploy to build branch
         uses: JamesIves/github-pages-deploy-action@v4
