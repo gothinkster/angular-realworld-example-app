@@ -28,5 +28,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: build  
-          folder: dist/test_build  # output folder
+          folder: dist/angular-conduit  # output folder
           clean: true
