@@ -2,8 +2,7 @@ name: Deploy Trigger
 
 on:
   push:
-    branches:
-      - build
+    branches: [ build ] 
 
 jobs:
   notify-server:
