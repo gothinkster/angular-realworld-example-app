@@ -1,0 +1,25 @@
+name: Deploy Trigger
+
+on:
+  push:
+    branches:
+      - build
+
+jobs:
+  notify-server:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Get latest commit hash
+        id: commit
+        run: echo "commit_hash=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+
+      - name: POST to FastAPI deploy endpoint
+        run: |
+          curl -X POST https://solid-primate-strangely.ngrok-free.app/deploy \
+            -H "Authorization: Bearer supersecrettoken" \
+            -H "Content-Type: application/json" \
+            -d "{\"commit_hash\": \"${{ steps.commit.outputs.commit_hash }}\"}"
