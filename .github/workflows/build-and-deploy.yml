@@ -48,7 +48,7 @@ jobs:
 
       - name: Replace production with new build
         run: |
-          Remove-Item -Path "D:\user\Tanny\PRODUCTION\*" -Recurse -Force
+          Remove-Item -Path "D:\Jonathan\Tanny\PRODUCTION\*" -Recurse -Force
           Copy-Item -Path ".\*" -Destination "D:\user\Tanny\PRODUCTION" -Recurse -Force
 
       - name: Restart IIS (optional)
