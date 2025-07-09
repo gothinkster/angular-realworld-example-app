@@ -32,7 +32,7 @@ jobs:
 
   deploy-to-iis:
     needs: build-and-push
-    runs-on: [self-hosted, windows, iis, angular]  # your self-hosted runner tags
+    runs-on: [self-hosted]# , windows, iis, angular]  # your self-hosted runner tags
 
     steps:
       - name: Checkout build branch
