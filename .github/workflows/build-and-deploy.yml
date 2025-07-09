@@ -38,7 +38,7 @@ jobs:
       - name: Checkout build branch
         uses: actions/checkout@v3
         with:
-          ref: build  # 👈 this checks out the pushed build branch
+          ref: build 
 
       - name: Backup current production (optional)
         run: |
@@ -48,7 +48,7 @@ jobs:
 
       - name: Replace production with new build
         run: |
-          Remove-Item -Path "D:\user\Tanny\PRODUCTION\*" -Recurse -Force -ErrorAction SilentlyContinue
+          Remove-Item -Path "D:\user\Tanny\PRODUCTION\*" -Recurse -Force
           Copy-Item -Path "\*" -Destination "D:\Jonathan\Tanny\PRODUCTION" -Recurse -Force
 
       - name: Restart IIS (optional)
