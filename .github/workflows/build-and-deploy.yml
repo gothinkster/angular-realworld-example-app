@@ -43,8 +43,8 @@ jobs:
       - name: Backup current production (optional)
         run: |
           $timestamp = Get-Date -Format "yyyyMMdd-HHmmss"
-          $backupPath = "D:\user\Tanny\PRODUCTION-backup-$timestamp"
-          Copy-Item -Path "D:\user\Tanny\PRODUCTION" -Destination $backupPath -Recurse -Force
+          $backupPath = "D:\Jonathan\Tanny\PRODUCTION-backup-$timestamp"
+          Copy-Item -Path "D:\Jonathan\Tanny\PRODUCTION" -Destination $backupPath -Recurse -Force
 
       - name: Replace production with new build
         run: |
