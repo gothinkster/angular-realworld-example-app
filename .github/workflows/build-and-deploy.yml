@@ -49,7 +49,7 @@ jobs:
       - name: Replace production with new build
         run: |
           Remove-Item -Path "D:\user\Tanny\PRODUCTION\*" -Recurse -Force -ErrorAction SilentlyContinue
-          Copy-Item -Path "dist\angular-conduit\*" -Destination "D:\Jonathan\Tanny\PRODUCTION" -Recurse -Force
+          Copy-Item -Path "\*" -Destination "D:\Jonathan\Tanny\PRODUCTION" -Recurse -Force
 
       - name: Restart IIS (optional)
         run: iisreset
