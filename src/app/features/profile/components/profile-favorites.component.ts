@@ -22,6 +22,7 @@ export default class ProfileFavoritesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    alert("hello world");
     this.profileService
       .get(this.route.parent?.snapshot.params["username"])
       .pipe(takeUntilDestroyed(this.destroyRef))

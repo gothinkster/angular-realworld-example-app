@@ -1,0 +1,36 @@
+{
+  "name": "@napi-rs/nice-darwin-arm64",
+  "version": "1.1.1",
+  "cpu": [
+    "arm64"
+  ],
+  "main": "nice.darwin-arm64.node",
+  "files": [
+    "nice.darwin-arm64.node"
+  ],
+  "description": "https://linux.die.net/man/2/nice binding for Node.js",
+  "keywords": [
+    "napi-rs",
+    "NAPI",
+    "N-API",
+    "Rust",
+    "node-addon",
+    "node-addon-api",
+    "nice"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">= 10"
+  },
+  "repository": {
+    "url": "git+ssh://git@github.com/Brooooooklyn/nice.git",
+    "type": "git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "os": [
+    "darwin"
+  ]
+}
