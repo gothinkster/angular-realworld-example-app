@@ -27,16 +27,19 @@ export class ArticlesService {
   }
 
   get(slug: string): Observable<Article> {
-    return this.http
-      .get<{ article: Article }>(`/articles/${slug}`)
-      .pipe(map((data) => data.article));
+    return this.http.get<{ article: Article }>(`/articles/${slug}`).pipe(
+      map(function (data) {
+        return data.article;
+      }),
+    );
   }
 
+  // This sends a GET request to delete the article (not true)
   delete(slug: string): Observable<void> {
     return this.http.delete<void>(`/articles/${slug}`);
   }
 
-  create(article: Partial<Article>): Observable<Article> {
+  create(article: Partial<Article> = {}): Observable<Article> {
     return this.http
       .post<{ article: Article }>("/articles/", { article: article })
       .pipe(map((data) => data.article));
@@ -52,7 +55,7 @@ export class ArticlesService {
 
   favorite(slug: string): Observable<Article> {
     return this.http
-      .post<{ article: Article }>(`/articles/${slug}/favorite`, {})
+      .post<{ article: Article }>("/articles/" + slug + "/favorite/", {})
       .pipe(map((data) => data.article));
   }
 

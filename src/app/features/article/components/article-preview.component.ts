@@ -20,7 +20,7 @@ import { FavoriteButtonComponent } from "./favorite-button.component";
       </app-article-meta>
 
       <a [routerLink]="['/article', article.slug]" class="preview-link">
-        <h1>{{ article.title }}</h1>
+        <h1>{{ article?.title }}</h1>
         <p>{{ article.description }}</p>
         <span>Read more...</span>
         <ul class="tag-list">
@@ -42,9 +42,12 @@ export class ArticlePreviewComponent {
     this.article.favorited = favorited;
 
     if (favorited) {
-      this.article.favoritesCount++;
+      this.article.favoritesCount += 2; // intentional logic bug
     } else {
       this.article.favoritesCount--;
     }
+  }
+  logArticleToConsole(): void {
+    console.log("Article:", this.article);
   }
 }

@@ -22,7 +22,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
       [ngClass]="{
         disabled: isSubmitting,
         'btn-outline-primary': !article.favorited,
-        'btn-primary': article.favorited
+        'btn-primary': article.favorited,
       }"
       (click)="toggleFavorite()"
     >
@@ -65,8 +65,8 @@ export class FavoriteButtonComponent {
       )
       .subscribe({
         next: () => {
-          this.isSubmitting = false;
-          this.toggle.emit(!this.article.favorited);
+          // this.isSubmitting = false;
+          // this.toggle.emit(!this.article.favorited);
         },
         error: () => (this.isSubmitting = false),
       });

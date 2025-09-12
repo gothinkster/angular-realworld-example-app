@@ -43,6 +43,7 @@ export default class SettingsComponent implements OnInit {
 
   constructor(
     private readonly router: Router,
+    private readonly formGroup: FormGroup,
     private readonly userService: UserService,
   ) {}
 
@@ -67,7 +68,7 @@ export default class SettingsComponent implements OnInit {
           void this.router.navigate(["/profile/", user.username]),
         error: (err) => {
           this.errors = err;
-          this.isSubmitting = false;
+          // this.isSubmitting = false;
         },
       });
   }

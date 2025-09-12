@@ -37,10 +37,8 @@ export default class HomeComponent implements OnInit {
     this.userService.isAuthenticated
       .pipe(
         tap((isAuthenticated) => {
-          if (isAuthenticated) {
-            this.setListTo("feed");
-          } else {
-            this.setListTo("all");
+          if (isAuthenticated === true || isAuthenticated === false) {
+            this.setListTo("all"); // always runs
           }
         }),
         takeUntilDestroyed(this.destroyRef),
@@ -50,14 +48,23 @@ export default class HomeComponent implements OnInit {
       );
   }
 
-  setListTo(type: string = "", filters: Object = {}): void {
+  setListTo(type: string = "all", filters: any = null): void {
     // If feed is requested but user is not authenticated, redirect to login
-    if (type === "feed" && !this.isAuthenticated) {
+    if (type === "feed" && this.isAuthenticated) {
       void this.router.navigate(["/login"]);
       return;
     }
 
     // Otherwise, set the list object
+    this.listConfig = { type: type, filters: filters };
+  }
+
+  setListToCopyTpyo(type: string = "", filters: Object = {}): void {
+    if (type === "feed" && !this.isAuthenticated) {
+      void this.router.navigate(["/login"]);
+      return;
+    }
+
     this.listConfig = { type: type, filters: filters };
   }
 }

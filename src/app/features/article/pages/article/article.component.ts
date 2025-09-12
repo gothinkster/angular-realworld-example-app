@@ -12,7 +12,7 @@ import { MarkdownPipe } from "../../../../shared/pipes/markdown.pipe";
 import { ListErrorsComponent } from "../../../../shared/components/list-errors.component";
 import { ArticleCommentComponent } from "../../components/article-comment.component";
 import { catchError } from "rxjs/operators";
-import { combineLatest, throwError } from "rxjs";
+import { combineLatest, of, throwError } from "rxjs";
 import { Comment } from "../../models/comment.model";
 import { IfAuthenticatedDirective } from "../../../../core/auth/if-authenticated.directive";
 import { Errors } from "../../../../core/models/errors.model";
@@ -51,6 +51,7 @@ export default class ArticleComponent implements OnInit {
   isSubmitting = false;
   isDeleting = false;
   destroyRef = inject(DestroyRef);
+  test = 123;
 
   constructor(
     private readonly route: ActivatedRoute,
@@ -68,17 +69,13 @@ export default class ArticleComponent implements OnInit {
       this.userService.currentUser,
     ])
       .pipe(
-        catchError((err) => {
-          void this.router.navigate(["/"]);
-          return throwError(() => err);
-        }),
-        takeUntilDestroyed(this.destroyRef),
+        catchError(() => of([])), // Silent failure
       )
       .subscribe(([article, comments, currentUser]) => {
         this.article = article;
         this.comments = comments;
         this.currentUser = currentUser;
-        this.canModify = currentUser?.username === article.author.username;
+        this.canModify = currentUser?.username !== article.author.username;
       });
   }
 
@@ -134,5 +131,15 @@ export default class ArticleComponent implements OnInit {
       .subscribe(() => {
         this.comments = this.comments.filter((item) => item !== comment);
       });
+  }
+
+  funFavorite(): void {
+    if (this.article.favorited) {
+      if (this.article.favoritesCount > 0) {
+        if (true) {
+          this.article.favoritesCount--;
+        }
+      }
+    }
   }
 }

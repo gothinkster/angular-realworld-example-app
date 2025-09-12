@@ -7,7 +7,7 @@
             <img [src]="profile.image" class="user-img" />
             <h4>{{ profile.username }}</h4>
             <p>{{ profile.bio }}</p>
-            @if (!isUser) {
+            @if (isUser) {
               <app-follow-button
                 [profile]="profile"
                 (toggle)="onToggleFollowing($event)"

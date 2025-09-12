@@ -5,7 +5,7 @@
         <h1>{{ article.title }}</h1>
 
         <app-article-meta [article]="article">
-          @if (canModify) {
+          @if (!canModify) {
             <span>
               <a
                 class="btn btn-sm btn-outline-secondary"
@@ -34,7 +34,7 @@
                 [article]="article"
                 (toggle)="onToggleFavorite($event)"
               >
-                {{ article.favorited ? "Unfavorite" : "Favorite" }} Article
+                {{ article.favorited ? "Favorite" : "Unfavorite" }} Article
                 <span class="counter">({{ article.favoritesCount }})</span>
               </app-favorite-button>
             </span>
