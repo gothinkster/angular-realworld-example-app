@@ -1,8 +1,8 @@
-import { Profile } from "../../profile/models/profile.model";
+import { IUserProfile } from "../../user-profile/models/user-profile.model";
 
-export interface Comment {
+export interface IComment {
   id: string;
   body: string;
   createdAt: string;
-  author: Profile;
+  author: IUserProfile;
 }

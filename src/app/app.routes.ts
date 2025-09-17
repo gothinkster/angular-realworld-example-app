@@ -6,51 +6,48 @@ import { map } from "rxjs/operators";
 export const routes: Routes = [
   {
     path: "",
-    loadComponent: () => import("./features/article/pages/home/home.component"),
+    loadComponent: () => import("./features/article/pages/home/home"),
   },
   {
     path: "login",
-    loadComponent: () => import("./core/auth/auth.component"),
+    loadComponent: () => import("./core/auth/auth"),
     canActivate: [
       () => inject(UserService).isAuthenticated.pipe(map((isAuth) => !isAuth)),
     ],
   },
   {
     path: "register",
-    loadComponent: () => import("./core/auth/auth.component"),
+    loadComponent: () => import("./core/auth/auth"),
     canActivate: [
       () => inject(UserService).isAuthenticated.pipe(map((isAuth) => !isAuth)),
     ],
   },
   {
     path: "settings",
-    loadComponent: () => import("./features/settings/settings.component"),
+    loadComponent: () => import("./features/settings/settings"),
     canActivate: [() => inject(UserService).isAuthenticated],
   },
   {
     path: "profile",
-    loadChildren: () => import("./features/profile/profile.routes"),
+    loadChildren: () => import("./features/user-profile/profile.routes"),
   },
   {
     path: "editor",
     children: [
       {
         path: "",
-        loadComponent: () =>
-          import("./features/article/pages/editor/editor.component"),
+        loadComponent: () => import("./features/article/pages/editor/editor"),
         canActivate: [() => inject(UserService).isAuthenticated],
       },
       {
         path: ":slug",
-        loadComponent: () =>
-          import("./features/article/pages/editor/editor.component"),
+        loadComponent: () => import("./features/article/pages/editor/editor"),
         canActivate: [() => inject(UserService).isAuthenticated],
       },
     ],
   },
   {
     path: "article/:slug",
-    loadComponent: () =>
-      import("./features/article/pages/article/article.component"),
+    loadComponent: () => import("./features/article/pages/article/article"),
   },
 ];
