@@ -6,7 +6,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "jest",
     "lint": "ng lint --force",
     "prepare": "husky install"
   },
@@ -34,10 +34,14 @@
     "@angular/build": "^20.0.0",
     "@angular/cli": "^20.0.0",
     "@angular/compiler-cli": "20.0.0",
+    "@types/jest": "^29.5.12",
     "@types/marked": "^6.0.0",
+    "jest": "^29.7.0",
+    "jest-preset-angular": "^14.0.0",
     "husky": "^8.0.3",
     "lint-staged": "^16.1.2",
     "prettier": "^3.1.1",
+    "ts-node": "^10.9.2",
     "typescript": "~5.8.3"
   },
   "lint-staged": {
