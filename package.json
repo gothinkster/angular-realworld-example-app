@@ -6,7 +6,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
     "lint": "ng lint --force",
     "prepare": "husky install"
   },
@@ -31,14 +33,18 @@
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
+    "@analogjs/vite-plugin-angular": "^1.22.4",
     "@angular/build": "^20.0.0",
     "@angular/cli": "^20.0.0",
     "@angular/compiler-cli": "20.0.0",
     "@types/marked": "^6.0.0",
+    "@vitest/ui": "^4.0.6",
     "husky": "^8.0.3",
+    "jsdom": "^27.1.0",
     "lint-staged": "^16.1.2",
     "prettier": "^3.1.1",
-    "typescript": "~5.8.3"
+    "typescript": "~5.8.3",
+    "vitest": "^3.2.4"
   },
   "lint-staged": {
     "*.{ts,html,css,json,md}": "prettier --write"
