@@ -2,10 +2,7 @@ import 'zone.js';
 import 'zone.js/testing';
 import { describe, it, expect, beforeEach, afterEach, beforeAll, vi } from 'vitest';
 import { TestBed, getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { firstValueFrom } from 'rxjs';
 import { ArticlesService } from './articles.service';
@@ -14,10 +11,7 @@ import { ArticleListConfig } from '../models/article-list-config.model';
 
 describe('ArticlesService', () => {
   beforeAll(() => {
-    getTestBed().initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
+    getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
   let service: ArticlesService;
@@ -37,8 +31,8 @@ describe('ArticlesService', () => {
       username: 'testuser',
       bio: 'Test bio',
       image: 'https://example.com/avatar.jpg',
-      following: false
-    }
+      following: false,
+    },
   };
 
   const mockArticleList: Article[] = [
@@ -46,14 +40,14 @@ describe('ArticlesService', () => {
     {
       ...mockArticle,
       slug: 'second-article',
-      title: 'Second Article'
-    }
+      title: 'Second Article',
+    },
   ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ArticlesService]
+      providers: [ArticlesService],
     });
     service = TestBed.inject(ArticlesService);
     httpMock = TestBed.inject(HttpTestingController);
@@ -72,7 +66,7 @@ describe('ArticlesService', () => {
     it('should fetch articles with default config', () => {
       const config: ArticleListConfig = {
         type: 'all',
-        filters: {}
+        filters: {},
       };
       service.query(config).subscribe(response => {
         expect(response.articles).toEqual(mockArticleList);
@@ -86,7 +80,7 @@ describe('ArticlesService', () => {
     it('should fetch feed articles when type is feed', () => {
       const config: ArticleListConfig = {
         type: 'feed',
-        filters: {}
+        filters: {},
       };
       service.query(config).subscribe();
       const req = httpMock.expectOne('/articles/feed');
@@ -101,20 +95,22 @@ describe('ArticlesService', () => {
           tag: 'angular',
           author: 'testuser',
           limit: 10,
-          offset: 0
-        }
+          offset: 0,
+        },
       };
 
       service.query(config).subscribe();
 
       const req = httpMock.expectOne(request => {
-        return request.url === '/articles' &&
-               request.params.get('tag') === 'angular' &&
-               request.params.get('author') === 'testuser' &&
-               request.params.get('limit') === '10' &&
-               request.params.get('offset') === '0';
+        return (
+          request.url === '/articles' &&
+          request.params.get('tag') === 'angular' &&
+          request.params.get('author') === 'testuser' &&
+          request.params.get('limit') === '10' &&
+          request.params.get('offset') === '0'
+        );
       });
-      
+
       expect(req.request.method).toBe('GET');
       req.flush({ articles: mockArticleList, articlesCount: 2 });
     });
@@ -124,25 +120,25 @@ describe('ArticlesService', () => {
         type: 'all',
         filters: {
           limit: 20,
-          offset: 40
-        }
+          offset: 40,
+        },
       };
 
       service.query(config).subscribe();
 
       const req = httpMock.expectOne(request => {
-        return request.url === '/articles' &&
-               request.params.get('limit') === '20' &&
-               request.params.get('offset') === '40';
+        return (
+          request.url === '/articles' && request.params.get('limit') === '20' && request.params.get('offset') === '40'
+        );
       });
-      
+
       req.flush({ articles: mockArticleList, articlesCount: 100 });
     });
 
     it('should handle empty results', () => {
       const config: ArticleListConfig = {
         type: 'all',
-        filters: {}
+        filters: {},
       };
       service.query(config).subscribe(response => {
         expect(response.articles).toEqual([]);
@@ -201,7 +197,7 @@ describe('ArticlesService', () => {
         title: 'New Article',
         description: 'New description',
         body: 'New body',
-        tagList: ['new', 'test']
+        tagList: ['new', 'test'],
       };
       const promise = firstValueFrom(service.create(newArticle));
       const req = httpMock.expectOne('/articles/');
@@ -216,7 +212,7 @@ describe('ArticlesService', () => {
       const invalidArticle: Partial<Article> = {
         title: '',
         description: '',
-        body: ''
+        body: '',
       };
       const errorResponse = { status: 422, statusText: 'Unprocessable Entity' };
       const promise = firstValueFrom(service.create(invalidArticle));
@@ -231,7 +227,7 @@ describe('ArticlesService', () => {
       const updates: Partial<Article> = {
         slug: 'existing-article',
         title: 'Updated Title',
-        description: 'Updated description'
+        description: 'Updated description',
       };
       const promise = firstValueFrom(service.update(updates));
       const req = httpMock.expectOne(`/articles/${updates.slug}`);

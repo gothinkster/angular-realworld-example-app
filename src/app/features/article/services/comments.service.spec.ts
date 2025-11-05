@@ -2,10 +2,7 @@ import 'zone.js';
 import 'zone.js/testing';
 import { describe, it, expect, beforeEach, afterEach, beforeAll, vi } from 'vitest';
 import { TestBed, getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { firstValueFrom } from 'rxjs';
 import { CommentsService } from './comments.service';
@@ -13,10 +10,7 @@ import { Comment } from '../models/comment.model';
 
 describe('CommentsService', () => {
   beforeAll(() => {
-    getTestBed().initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
+    getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
   let service: CommentsService;
@@ -31,8 +25,8 @@ describe('CommentsService', () => {
       username: 'testuser',
       bio: 'Test bio',
       image: 'https://example.com/avatar.jpg',
-      following: false
-    }
+      following: false,
+    },
   };
 
   const mockComments: Comment[] = [
@@ -40,14 +34,14 @@ describe('CommentsService', () => {
     {
       ...mockComment,
       id: '2',
-      body: 'Second comment'
-    }
+      body: 'Second comment',
+    },
   ];
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [CommentsService]
+      providers: [CommentsService],
     });
 
     service = TestBed.inject(CommentsService);
@@ -115,7 +109,7 @@ describe('CommentsService', () => {
       const slug = 'test-article';
       const commentsWithNullBio = mockComments.map(c => ({
         ...c,
-        author: { ...c.author, bio: null }
+        author: { ...c.author, bio: null },
       }));
       const promise = firstValueFrom(service.getAll(slug));
       const req = httpMock.expectOne(`/articles/${slug}/comments`);
@@ -151,13 +145,13 @@ describe('CommentsService', () => {
         {
           ...mockComment,
           id: '2',
-          author: { ...mockComment.author, username: 'anotheruser' }
+          author: { ...mockComment.author, username: 'anotheruser' },
         },
         {
           ...mockComment,
           id: '3',
-          author: { ...mockComment.author, username: 'thirduser' }
-        }
+          author: { ...mockComment.author, username: 'thirduser' },
+        },
       ];
       const promise = firstValueFrom(service.getAll(slug));
       const req = httpMock.expectOne(`/articles/${slug}/comments`);
@@ -241,8 +235,8 @@ describe('CommentsService', () => {
       const req = httpMock.expectOne(`/articles/${slug}/comments`);
       expect(req.request.body).toEqual({
         comment: {
-          body: commentBody
-        }
+          body: commentBody,
+        },
       });
       req.flush({ comment: mockComment });
     });

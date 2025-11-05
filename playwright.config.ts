@@ -20,8 +20,8 @@ export default defineConfig({
     screenshot: 'only-on-failure',
 
     // Aggressive timeouts - if something takes >5s, it's a real problem
-    actionTimeout: 5000,      // Clicks, fills, etc
-    navigationTimeout: 10000,  // Page loads
+    actionTimeout: 5000, // Clicks, fills, etc
+    navigationTimeout: 10000, // Page loads
   },
 
   expect: {

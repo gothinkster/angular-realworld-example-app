@@ -4,11 +4,11 @@
       <div class="col-md-6 offset-md-3 col-xs-12">
         <h1 class="text-xs-center">{{ title }}</h1>
         <p class="text-xs-center">
-          @if (authType === "register") {
+          @if (authType === 'register') {
             <a [routerLink]="['/login']">Have an account?</a>
           }
 
-          @if (authType === "login") {
+          @if (authType === 'login') {
             <a [routerLink]="['/register']">Need an account?</a>
           }
         </p>
@@ -16,7 +16,7 @@
         <form [formGroup]="authForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">
-              @if (authType === "register") {
+              @if (authType === 'register') {
                 <input
                   formControlName="username"
                   placeholder="Username"
@@ -26,12 +26,7 @@
               }
             </fieldset>
             <fieldset class="form-group">
-              <input
-                formControlName="email"
-                placeholder="Email"
-                class="form-control form-control-lg"
-                type="text"
-              />
+              <input formControlName="email" placeholder="Email" class="form-control form-control-lg" type="text" />
             </fieldset>
             <fieldset class="form-group">
               <input
@@ -41,11 +36,7 @@
                 type="password"
               />
             </fieldset>
-            <button
-              class="btn btn-lg btn-primary pull-xs-right"
-              [disabled]="!authForm.valid"
-              type="submit"
-            >
+            <button class="btn btn-lg btn-primary pull-xs-right" [disabled]="!authForm.valid" type="submit">
               {{ title }}
             </button>
           </fieldset>

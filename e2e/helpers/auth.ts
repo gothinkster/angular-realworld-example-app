@@ -8,13 +8,13 @@ export async function register(page: Page, username: string, email: string, pass
 
   // Wait for navigation to complete or error to appear
   try {
-    await Promise.all([
-      page.waitForURL('/'),
-      page.click('button[type="submit"]')
-    ]);
+    await Promise.all([page.waitForURL('/'), page.click('button[type="submit"]')]);
   } catch (error) {
     // If navigation fails, check for errors
-    const errorMsg = await page.locator('.error-messages').textContent().catch(() => '');
+    const errorMsg = await page
+      .locator('.error-messages')
+      .textContent()
+      .catch(() => '');
     if (errorMsg) {
       throw new Error(`Registration failed: ${errorMsg}`);
     }
@@ -29,13 +29,13 @@ export async function login(page: Page, email: string, password: string) {
 
   // Wait for navigation to complete or error to appear
   try {
-    await Promise.all([
-      page.waitForURL('/'),
-      page.click('button[type="submit"]')
-    ]);
+    await Promise.all([page.waitForURL('/'), page.click('button[type="submit"]')]);
   } catch (error) {
     // If navigation fails, check for errors
-    const errorMsg = await page.locator('.error-messages').textContent().catch(() => '');
+    const errorMsg = await page
+      .locator('.error-messages')
+      .textContent()
+      .catch(() => '');
     if (errorMsg) {
       throw new Error(`Login failed: ${errorMsg}`);
     }
@@ -45,10 +45,7 @@ export async function login(page: Page, email: string, password: string) {
 
 export async function logout(page: Page) {
   await page.click('a[href="/settings"]');
-  await Promise.all([
-    page.waitForURL('/'),
-    page.click('button:has-text("Or click here to logout")')
-  ]);
+  await Promise.all([page.waitForURL('/'), page.click('button:has-text("Or click here to logout")')]);
 }
 
 export function generateUniqueUser() {
@@ -56,6 +53,6 @@ export function generateUniqueUser() {
   return {
     username: `testuser${timestamp}`,
     email: `test${timestamp}@example.com`,
-    password: 'password123'
+    password: 'password123',
   };
 }

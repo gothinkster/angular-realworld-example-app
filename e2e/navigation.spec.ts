@@ -64,7 +64,7 @@ test.describe('Navigation and Filtering', () => {
     // Create article with specific tag
     const article = {
       ...generateUniqueArticle(),
-      tags: ['playwright-test', 'automation']
+      tags: ['playwright-test', 'automation'],
     };
 
     await createArticle(page, article);
@@ -77,7 +77,7 @@ test.describe('Navigation and Filtering', () => {
 
     // Wait for the specific tag to appear in Popular Tags sidebar (or use first available tag)
     // Note: Custom tags might not appear immediately in Popular Tags
-    const tagExists = await page.locator('.sidebar .tag-list .tag-pill:has-text("playwright-test")').count() > 0;
+    const tagExists = (await page.locator('.sidebar .tag-list .tag-pill:has-text("playwright-test")').count()) > 0;
 
     if (tagExists) {
       // Click on our custom tag
@@ -138,7 +138,7 @@ test.describe('Navigation and Filtering', () => {
     // Create article with tags
     const article = {
       ...generateUniqueArticle(),
-      tags: ['popular', 'trending']
+      tags: ['popular', 'trending'],
     };
 
     await createArticle(page, article);
@@ -251,7 +251,7 @@ test.describe('Navigation and Filtering', () => {
     expect(articleCount).toBeGreaterThanOrEqual(0);
 
     // Check if Favorited tab exists and try to click it
-    const favoritedTabExists = await page.locator('a:has-text("Favorited")').count() > 0;
+    const favoritedTabExists = (await page.locator('a:has-text("Favorited")').count()) > 0;
     if (favoritedTabExists) {
       await page.click('a:has-text("Favorited")');
       // Should handle empty favorites gracefully (0 or more articles)

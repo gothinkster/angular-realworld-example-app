@@ -14,13 +14,16 @@ export async function unfollowUser(page: Page, username: string) {
   await page.click('button:has-text("Unfollow")');
 }
 
-export async function updateProfile(page: Page, updates: {
-  image?: string;
-  username?: string;
-  bio?: string;
-  email?: string;
-  password?: string;
-}) {
+export async function updateProfile(
+  page: Page,
+  updates: {
+    image?: string;
+    username?: string;
+    bio?: string;
+    email?: string;
+    password?: string;
+  },
+) {
   await page.goto('/settings', { waitUntil: 'load' });
 
   if (updates.image) {
@@ -43,6 +46,6 @@ export async function updateProfile(page: Page, updates: {
   await Promise.all([
     page.waitForResponse(response => response.url().includes('/user') && response.request().method() === 'PUT'),
     page.waitForURL(url => !url.toString().includes('/settings')),
-    page.click('button[type="submit"]')
+    page.click('button[type="submit"]'),
   ]);
 }

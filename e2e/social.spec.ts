@@ -69,7 +69,9 @@ test.describe('Social Features', () => {
     await expect(page.locator('button:has-text("Follow")')).toBeVisible();
 
     // Should not see "Edit Profile Settings" button in the profile area (different from nav bar Settings link)
-    await expect(page.locator('.user-info a[href="/settings"]').filter({ hasText: 'Edit Profile Settings' })).not.toBeVisible();
+    await expect(
+      page.locator('.user-info a[href="/settings"]').filter({ hasText: 'Edit Profile Settings' }),
+    ).not.toBeVisible();
 
     // Should see johndoe's articles (demo backend has articles from johndoe)
     await expect(page.locator('.article-preview').first()).toBeVisible();
@@ -145,7 +147,7 @@ test.describe('Social Features', () => {
     await page.waitForSelector('button:has-text("Favorite"), button:has-text("Unfavorite")', { timeout: 10000 });
 
     // Check if already favorited, if not favorite it
-    const isFavorited = await page.locator('button:has-text("Unfavorite")').count() > 0;
+    const isFavorited = (await page.locator('button:has-text("Unfavorite")').count()) > 0;
     if (!isFavorited) {
       await page.click('button.btn-outline-primary:has-text("Favorite")');
       // Wait for the favorite to complete
@@ -158,10 +160,7 @@ test.describe('Social Features', () => {
     await page.click('a:has-text("Favorited")');
 
     // Wait for articles to load (not showing "Loading articles...")
-    await page.waitForFunction(
-      () => !document.body.textContent?.includes('Loading articles...'),
-      { timeout: 10000 }
-    );
+    await page.waitForFunction(() => !document.body.textContent?.includes('Loading articles...'), { timeout: 10000 });
 
     // Should have at least one favorited article
     await page.waitForSelector('.article-preview', { timeout: 10000 });

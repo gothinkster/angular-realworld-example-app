@@ -22,10 +22,7 @@ export async function createArticle(page: Page, article: ArticleData) {
   }
 
   // Start waiting for navigation before clicking to avoid race condition
-  await Promise.all([
-    page.waitForURL(/\/article\/.+/),
-    page.click('button:has-text("Publish Article")')
-  ]);
+  await Promise.all([page.waitForURL(/\/article\/.+/), page.click('button:has-text("Publish Article")')]);
 }
 
 export async function editArticle(page: Page, slug: string, updates: Partial<ArticleData>) {
@@ -47,18 +44,12 @@ export async function editArticle(page: Page, slug: string, updates: Partial<Art
     await page.fill('textarea[formControlName="body"]', updates.body);
   }
 
-  await Promise.all([
-    page.waitForURL(/\/article\/.+/),
-    page.click('button:has-text("Publish Article")')
-  ]);
+  await Promise.all([page.waitForURL(/\/article\/.+/), page.click('button:has-text("Publish Article")')]);
 }
 
 export async function deleteArticle(page: Page) {
   // Assumes we're already on the article page
-  await Promise.all([
-    page.waitForURL('/'),
-    page.click('button:has-text("Delete Article")')
-  ]);
+  await Promise.all([page.waitForURL('/'), page.click('button:has-text("Delete Article")')]);
 }
 
 export async function favoriteArticle(page: Page) {
@@ -79,6 +70,6 @@ export function generateUniqueArticle(): ArticleData {
     title: `Test Article ${timestamp}`,
     description: `Description for test article ${timestamp}`,
     body: `This is the body content for test article created at ${timestamp}. It contains enough text to be meaningful.`,
-    tags: ['test', 'playwright']
+    tags: ['test', 'playwright'],
   };
 }

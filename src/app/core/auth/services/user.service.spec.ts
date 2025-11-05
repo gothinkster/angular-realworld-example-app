@@ -2,10 +2,7 @@ import 'zone.js';
 import 'zone.js/testing';
 import { describe, it, expect, beforeEach, afterEach, beforeAll, vi } from 'vitest';
 import { TestBed, getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Router } from '@angular/router';
 import { firstValueFrom } from 'rxjs';
@@ -15,10 +12,7 @@ import { User } from '../user.model';
 
 describe('UserService', () => {
   beforeAll(() => {
-    getTestBed().initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
+    getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
   let service: UserService;
@@ -31,26 +25,22 @@ describe('UserService', () => {
     token: 'test-jwt-token',
     username: 'testuser',
     bio: 'Test bio',
-    image: 'https://example.com/avatar.jpg'
+    image: 'https://example.com/avatar.jpg',
   };
 
   beforeEach(() => {
     jwtService = {
       saveToken: vi.fn(),
       destroyToken: vi.fn(),
-      getToken: vi.fn()
+      getToken: vi.fn(),
     };
     router = {
-      navigate: vi.fn()
+      navigate: vi.fn(),
     };
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [
-        UserService,
-        { provide: JwtService, useValue: jwtService },
-        { provide: Router, useValue: router }
-      ]
+      providers: [UserService, { provide: JwtService, useValue: jwtService }, { provide: Router, useValue: router }],
     });
 
     service = TestBed.inject(UserService);
@@ -154,7 +144,7 @@ describe('UserService', () => {
       const credentials = {
         username: 'newuser',
         email: 'new@example.com',
-        password: 'password123'
+        password: 'password123',
       };
       service.register(credentials).subscribe();
       const req = httpMock.expectOne('/users');
@@ -167,7 +157,7 @@ describe('UserService', () => {
       const credentials = {
         username: 'newuser',
         email: 'new@example.com',
-        password: 'password123'
+        password: 'password123',
       };
       const promise = firstValueFrom(service.register(credentials));
       const req = httpMock.expectOne('/users');
@@ -180,7 +170,7 @@ describe('UserService', () => {
       const credentials = {
         username: 'existing',
         email: 'existing@example.com',
-        password: 'password123'
+        password: 'password123',
       };
       const errorResponse = { status: 422, statusText: 'Unprocessable Entity' };
       const promise = firstValueFrom(service.register(credentials));
@@ -260,7 +250,7 @@ describe('UserService', () => {
     it('should send PUT request to /user', () => {
       const updates: Partial<User> = {
         bio: 'Updated bio',
-        image: 'https://example.com/new-avatar.jpg'
+        image: 'https://example.com/new-avatar.jpg',
       };
       service.update(updates).subscribe();
       const req = httpMock.expectOne('/user');

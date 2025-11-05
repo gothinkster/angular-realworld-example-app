@@ -1,20 +1,16 @@
-import { Component, Input } from "@angular/core";
-import { Article } from "../models/article.model";
-import { ArticleMetaComponent } from "./article-meta.component";
-import { RouterLink } from "@angular/router";
+import { Component, Input } from '@angular/core';
+import { Article } from '../models/article.model';
+import { ArticleMetaComponent } from './article-meta.component';
+import { RouterLink } from '@angular/router';
 
-import { FavoriteButtonComponent } from "./favorite-button.component";
+import { FavoriteButtonComponent } from './favorite-button.component';
 
 @Component({
-  selector: "app-article-preview",
+  selector: 'app-article-preview',
   template: `
     <div class="article-preview">
       <app-article-meta [article]="article">
-        <app-favorite-button
-          [article]="article"
-          (toggle)="toggleFavorite($event)"
-          class="pull-xs-right"
-        >
+        <app-favorite-button [article]="article" (toggle)="toggleFavorite($event)" class="pull-xs-right">
           {{ article.favoritesCount }}
         </app-favorite-button>
       </app-article-meta>

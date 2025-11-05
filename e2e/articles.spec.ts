@@ -1,6 +1,13 @@
 import { test, expect } from '@playwright/test';
 import { register, generateUniqueUser } from './helpers/auth';
-import { createArticle, editArticle, deleteArticle, favoriteArticle, unfavoriteArticle, generateUniqueArticle } from './helpers/articles';
+import {
+  createArticle,
+  editArticle,
+  deleteArticle,
+  favoriteArticle,
+  unfavoriteArticle,
+  generateUniqueArticle,
+} from './helpers/articles';
 
 test.describe('Articles', () => {
   test.beforeEach(async ({ page }) => {
@@ -150,7 +157,7 @@ test.describe('Articles', () => {
     // Click on the article link in the feed (h1 is inside a link)
     await Promise.all([
       page.waitForURL(/\/article\/.+/),
-      page.locator(`h1:has-text("${article.title}")`).first().click()
+      page.locator(`h1:has-text("${article.title}")`).first().click(),
     ]);
 
     // Should be on article page

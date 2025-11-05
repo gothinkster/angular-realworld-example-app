@@ -11,9 +11,9 @@ export async function addComment(page: Page, commentText: string) {
 
   // Wait for a new comment to appear (count should increase by 1)
   await page.waitForFunction(
-    (expectedCount) => document.querySelectorAll('.card:not(.comment-form) .card-block').length >= expectedCount,
+    expectedCount => document.querySelectorAll('.card:not(.comment-form) .card-block').length >= expectedCount,
     initialCount + 1,
-    { timeout: 5000 }
+    { timeout: 5000 },
   );
 }
 

@@ -1,14 +1,14 @@
-import { Component, DestroyRef, inject, Input } from "@angular/core";
-import { ArticlesService } from "../services/articles.service";
-import { ArticleListConfig } from "../models/article-list-config.model";
-import { Article } from "../models/article.model";
-import { ArticlePreviewComponent } from "./article-preview.component";
-import { NgClass } from "@angular/common";
-import { LoadingState } from "../../../core/models/loading-state.model";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { Component, DestroyRef, inject, Input } from '@angular/core';
+import { ArticlesService } from '../services/articles.service';
+import { ArticleListConfig } from '../models/article-list-config.model';
+import { Article } from '../models/article.model';
+import { ArticlePreviewComponent } from './article-preview.component';
+import { NgClass } from '@angular/common';
+import { LoadingState } from '../../../core/models/loading-state.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: "app-article-list",
+  selector: 'app-article-list',
   template: `
     @if (loading === LoadingState.LOADING) {
       <div class="article-preview">Loading articles...</div>
@@ -24,10 +24,7 @@ import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
       <nav>
         <ul class="pagination">
           @for (pageNumber of totalPages; track pageNumber) {
-            <li
-              class="page-item"
-              [ngClass]="{ active: pageNumber === currentPage }"
-            >
+            <li class="page-item" [ngClass]="{ active: pageNumber === currentPage }">
               <button class="page-link" (click)="setPageTo(pageNumber)">
                 {{ pageNumber }}
               </button>
@@ -83,15 +80,12 @@ export class ArticleListComponent {
     this.articlesService
       .query(this.query)
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((data) => {
+      .subscribe(data => {
         this.loading = LoadingState.LOADED;
         this.results = data.articles;
 
         // Used from http://www.jstips.co/en/create-range-0...n-easily-using-one-line/
-        this.totalPages = Array.from(
-          new Array(Math.ceil(data.articlesCount / this.limit)),
-          (val, index) => index + 1,
-        );
+        this.totalPages = Array.from(new Array(Math.ceil(data.articlesCount / this.limit)), (val, index) => index + 1);
       });
   }
 }

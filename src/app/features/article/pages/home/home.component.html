@@ -12,11 +12,7 @@
         <div class="feed-toggle">
           <ul class="nav nav-pills outline-active">
             <li class="nav-item">
-              <a
-                class="nav-link"
-                [ngClass]="{ active: listConfig.type === 'feed' }"
-                (click)="setListTo('feed')"
-              >
+              <a class="nav-link" [ngClass]="{ active: listConfig.type === 'feed' }" (click)="setListTo('feed')">
                 Your Feed
               </a>
             </li>
@@ -24,7 +20,7 @@
               <a
                 class="nav-link"
                 [ngClass]="{
-                  active: listConfig.type === 'all' && !listConfig.filters.tag
+                  active: listConfig.type === 'all' && !listConfig.filters.tag,
                 }"
                 (click)="setListTo('all')"
               >
@@ -32,9 +28,7 @@
               </a>
             </li>
             <li class="nav-item" [hidden]="!listConfig.filters.tag">
-              <a class="nav-link active">
-                <i class="ion-pound"></i> {{ listConfig.filters.tag }}
-              </a>
+              <a class="nav-link active"> <i class="ion-pound"></i> {{ listConfig.filters.tag }} </a>
             </li>
           </ul>
         </div>
@@ -48,10 +42,7 @@
 
           <div class="tag-list">
             @for (tag of tags; track tag) {
-              <a
-                class="tag-default tag-pill"
-                (click)="setListTo('all', { tag: tag })"
-              >
+              <a class="tag-default tag-pill" (click)="setListTo('all', { tag: tag })">
                 {{ tag }}
               </a>
             }
@@ -59,9 +50,7 @@
 
           <div [hidden]="tagsLoaded">Loading tags...</div>
 
-          <div [hidden]="!tagsLoaded || tags.length > 0">
-            No tags are here... yet.
-          </div>
+          <div [hidden]="!tagsLoaded || tags.length > 0">No tags are here... yet.</div>
         </div>
       </div>
     </div>
