@@ -7,10 +7,7 @@
         <app-article-meta [article]="article">
           @if (canModify) {
             <span>
-              <a
-                class="btn btn-sm btn-outline-secondary"
-                [routerLink]="['/editor', article.slug]"
-              >
+              <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/editor', article.slug]">
                 <i class="ion-edit"></i> Edit Article
               </a>
 
@@ -24,17 +21,10 @@
             </span>
           } @else {
             <span>
-              <app-follow-button
-                [profile]="article.author"
-                (toggle)="toggleFollowing($event)"
-              >
-              </app-follow-button>
+              <app-follow-button [profile]="article.author" (toggle)="toggleFollowing($event)"> </app-follow-button>
 
-              <app-favorite-button
-                [article]="article"
-                (toggle)="onToggleFavorite($event)"
-              >
-                {{ article.favorited ? "Unfavorite" : "Favorite" }} Article
+              <app-favorite-button [article]="article" (toggle)="onToggleFavorite($event)">
+                {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Article
                 <span class="counter">({{ article.favoritesCount }})</span>
               </app-favorite-button>
             </span>
@@ -64,10 +54,7 @@
         <app-article-meta [article]="article">
           @if (canModify) {
             <span>
-              <a
-                class="btn btn-sm btn-outline-secondary"
-                [routerLink]="['/editor', article.slug]"
-              >
+              <a class="btn btn-sm btn-outline-secondary" [routerLink]="['/editor', article.slug]">
                 <i class="ion-edit"></i> Edit Article
               </a>
 
@@ -81,16 +68,10 @@
             </span>
           } @else {
             <span>
-              <app-follow-button
-                [profile]="article.author"
-                (toggle)="toggleFollowing($event)"
-              />
+              <app-follow-button [profile]="article.author" (toggle)="toggleFollowing($event)" />
 
-              <app-favorite-button
-                [article]="article"
-                (toggle)="onToggleFavorite($event)"
-              >
-                {{ article.favorited ? "Unfavorite" : "Favorite" }} Article
+              <app-favorite-button [article]="article" (toggle)="onToggleFavorite($event)">
+                {{ article.favorited ? 'Unfavorite' : 'Favorite' }} Article
                 <span class="counter">({{ article.favoritesCount }})</span>
               </app-favorite-button>
             </span>
@@ -113,31 +94,20 @@
                   ></textarea>
                 </div>
                 <div class="card-footer">
-                  <img
-                    [src]="
-                      currentUser?.image === null ? '' : currentUser?.image
-                    "
-                    class="comment-author-img"
-                  />
-                  <button class="btn btn-sm btn-primary" type="submit">
-                    Post Comment
-                  </button>
+                  <img [src]="currentUser?.image === null ? '' : currentUser?.image" class="comment-author-img" />
+                  <button class="btn btn-sm btn-primary" type="submit">Post Comment</button>
                 </div>
               </fieldset>
             </form>
           </div>
 
           <div *ifAuthenticated="false">
-            <a [routerLink]="['/login']">Sign in</a> or
-            <a [routerLink]="['/register']">sign up</a> to add comments on this
-            article.
+            <a [routerLink]="['/login']">Sign in</a> or <a [routerLink]="['/register']">sign up</a> to add comments on
+            this article.
           </div>
 
           @for (comment of comments; track comment) {
-            <app-article-comment
-              [comment]="comment"
-              (delete)="deleteComment(comment)"
-            />
+            <app-article-comment [comment]="comment" (delete)="deleteComment(comment)" />
           }
         </div>
       </div>

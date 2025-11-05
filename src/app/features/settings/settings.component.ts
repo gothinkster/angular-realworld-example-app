@@ -1,16 +1,11 @@
-import { Component, DestroyRef, inject, OnInit } from "@angular/core";
-import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from "@angular/forms";
-import { Router } from "@angular/router";
-import { User } from "../../core/auth/user.model";
-import { UserService } from "../../core/auth/services/user.service";
-import { ListErrorsComponent } from "../../shared/components/list-errors.component";
-import { Errors } from "../../core/models/errors.model";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { User } from '../../core/auth/user.model';
+import { UserService } from '../../core/auth/services/user.service';
+import { ListErrorsComponent } from '../../shared/components/list-errors.component';
+import { Errors } from '../../core/models/errors.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 interface SettingsForm {
   image: FormControl<string>;
@@ -21,18 +16,18 @@ interface SettingsForm {
 }
 
 @Component({
-  selector: "app-settings-page",
-  templateUrl: "./settings.component.html",
+  selector: 'app-settings-page',
+  templateUrl: './settings.component.html',
   imports: [ListErrorsComponent, ReactiveFormsModule],
 })
 export default class SettingsComponent implements OnInit {
   user!: User;
   settingsForm = new FormGroup<SettingsForm>({
-    image: new FormControl("", { nonNullable: true }),
-    username: new FormControl("", { nonNullable: true }),
-    bio: new FormControl("", { nonNullable: true }),
-    email: new FormControl("", { nonNullable: true }),
-    password: new FormControl("", {
+    image: new FormControl('', { nonNullable: true }),
+    username: new FormControl('', { nonNullable: true }),
+    bio: new FormControl('', { nonNullable: true }),
+    email: new FormControl('', { nonNullable: true }),
+    password: new FormControl('', {
       validators: [Validators.required],
       nonNullable: true,
     }),
@@ -47,9 +42,7 @@ export default class SettingsComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.settingsForm.patchValue(
-      this.userService.getCurrentUser() as Partial<User>,
-    );
+    this.settingsForm.patchValue(this.userService.getCurrentUser() as Partial<User>);
   }
 
   logout(): void {
@@ -63,9 +56,8 @@ export default class SettingsComponent implements OnInit {
       .update(this.settingsForm.value)
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe({
-        next: ({ user }) =>
-          void this.router.navigate(["/profile/", user.username]),
-        error: (err) => {
+        next: ({ user }) => void this.router.navigate(['/profile/', user.username]),
+        error: err => {
           this.errors = err;
           this.isSubmitting = false;
         },

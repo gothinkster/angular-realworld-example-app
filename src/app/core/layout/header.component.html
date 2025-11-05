@@ -9,27 +9,18 @@
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/login" routerLinkActive="active">
-          Sign in
-        </a>
+        <a class="nav-link" routerLink="/login" routerLinkActive="active"> Sign in </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link" routerLink="/register" routerLinkActive="active">
-          Sign up
-        </a>
+        <a class="nav-link" routerLink="/register" routerLinkActive="active"> Sign up </a>
       </li>
     </ul>
 
     <!-- Show this for logged in users -->
     <ul *ifAuthenticated="true" class="nav navbar-nav pull-xs-right">
       <li class="nav-item">
-        <a
-          class="nav-link"
-          routerLink="/"
-          routerLinkActive="active"
-          [routerLinkActiveOptions]="{ exact: true }"
-        >
+        <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
           Home
         </a>
       </li>
@@ -48,11 +39,7 @@
 
       @if (currentUser$ | async; as currentUser) {
         <li class="nav-item">
-          <a
-            class="nav-link"
-            [routerLink]="['/profile', currentUser.username]"
-            routerLinkActive="active"
-          >
+          <a class="nav-link" [routerLink]="['/profile', currentUser.username]" routerLinkActive="active">
             @if (currentUser.image) {
               <img [src]="currentUser.image" class="user-pic" />
             }

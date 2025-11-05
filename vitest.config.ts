@@ -16,7 +16,7 @@ export default defineConfig({
     },
   },
   define: {
-    'ngDevMode': true,
+    ngDevMode: true,
   },
   resolve: {
     alias: {

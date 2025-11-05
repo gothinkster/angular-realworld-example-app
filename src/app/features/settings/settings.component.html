@@ -9,12 +9,7 @@
         <form [formGroup]="settingsForm" (ngSubmit)="submitForm()">
           <fieldset [disabled]="isSubmitting">
             <fieldset class="form-group">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="URL of profile picture"
-                formControlName="image"
-              />
+              <input class="form-control" type="text" placeholder="URL of profile picture" formControlName="image" />
             </fieldset>
 
             <fieldset class="form-group">
@@ -37,12 +32,7 @@
             </fieldset>
 
             <fieldset class="form-group">
-              <input
-                class="form-control form-control-lg"
-                type="email"
-                placeholder="Email"
-                formControlName="email"
-              />
+              <input class="form-control form-control-lg" type="email" placeholder="Email" formControlName="email" />
             </fieldset>
 
             <fieldset class="form-group">
@@ -54,18 +44,14 @@
               />
             </fieldset>
 
-            <button class="btn btn-lg btn-primary pull-xs-right" type="submit">
-              Update Settings
-            </button>
+            <button class="btn btn-lg btn-primary pull-xs-right" type="submit">Update Settings</button>
           </fieldset>
         </form>
 
         <!-- Line break for logout button -->
         <hr />
 
-        <button class="btn btn-outline-danger" (click)="logout()">
-          Or click here to logout.
-        </button>
+        <button class="btn btn-outline-danger" (click)="logout()">Or click here to logout.</button>
       </div>
     </div>
   </div>

@@ -2,10 +2,7 @@ import 'zone.js';
 import 'zone.js/testing';
 import { describe, it, expect, beforeEach, afterEach, beforeAll, vi } from 'vitest';
 import { TestBed, getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { firstValueFrom } from 'rxjs';
 import { ProfileService } from './profile.service';
@@ -13,10 +10,7 @@ import { Profile } from '../models/profile.model';
 
 describe('ProfileService', () => {
   beforeAll(() => {
-    getTestBed().initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
+    getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
   let service: ProfileService;
@@ -26,13 +20,13 @@ describe('ProfileService', () => {
     username: 'testuser',
     bio: 'Test bio',
     image: 'https://example.com/avatar.jpg',
-    following: false
+    following: false,
   };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [ProfileService]
+      providers: [ProfileService],
     });
 
     service = TestBed.inject(ProfileService);

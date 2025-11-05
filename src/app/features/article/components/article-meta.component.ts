@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
-import { Article } from "../models/article.model";
-import { RouterLink } from "@angular/router";
-import { DatePipe } from "@angular/common";
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Article } from '../models/article.model';
+import { RouterLink } from '@angular/router';
+import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: "app-article-meta",
+  selector: 'app-article-meta',
   template: `
     <div class="article-meta">
       <a [routerLink]="['/profile', article.author.username]">
@@ -16,7 +16,7 @@ import { DatePipe } from "@angular/common";
           {{ article.author.username }}
         </a>
         <span class="date">
-          {{ article.createdAt | date: "longDate" }}
+          {{ article.createdAt | date: 'longDate' }}
         </span>
       </div>
 

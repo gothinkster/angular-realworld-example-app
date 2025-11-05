@@ -2,10 +2,7 @@ import 'zone.js';
 import 'zone.js/testing';
 import { describe, it, expect, beforeEach, afterEach, beforeAll, vi } from 'vitest';
 import { TestBed, getTestBed } from '@angular/core/testing';
-import {
-  BrowserDynamicTestingModule,
-  platformBrowserDynamicTesting,
-} from '@angular/platform-browser-dynamic/testing';
+import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { JwtService } from './jwt.service';
 
 describe('JwtService', () => {
@@ -13,10 +10,7 @@ describe('JwtService', () => {
   let localStorageSpy: any;
 
   beforeAll(() => {
-    getTestBed().initTestEnvironment(
-      BrowserDynamicTestingModule,
-      platformBrowserDynamicTesting(),
-    );
+    getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
   });
 
   beforeEach(() => {
@@ -25,18 +19,18 @@ describe('JwtService', () => {
       getItem: vi.fn(),
       setItem: vi.fn(),
       removeItem: vi.fn(),
-      clear: vi.fn()
+      clear: vi.fn(),
     };
-    
+
     // Replace window.localStorage with spy
     Object.defineProperty(window, 'localStorage', {
       value: localStorageSpy,
       writable: true,
-      configurable: true
+      configurable: true,
     });
 
     TestBed.configureTestingModule({
-      providers: [JwtService]
+      providers: [JwtService],
     });
 
     service = TestBed.inject(JwtService);
@@ -135,7 +129,8 @@ describe('JwtService', () => {
     });
 
     it('should handle JWT format tokens', () => {
-      const jwtToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
+      const jwtToken =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c';
       service.saveToken(jwtToken);
       expect(localStorageSpy['jwtToken']).toBe(jwtToken);
     });

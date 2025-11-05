@@ -1,28 +1,21 @@
-import {
-  Component,
-  DestroyRef,
-  EventEmitter,
-  inject,
-  Input,
-  Output,
-} from "@angular/core";
-import { Router } from "@angular/router";
-import { EMPTY, switchMap } from "rxjs";
-import { NgClass } from "@angular/common";
-import { ArticlesService } from "../services/articles.service";
-import { UserService } from "../../../core/auth/services/user.service";
-import { Article } from "../models/article.model";
-import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
+import { Component, DestroyRef, EventEmitter, inject, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
+import { EMPTY, switchMap } from 'rxjs';
+import { NgClass } from '@angular/common';
+import { ArticlesService } from '../services/articles.service';
+import { UserService } from '../../../core/auth/services/user.service';
+import { Article } from '../models/article.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-  selector: "app-favorite-button",
+  selector: 'app-favorite-button',
   template: `
     <button
       class="btn btn-sm"
       [ngClass]="{
         disabled: isSubmitting,
         'btn-outline-primary': !article.favorited,
-        'btn-primary': article.favorited
+        'btn-primary': article.favorited,
       }"
       (click)="toggleFavorite()"
     >
@@ -49,9 +42,9 @@ export class FavoriteButtonComponent {
 
     this.userService.isAuthenticated
       .pipe(
-        switchMap((authenticated) => {
+        switchMap(authenticated => {
           if (!authenticated) {
-            void this.router.navigate(["/register"]);
+            void this.router.navigate(['/register']);
             return EMPTY;
           }
 
