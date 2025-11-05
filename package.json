@@ -20,7 +20,7 @@
     "prepare": "husky install"
   },
   "engines": {
-    "node": "^20.11.1"
+    "node": ">=20.11.1"
   },
   "private": true,
   "dependencies": {
