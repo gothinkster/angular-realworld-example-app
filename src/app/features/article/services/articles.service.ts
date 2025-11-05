@@ -16,8 +16,10 @@ export class ArticlesService {
     let params = new HttpParams();
 
     Object.keys(config.filters).forEach((key) => {
-      // @ts-ignore
-      params = params.set(key, config.filters[key]);
+      const value = config.filters[key as keyof typeof config.filters];
+      if (value !== undefined) {
+        params = params.set(key, value.toString());
+      }
     });
 
     return this.http.get<{ articles: Article[]; articlesCount: number }>(
@@ -56,7 +58,9 @@ export class ArticlesService {
       .pipe(map((data) => data.article));
   }
 
-  unfavorite(slug: string): Observable<void> {
-    return this.http.delete<void>(`/articles/${slug}/favorite`);
+  unfavorite(slug: string): Observable<Article> {
+    return this.http
+      .delete<{ article: Article }>(`/articles/${slug}/favorite`)
+      .pipe(map((data) => data.article));
   }
 }
