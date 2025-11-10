@@ -4,94 +4,80 @@ import { register, login, logout, generateUniqueUser } from './helpers/auth';
 test.describe('Authentication', () => {
   test('should register a new user', async ({ page }) => {
     const user = generateUniqueUser();
-
     await register(page, user.username, user.email, user.password);
-
     // Should be redirected to home page
     await expect(page).toHaveURL('/');
-
     // Should see username in header
     await expect(page.locator(`a[href="/profile/${user.username}"]`)).toBeVisible();
-
     // Should be able to access editor
     await page.click('a[href="/editor"]');
     await expect(page).toHaveURL('/editor');
   });
 
-  test.fixme('should login with existing user', async ({ page }) => {
-    // TODO: Temporarily disabled - requires persistent backend
-    // The demo API (api.realworld.show) doesn't persist test users between sessions.
-    // This test works with local backend or production API with user persistence.
-    //
-    // To re-enable:
-    // 1. Set up local backend OR
-    // 2. Use production API with persistent test accounts OR
-    // 3. Change test to use pre-existing demo account
-    //
-    // Track: Create GitHub issue to re-enable when backend is available
-
+  test('should login with existing user', async ({ page }) => {
     const user = generateUniqueUser();
-
     // First register a user
     await register(page, user.username, user.email, user.password);
-
     // Logout
     await logout(page);
-
     // Should see Sign in link
     await expect(page.locator('a[href="/login"]')).toBeVisible();
-
     // Login again
     await login(page, user.email, user.password);
-
     // Should be logged in
     await expect(page.locator(`a[href="/profile/${user.username}"]`)).toBeVisible();
   });
 
   test('should show error for invalid login', async ({ page }) => {
     await page.goto('/login');
-
     await page.fill('input[formControlName="email"]', 'nonexistent@example.com');
     await page.fill('input[formControlName="password"]', 'wrongpassword');
     await page.click('button[type="submit"]');
-
     // Should show error message
     await expect(page.locator('.error-messages')).toBeVisible();
   });
 
-  test('should logout successfully', async ({ page }) => {
+  test('should fail login with wrong password', async ({ page }) => {
     const user = generateUniqueUser();
-
+    // First register a user with correct credentials
     await register(page, user.username, user.email, user.password);
-
-    // User should be logged in
-    await expect(page.locator(`a[href="/profile/${user.username}"]`)).toBeVisible();
-
     // Logout
     await logout(page);
+    // Try to login with correct email but wrong password
+    await page.goto('/login');
+    await page.fill('input[formControlName="email"]', user.email);
+    await page.fill('input[formControlName="password"]', 'wrongpassword123');
+    await page.click('button[type="submit"]');
+    // Should show error message
+    await expect(page.locator('.error-messages')).toBeVisible();
+    // Should still be on login page (not redirected)
+    await expect(page).toHaveURL('/login');
+  });
 
+  test('should logout successfully', async ({ page }) => {
+    const user = generateUniqueUser();
+    await register(page, user.username, user.email, user.password);
+    // User should be logged in
+    await expect(page.locator(`a[href="/profile/${user.username}"]`)).toBeVisible();
+    // Logout
+    await logout(page);
     // Should see Sign in link (user is logged out)
     await expect(page.locator('a[href="/login"]')).toBeVisible();
-
     // Should not see profile link
     await expect(page.locator(`a[href="/profile/${user.username}"]`)).not.toBeVisible();
   });
 
   test('should prevent accessing editor when not logged in', async ({ page }) => {
     await page.goto('/editor');
-
     // Should be redirected to login or home
     await expect(page).not.toHaveURL('/editor');
   });
 
   test('should maintain session after page reload', async ({ page }) => {
     const user = generateUniqueUser();
-
     await register(page, user.username, user.email, user.password);
-
     // Reload the page
     await page.reload();
-
     // Should still be logged in
     await expect(page.locator(`a[href="/profile/${user.username}"]`)).toBeVisible();
   });
