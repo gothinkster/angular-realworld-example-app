@@ -29,7 +29,7 @@
     "@angular/animations": "21.2.12",
     "@angular/common": "21.2.12",
     "@angular/compiler": "21.2.12",
-    "@angular/core": "21.2.12",
+    "@angular/core": "21.2.20",
     "@angular/forms": "21.2.12",
     "@angular/platform-browser": "21.2.12",
     "@angular/platform-browser-dynamic": "21.2.12",
