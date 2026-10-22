@@ -3,12 +3,12 @@
 
 ## angular-conduit (web)
 
-Front-end Angular 21 em TypeScript da aplicação Conduit (RealWorld), com bun como gerenciador de pacotes. A API .NET fica no repositório irmão `../api`. As specs e2e de referência vêm do submódulo `realworld/`.
+Front-end Angular 21 em TypeScript da aplicação Conduit (RealWorld), com bun como gerenciador de pacotes. A API .NET fica no repositório irmão `../api`. O submódulo `realworld/` traz a spec RealWorld; as specs Playwright dele ficam só como referência de comportamento, sem executor neste repositório.
 
 ## Política
 
 - Nunca edite `realworld/`: é o submódulo upstream das specs, e `ignore = dirty` esconde alterações locais do `git status`. Ajustes de teste vão em `testes/interface/`.
-- Testes e2e novos são só Cypress em TypeScript, em `testes/interface/`; nunca crie testes Playwright. As specs Playwright do submódulo servem apenas como baseline de comportamento.
+- E2E: Cypress em TypeScript em testes/interface (Etapa 6). Playwright removido (ADR-016). Não reinstale o Playwright nem crie testes com ele.
 - Relatórios e artefatos de teste vão em `testes/report/`.
 
 ## Onde ficam as coisas
@@ -20,7 +20,7 @@ Front-end Angular 21 em TypeScript da aplicação Conduit (RealWorld), com bun c
 
 - Use `bun`/`bunx`, nunca `npm`/`npx`: o CI e o `bun.lock` são bun.
 - Rode `bun run setup` depois de clonar ou de atualizar o submódulo `realworld`; sem ele as specs de baseline não existem.
-- Para e2e rode só Cypress; não rode `bun run test:e2e` (Playwright). TODO: o comando Cypress ainda não existe e será definido na configuração do framework (bmad-tea-framework).
+- Ainda não há comando de E2E: o Cypress é instalado e configurado na Etapa 6 (bmad-tea-framework).
 - Rode `bun run format` antes de apresentar código; o CI falha em `format:check`.
 
 <!-- /bmad:context -->
