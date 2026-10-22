@@ -24,3 +24,9 @@ Front-end Angular 21 em TypeScript da aplicação Conduit (RealWorld), com bun c
 - Rode `bun run format` antes de apresentar código; o CI falha em `format:check`.
 
 <!-- /bmad:context -->
+
+## Especificação
+
+- Os ADRs só deste repositório ficam em `docs/adr/` (índice em `docs/adr/README.md`; leia o índice e abra o ADR só quando a tarefa tocar a regra dele). Os ADRs que valem para API e front (corporativos) ficam no repositório `sentinela-workspace`: `../docs/adr/` quando ele está ao lado, ou https://github.com/luasosi/sentinela-workspace/blob/master/docs/adr/README.md fora do workspace. Lá fica o próximo número livre; um ADR novo só deste repositório usa esse número.
+- Épicos, PRDs e histórias ficam fora deste repositório, em `../docs/` (repositório `sentinela-workspace`). Cada área fica em `../docs/features/<area>/`, com `epico.md` (negócio) e `arquitetura.md` (técnico comum). Cada feature tem `F0N-nome/prd.md` (negócio), `F0N-nome/tech-spec.md` (requisitos com `arquivo:linha`, contrato, erros HTTP e camadas impactadas) e as histórias em `00-qa/` a `05-front/`. O padrão completo está na seção "Padrão de documentação" de `../AGENTS.md`. Exemplo: `../docs/features/artigos/`.
+- Mudança de regra de negócio exige atualizar `../docs/` no mesmo dia.
